@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image,ImageBackground, ScrollView, Animated, Easing, StatusBar } from 'react-native';
+import { 
+    StyleSheet, 
+    Text, 
+    View, 
+    Image, 
+    ImageBackground, 
+    ScrollView, 
+    Animated, 
+    Modal,
+} from 'react-native';
 
 import Button from '../components/button';
 import Input from '../components/input';
 import Header from '../components/header';
 import TextBox from '../components/text-box';
+import XButton from '../ui-elements/ex';
 
 import * as Colors from '../theme/colors';
 
@@ -18,21 +28,37 @@ class HomeScreen extends Component {
          {value: "Get Bananas", info: "Get em before there bad", index: 1},
          {value: "Get Bananas", info: "Get em before there bad", index: 2},
          {value: "Get Bananas", info: "Get em before there bad", index: 3},
-     ]}
+        ],
+        isModalPresented: false,
+        }
     }
+     
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
     }
+    
     componentDidMount() {
+        
+    }
+
+    addNote() {
         Animated.timing(this.animatedValue, {
-            toValue: 150,
-            duration: 3000,
-            easing: Easing.bounce
+            toValue: 0,
+            duration: 300,
         }).start()
+        this.setState({ isModalPresented: true})
+    }
+
+    onDismissModal() {
+        Animated.timing(this.animatedValue, {
+            toValue: 1,
+            duration: 400,
+        }).start()
+        this.setState({ isModalPresented: false})
     }
 
     render() {
-        const animatedStyle = { height: this.animatedValue}
+        const animatedStyle = { opacity: this.animatedValue}
         return (
             <ImageBackground
                 source={require('../../assets/drawing2.png')}
@@ -40,23 +66,28 @@ class HomeScreen extends Component {
             >
             <Header
                 title="Notes"
+                onPress={() =>  this.addNote()}
             />
+             
             <View style={styles.container}>
-            
-                <ScrollView>
-                 {(this.state.notes.map((data, index) => (
-                     <View>
-                         <TextBox
-                            title={data.value}
-                            text={data.info}
-                         />
+                <Animated.ScrollView 
+                    style={[styles.box1, animatedStyle]}
+                >  
+                        {(this.state.notes.map((data, index) => (
+                            <View>
+                                <TextBox
+                                    title={data.value}
+                                    text={data.info}
+                                />
 
-                     </View>
-                 )))}
-                </ScrollView>
-                
+                            </View>
+                        )))}
+                    
+                </Animated.ScrollView>                  
             </View>
-            
+           
+           
+
             </ImageBackground>
         );
     }
@@ -89,7 +120,17 @@ const styles = StyleSheet.create({
         height: 100, 
         width: 100, 
         backgroundColor: 'black'
-    }
+    },
+    modalBox: {
+        height: 400, 
+        backgroundColor: 'white',
+        borderRadius: 40,
+        shadowOpacity: 0.2,
+        shadowColor: 'white',
+        shadowRadius: 8,
+        shadowOffset:{ width: 2, height: 0 },
+        padding: 20,
+    }, 
 });
 
 export default HomeScreen;

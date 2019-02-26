@@ -3,7 +3,9 @@ import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
 
 const TextBox = (props) => (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => {props.onPress()}} style={{flex: 1}}>
+      <TouchableOpacity 
+      onPress={() => {props.onPress()}} 
+      style={{flex: 1}}>
           <View style={styles.textContainer} >
             <Text style={styles.bigText}>{props.title}</Text>
             <Text style={styles.smallText}>{props.text}</Text>

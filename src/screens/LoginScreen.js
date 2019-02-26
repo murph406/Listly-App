@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image,ImageBackground,TouchableOpacity, Animated, Modal, StatusBar } from 'react-native';
+import { StyleSheet, 
+    Text, 
+    View, 
+    Image,
+    ImageBackground,
+    TouchableOpacity, 
+    Animated, 
+    Modal, 
+    StatusBar 
+} from 'react-native';
+import TimerMixin from 'react-timer-mixin';
 
 
 import Button from '../components/button';
@@ -50,8 +60,6 @@ class LoginScreen extends Component {
     goHomeScreen() {
         this.props.navigation.navigate('home')
     }
-
-
 
     render() {
         const animatedStyle = { opacity: this.animatedValue}
@@ -161,10 +169,14 @@ class LoginScreen extends Component {
                                 style={{alignItems: 'center', paddingTop: 50}}
                                 onPress={() => this.setState({ isNameEntered: true})} 
                             >
-                                <Image
-                                    source={require('../../assets/icons/RightArrow-purp.png')}
-                                    style={styles.modalIcon}
-                                />
+                            <View style={{ justifyContent: 'row' }}>
+                                
+                                    <Image
+                                        source={require('../../assets/icons/RightArrow-purp.png')}
+                                        style={styles.modalIcon}
+                                    />
+                            </View>
+                               
                             </TouchableOpacity>
                         </View>
                     }

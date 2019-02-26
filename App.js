@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Font } from 'expo';
+import { StyleSheet, Text, View, Animated, ImageBackground } from 'react-native';
+import { Font, Asset } from 'expo';
+import TimerMixin from 'react-timer-mixin';
 
 import AppNavigator from './src/screens/app-navigator';
 import Spinner from './src/components/spinner';
@@ -11,31 +12,70 @@ export default class App extends Component {
     super(props);
     
     this.state = { 
-      fontLoaded: false 
+      isAppReady: false,
+      isTimeDone: false, 
     };
   }
   
-  async componentDidMount() {
-      await Font.loadAsync({
+  async componentDidMount() { 
+    this.animatedValue = new Animated.Value(0);
+    await Promise.all([
+      this._loadFontsAsync(),
+      this._cacheResourcesAsync(),
+    ]);
+    await setTimeout(() => {
+      console.log('FUCK IT!');
+      this.setState({ isTimeDone: true });
+    }, 3500);
+    this.animination();
+    this.setState({ isAppReady: true });
+    }  
+   
+    async _loadFontsAsync() {
+      await Expo.Font.loadAsync({
         'fontReg': require('./assets/font/RobotoCondensed-Regular.ttf'),
         'fontBold': require('./assets/font/RobotoCondensed-Bold.ttf'),
         'fontLight': require('./assets/font/RobotoCondensed-Light.ttf'),
       });
-      this.setState({ fontLoaded: true });
-      console.log('fonts are loaded');
-    }  
+    }
+
+    async _cacheResourcesAsync() {
+      const images = [
+        require("./assets/drawing.png"),
+        require("./assets/drawing2.png"), 
+        require("./assets/icons/AddFinished.png"),
+        require("./assets/icons/DeleteFinal.png"),  
+        require("./assets/icons/RightArrow-purp.png"),  
+      ];
+      // Asset.loadAsync takes an array and this way we can load the images in parallel
+      await Asset.loadAsync(images);
+    }
+
+    animination() {
+      Animated.timing(this.animatedValue, {
+        toValue: 0,
+        duration: 1000,
+    }).start()
+      
+    }
 
   render() {
-   
-      if (this.state.fontLoaded) {
+      if (this.state.isAppReady === true && this.state.isTimeDone === true) {
         return ( 
           <AppNavigator/>
         );
       }
       return (
-        <View>
+        <ImageBackground
+          source={require('./assets/drawing.png')}
+          style={styles.containerLoad}
+        >
+        <Animated.View>
           <Spinner/>
-        </View>
+        </Animated.View>
+        </ImageBackground>
+          
+       
       )
   }
 }
@@ -46,5 +86,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  containerLoad: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+    backgroundColor: 'transparent',
+    padding: 20,
+    paddingTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

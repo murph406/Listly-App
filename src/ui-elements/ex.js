@@ -31,8 +31,8 @@ const xButton = props => (
         justifyContent: 'center',
     },
     modalIcon: {
-        height: 35,
-        width: 35,
+        height: 26,
+        width: 26,
     },
   });
 

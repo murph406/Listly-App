@@ -6,7 +6,9 @@ const Header = (props) => {
     <View style={styles.container}>
       <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
        <Text style={styles.font}> {props.title} </Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={props.onPress}
+        >
           <Image
             source={require('../../assets/icons/AddFinished.png')}
             style={styles.icon}
