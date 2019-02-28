@@ -1,23 +1,29 @@
-import React, { Component} from 'react';
+
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, Animated, ImageBackground } from 'react-native';
 import { Font, Asset } from 'expo';
-import TimerMixin from 'react-timer-mixin';
 
+import { Provider, connect } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
+import MainReducer from './src/reducers/main-reducer';
 import AppNavigator from './src/screens/app-navigator';
 import Spinner from './src/components/spinner';
 
 export default class App extends Component {
-  
+
   constructor(props) {
     super(props);
-    
-    this.state = { 
+
+    this.state = {
       isAppReady: false,
-      isTimeDone: false, 
+      isTimeDone: false,
     };
   }
-  
-  async componentDidMount() { 
+  store = createStore(MainReducer, applyMiddleware(thunk));
+
+  async componentDidMount() {
     this.animatedValue = new Animated.Value(0);
     await Promise.all([
       this._loadFontsAsync(),
@@ -26,11 +32,11 @@ export default class App extends Component {
     await setTimeout(() => {
       console.log('FUCK IT!');
       this.setState({ isTimeDone: true });
-    }, 3500);
+    }, 1500);
     this.animination();
     this.setState({ isAppReady: true });
-    }  
-   
+    }
+
     async _loadFontsAsync() {
       await Expo.Font.loadAsync({
         'fontReg': require('./assets/font/RobotoCondensed-Regular.ttf'),
@@ -42,10 +48,10 @@ export default class App extends Component {
     async _cacheResourcesAsync() {
       const images = [
         require("./assets/drawing.png"),
-        require("./assets/drawing2.png"), 
+        require("./assets/drawing2.png"),
         require("./assets/icons/AddFinished.png"),
-        require("./assets/icons/DeleteFinal.png"),  
-        require("./assets/icons/RightArrow-purp.png"),  
+        require("./assets/icons/DeleteFinal.png"),
+        require("./assets/icons/RightArrow-purp.png"),
       ];
       // Asset.loadAsync takes an array and this way we can load the images in parallel
       await Asset.loadAsync(images);
@@ -56,13 +62,15 @@ export default class App extends Component {
         toValue: 0,
         duration: 1000,
     }).start()
-      
+
     }
 
   render() {
       if (this.state.isAppReady === true && this.state.isTimeDone === true) {
-        return ( 
-          <AppNavigator/>
+        return (
+          <Provider store={this.store}>
+            <AppNavigator/>
+          </Provider> 
         );
       }
       return (
@@ -74,8 +82,8 @@ export default class App extends Component {
           <Spinner/>
         </Animated.View>
         </ImageBackground>
-          
-       
+
+
       )
   }
 }

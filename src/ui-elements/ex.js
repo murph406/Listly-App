@@ -11,7 +11,7 @@ const xButton = props => (
             onPress={() => {props.onPress()}}
         >
         <Image
-            source={require('../../assets/icons/DeleteFinal.png')}
+            source={props.icon}
             style={styles.modalIcon}
         />
         </TouchableOpacity>

@@ -8,6 +8,7 @@ import {
     ScrollView, 
     Animated, 
     Modal,
+    TouchableOpacity,
 } from 'react-native';
 
 import Button from '../components/button';
@@ -85,7 +86,39 @@ class HomeScreen extends Component {
                     
                 </Animated.ScrollView>                  
             </View>
-           
+            <Modal
+                visible={this.state.isModalPresented}
+                animationType={'slide'}
+                transparent={true}>
+                <View style={{flex: 1,paddingRight: 20, paddingLeft: 20, justifyContent: 'center'}}>
+                    <View style={styles.modalBox}>
+                    <View styles={{flex: 1, alignItems: 'center',}}>
+                        
+                        <View style={{alignItems: 'center', paddingBottom: 20}}>
+                             <Text style={styles.modalBigText}>Lets Add a Note</Text>
+                        </View>
+
+                        <Input
+                        label="Your New Note"
+                        secureTextEntry={false}
+                        Color={Colors.PRIMARYPURP}
+                        />
+                        <Input
+                        label="Description"
+                        secureTextEntry={false}
+                        Color={Colors.PRIMARYPURP}
+                        />
+                    </View>
+                    </View>
+                    
+                    <XButton
+                        onPress={() => this.onDismissModal()}
+                        icon={require('../../assets/icons/checkmark.png')}
+                    />
+               
+                </View>
+
+            </Modal>
            
 
             </ImageBackground>
@@ -126,11 +159,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 40,
         shadowOpacity: 0.2,
-        shadowColor: 'white',
+        shadowColor: 'black',
         shadowRadius: 8,
         shadowOffset:{ width: 2, height: 0 },
         padding: 20,
     }, 
+    modalBigText: {
+        fontFamily: 'fontBold',
+        fontSize: 32,
+        color: Colors.PRIMARYPURP,
+    },
 });
 
 export default HomeScreen;

@@ -9,7 +9,6 @@ import { StyleSheet,
     Modal, 
     StatusBar 
 } from 'react-native';
-import TimerMixin from 'react-timer-mixin';
 
 
 import Button from '../components/button';
@@ -185,6 +184,7 @@ class LoginScreen extends Component {
                     
                     <XButton
                         onPress={() => this.onSignUpExit()}
+                        icon={require('../../assets/icons/DeleteFinal.png')}
                     />
                
                 </View>
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     },
     signInButton: {
         paddingTop: 30,
-        paddingBottom: 260,
+        paddingBottom: 190,
     },
     textCountainer: {
         justifyContent: 'center',
