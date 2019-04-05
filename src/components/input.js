@@ -27,7 +27,6 @@ const Input = (props) => {
 
 export default Input;
 
-
 const styles = StyleSheet.create({
   inputContainer:{
     borderBottomWidth: 2,

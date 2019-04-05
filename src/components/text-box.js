@@ -1,18 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
+
 
 const TextBox = (props) => (
-    <View style={styles.container}>
-      <TouchableOpacity 
-      onPress={() => {props.onPress()}} 
-      style={{flex: 1}}>
-          <View style={styles.textContainer} >
-            <Text style={styles.bigText}>{props.title}</Text>
-            <Text style={styles.smallText}>{props.text}</Text>
-          </View>
-          
-      </TouchableOpacity>
+
+  <View 
+    style={styles.container}>
+    <View
+      onPress={() => { props.onPress() }}
+      style={{ flex: 1 }}>
+      <View style={styles.textContainer} >
+        <Text style={styles.bigText}>{props.title}</Text>
+        <Text style={styles.smallText}>{props.text}</Text>
+      </View>
+
     </View>
+  </View>
 )
 export default TextBox;
 
@@ -23,8 +27,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowColor: 'black',
     shadowRadius: 8,
-    shadowOffset:{ width: 2, height: 0 },
-    justifyContent:'center',
+    shadowOffset: { width: 2, height: 0 },
+    justifyContent: 'center',
     marginTop: 8,
     marginBottom: 8,
     marginRight: 20,
@@ -33,10 +37,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   textContainer: {
-    flex: 1, 
-    justifyContent: 'center', 
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'stretch',
-    margin: 16, 
+    margin: 16,
   },
   smallText: {
     fontSize: 18,

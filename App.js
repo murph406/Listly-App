@@ -35,56 +35,56 @@ export default class App extends Component {
     }, 1500);
     this.animination();
     this.setState({ isAppReady: true });
-    }
+  }
 
-    async _loadFontsAsync() {
-      await Expo.Font.loadAsync({
-        'fontReg': require('./assets/font/RobotoCondensed-Regular.ttf'),
-        'fontBold': require('./assets/font/RobotoCondensed-Bold.ttf'),
-        'fontLight': require('./assets/font/RobotoCondensed-Light.ttf'),
-      });
-    }
+  async _loadFontsAsync() {
+    await Expo.Font.loadAsync({
+      'fontReg': require('./assets/font/RobotoCondensed-Regular.ttf'),
+      'fontBold': require('./assets/font/RobotoCondensed-Bold.ttf'),
+      'fontLight': require('./assets/font/RobotoCondensed-Light.ttf'),
+    });
+  }
 
-    async _cacheResourcesAsync() {
-      const images = [
-        require("./assets/drawing.png"),
-        require("./assets/drawing2.png"),
-        require("./assets/icons/AddFinished.png"),
-        require("./assets/icons/DeleteFinal.png"),
-        require("./assets/icons/RightArrow-purp.png"),
-      ];
-      // Asset.loadAsync takes an array and this way we can load the images in parallel
-      await Asset.loadAsync(images);
-    }
+  async _cacheResourcesAsync() {
+    const images = [
+      require("./assets/drawing.png"),
+      require("./assets/drawing2.png"),
+      require("./assets/icons/AddFinished.png"),
+      require("./assets/icons/DeleteFinal.png"),
+      require("./assets/icons/RightArrow-purp.png"),
+    ];
+    // Asset.loadAsync takes an array and this way we can load the images in parallel
+    await Asset.loadAsync(images);
+  }
 
-    animination() {
-      Animated.timing(this.animatedValue, {
-        toValue: 0,
-        duration: 1000,
+  animination() {
+    Animated.timing(this.animatedValue, {
+      toValue: 0,
+      duration: 1000,
     }).start()
 
-    }
+  }
 
   render() {
-      if (this.state.isAppReady === true && this.state.isTimeDone === true) {
-        return (
-          <Provider store={this.store}>
-            <AppNavigator/>
-          </Provider> 
-        );
-      }
+    if (this.state.isAppReady === true && this.state.isTimeDone === true) {
       return (
-        <ImageBackground
-          source={require('./assets/drawing.png')}
-          style={styles.containerLoad}
-        >
+        <Provider store={this.store}>
+          <AppNavigator />
+        </Provider>
+      );
+    }
+    return (
+      <ImageBackground
+        source={require('./assets/drawing.png')}
+        style={styles.containerLoad}
+      >
         <Animated.View>
-          <Spinner/>
+          <Spinner />
         </Animated.View>
-        </ImageBackground>
+      </ImageBackground>
 
 
-      )
+    )
   }
 }
 
