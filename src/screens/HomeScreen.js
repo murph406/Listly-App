@@ -43,7 +43,7 @@ class HomeScreen extends Component {
             noteInfo: null,
             noteValue: null,
             closedIndices: [],
-            scroll: false
+            scroll: true
         }
     }
 
@@ -96,9 +96,11 @@ class HomeScreen extends Component {
                         {this.state.notes.map((title, i) => this.shouldRender(i) &&
                             <View
                                 key={i}>
+                                
                                 <SwipeCard
                                     value={title.value}
                                     info={title.info}
+                                    shouldScroll={(value) => this.setState({scroll: value})}
                                     deleteCard={() => {
                                         if ([...new Array(this.state.notes.length)].slice(i + 1, this.state.notes.length).some(this.shouldRender)) {
                                             LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);

@@ -10,24 +10,31 @@ class SwipeableCard extends Component {
 
         }
         this._panResponder = PanResponder.create({
-            onMoveShouldSetResponderCapture: () => true,
+            //onStartShouldSetPanResponder: (evt, gestureState) => true,
             onMoveShouldSetPanResponderCapture: () => true,
+            onPanResponderGrant: (evt, gestureState) => this.props.shouldScroll(false),
             onPanResponderMove: Animated.event([null, { dx: this.translateX }]),
-            onPanResponderRelease: (e, { vx, dx }) => {
+            onPanResponderRelease: (e, { vx, dx, vy, dy }) => {
                 const screenWidth = Dimensions.get('window').width
-
-                if (vx > 0.5 || dx > 0.5 * screenWidth) {
+                if (vx > 0.5 && vy < .5 || dx > 0.5 * screenWidth) {
                     Animated.timing(this.translateX, {
                         toValue: dx > 0 ? screenWidth : -screenWidth,
                         duration: 200
                     }).start(this.props.deleteCard);
+                    
+                        this.props.shouldScroll(true)
+                  
 
                 } else {
                     Animated.spring(this.translateX, {
                         toValue: 0,
                         bounciness: 10
                     }).start();
+                    
+                        this.props.shouldScroll(true)
+                 
                 }
+                
             }
         })
     }
@@ -35,7 +42,7 @@ class SwipeableCard extends Component {
     render() {
         return (
             <Animated.View
-                style={{marginTop: 8, marginBottom: 8, transform: [{ translateX: this.translateX }], height: 100 }}
+                style={{ marginTop: 8, marginBottom: 8, transform: [{ translateX: this.translateX }], height: 100 }}
                 {...this._panResponder.panHandlers}>
 
                 <View style={styles.noteContainer}>
@@ -65,7 +72,7 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         shadowOffset: { width: 2, height: 0 },
         justifyContent: 'center',
-      
+
         marginRight: 16,
         marginLeft: 16,
         padding: 8,
