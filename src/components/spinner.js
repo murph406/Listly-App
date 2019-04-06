@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator  } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
 import Check from '../ui-elements/check'
 
@@ -8,7 +8,9 @@ import * as Colors from '../theme/colors';
 const Spinner = (props) => {
   return (
     <View>
-      <Check/>
+      <Check
+        height={100}
+        width={100} />
     </View>
   )
 };

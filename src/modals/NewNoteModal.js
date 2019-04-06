@@ -3,12 +3,6 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
-    ImageBackground,
-    ScrollView,
-    Animated,
-    Modal,
-    TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import SwipeOut from 'react-native-swipeout';
@@ -47,17 +41,17 @@ class AddNoteModal extends Component {
                     <View styles={{ flex: 1, alignItems: 'center', }}>
 
                         <View style={{ alignItems: 'center', paddingBottom: 20 }}>
-                            <Text style={styles.modalBigText}>Lets Add a Note</Text>
+                            <Text style={styles.modalBigText}>ADD A NOTE</Text>
                         </View>
 
                         <Input
-                            label="Your New Note"
+                            label="TITLE"
                             secureTextEntry={false}
                             Color={Colors.PRIMARYPURP}
                             onChangeText={(value) => this.setState({value})}
                         />
                         <Input
-                            label="Description"
+                            label="DETAILS"
                             secureTextEntry={false}
                             Color={Colors.PRIMARYPURP}
                             onChangeText={(info) => this.setState({info})}
@@ -69,7 +63,6 @@ class AddNoteModal extends Component {
                     onPress={() => this.onDismiss()}
                     icon={require('../../assets/icons/checkmark.png')}
                 />
-
             </View>
         )
     }

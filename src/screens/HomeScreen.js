@@ -6,7 +6,6 @@ import {
     View,
     ScrollView,
     ImageBackground,
-    FlatList,
     Animated,
     Modal,
     Dimensions,
@@ -15,13 +14,10 @@ import {
 import PropTypes from 'prop-types';
 
 import * as Colors from '../theme/colors';
-import AddNoteModal from '../modals/HomeScreen-modal';
-
-import Button from '../components/button';
-import Input from '../components/input';
+import AddNoteModal from '../modals/NewNoteModal';
 import Header from '../components/header';
-import XButton from '../ui-elements/ex';
 import SwipeCard from '../ui-elements/swipeable-card';
+import ModalBox from 'react-native-modalbox';
 
 let { width, height } = Dimensions.get('window')
 
@@ -43,7 +39,8 @@ class HomeScreen extends Component {
             noteInfo: null,
             noteValue: null,
             closedIndices: [],
-            scroll: true
+            scroll: true,
+            isCheckAnimationEnabled: false
         }
     }
 
@@ -55,15 +52,23 @@ class HomeScreen extends Component {
 
     }
 
-    addNote() {
+    onOpenNoteModal() {
         Animated.timing(this.animatedValue, {
             toValue: 0,
             duration: 300,
         }).start()
-        this.setState({ isModalPresented: true })
+        this.refs.modal1.open()
     }
 
-    onDismissModal(value, info) {
+    onDismissModal() {
+        Animated.timing(this.animatedValue, {
+            toValue: 1,
+            duration: 400,
+        }).start()
+        this.refs.modal1.close()
+    }
+
+    onAddNote(value, info) {
         var noteIndex = this.state.notes.length + 1
         var newNote = this.state.notes.concat({ value: value, info: info, index: noteIndex })
 
@@ -73,7 +78,7 @@ class HomeScreen extends Component {
             toValue: 1,
             duration: 400,
         }).start()
-        this.setState({ isModalPresented: false })
+        this.refs.modal1.close()
     }
 
     shouldRender(index) {
@@ -88,39 +93,44 @@ class HomeScreen extends Component {
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <Header
-                        addNote={() => this.addNote()} />
+                        addNote={() => this.onOpenNoteModal()}
+                        isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />
 
                     <ScrollView
                         style={{ height: height, paddingTop: 108 }}
                         scrollEnabled={this.state.scroll}>
                         {this.state.notes.map((title, i) => this.shouldRender(i) &&
                             <View
-                                key={i}>
-                                
+                                key={i}>                            
                                 <SwipeCard
                                     value={title.value}
                                     info={title.info}
                                     shouldScroll={(value) => this.setState({scroll: value})}
                                     deleteCard={() => {
+                                        this.setState({isCheckAnimationEnabled: true})
                                         if ([...new Array(this.state.notes.length)].slice(i + 1, this.state.notes.length).some(this.shouldRender)) {
                                             LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
                                         }
                                         this.setState({
                                             closedIndices: [...this.state.closedIndices, i]
                                         })
+                                        setTimeout(() => {
+                                            this.setState({isCheckAnimationEnabled: false})
+                                        },1500)
                                     }
                                     } />
                             </View>)}
                     </ScrollView>
 
                 </Animated.View>
-                <Modal
-                    animationType={'slide'}
-                    transparent={true}
-                    visible={this.state.isModalPresented}>
+                <ModalBox
+                    backdropOpacity={.2}
+                    swipeToClose={true}
+                    onClosed={() => this.onDismissModal()}
+                    ref={"modal1"}>
                     <AddNoteModal
-                        onDismiss={(value, info) => this.onDismissModal(value, info)} />
-                </Modal>
+                        onDismiss={(value, info) => this.onAddNote(value, info)} />
+                </ModalBox>
             </ImageBackground>
         );
     }

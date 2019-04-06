@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   text: {
-    fontFamily: 'fontReg',
+    fontFamily: 'fontBold',
     fontSize: 24,
   },
   inputView: {

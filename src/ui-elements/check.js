@@ -5,29 +5,22 @@ import * as Colors from '../theme/colors'
 
 
 const Check = props => (
-    <View style={styles.checkContainer}>
+    <View style={[styles.checkContainer, { height: props.height }, { width: props.width }, { borderRadius: props.height / 2, }]}>
         <Image
             source={require('../../assets/animat-checkmark.gif')}
-            style={styles.check}
+            style={{ height: props.height * 1.8, width: props.width * 1.8 }}
         />
     </View>
-  )
+)
 
-  
-  const styles = StyleSheet.create({
+
+const styles = StyleSheet.create({
     checkContainer: {
-        height: 100,
-        width: 100,
         backgroundColor: 'white',
-        borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    check: {
-        height: 160,
-        width: 160,
-    }, 
-  });
+});
 
-  export default Check;
+export default Check;
 
