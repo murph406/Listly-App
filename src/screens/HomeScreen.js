@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { BlurView } from 'expo';
+import { LayoutAnimation, UIManager } from 'react-native';
 import {
     StyleSheet,
     Text,
     View,
-    Image,
+    ScrollView,
     ImageBackground,
     FlatList,
     Animated,
     Modal,
     Dimensions,
-    PanResponder
+
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -21,12 +21,16 @@ import Button from '../components/button';
 import Input from '../components/input';
 import Header from '../components/header';
 import XButton from '../ui-elements/ex';
+import SwipeCard from '../ui-elements/swipeable-card';
 
 let { width, height } = Dimensions.get('window')
 
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
+
+        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+        this.shouldRender = this.shouldRender.bind(this);
 
         this.state = {
             notes: [
@@ -37,7 +41,9 @@ class HomeScreen extends Component {
             ],
             isModalPresented: false,
             noteInfo: null,
-            noteValue: null
+            noteValue: null,
+            closedIndices: [],
+            scroll: false
         }
     }
 
@@ -50,20 +56,16 @@ class HomeScreen extends Component {
     }
 
     addNote() {
-
         Animated.timing(this.animatedValue, {
             toValue: 0,
             duration: 300,
         }).start()
         this.setState({ isModalPresented: true })
-     
     }
 
-    onDismissModal() {
-        var noteIndex = this.state.notes.length
-        var noteInfo = null
-        var noteValue = null
-        var newNote = this.state.notes.concat({ value: "Hello", info: "DID I", index: noteIndex })
+    onDismissModal(value, info) {
+        var noteIndex = this.state.notes.length + 1
+        var newNote = this.state.notes.concat({ value: value, info: info, index: noteIndex })
 
         this.setState({ notes: newNote })
 
@@ -72,6 +74,10 @@ class HomeScreen extends Component {
             duration: 400,
         }).start()
         this.setState({ isModalPresented: false })
+    }
+
+    shouldRender(index) {
+        return this.state.closedIndices.indexOf(index) === -1
     }
 
     render() {
@@ -83,29 +89,35 @@ class HomeScreen extends Component {
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <Header
                         addNote={() => this.addNote()} />
-                    <FlatList
-                        style={{ paddingTop: 116, height: height }}
-                        data={this.state.notes}
-                        renderItem={({ item }) => (
-                            <View style={styles.noteContainer}>
-                                <View
-                                    onPress={() => { props.onPress() }}
-                                    style={{ flex: 1 }}>
-                                    <View style={styles.textContainer} >
-                                        <Text style={styles.bigText}>{item.value}</Text>
-                                        <Text style={styles.smallText2}>{item.info}</Text>
-                                    </View>
 
-                                </View>
-                            </View>
-                        )} />
+                    <ScrollView
+                        style={{ height: height, paddingTop: 108 }}
+                        scrollEnabled={this.state.scroll}>
+                        {this.state.notes.map((title, i) => this.shouldRender(i) &&
+                            <View
+                                key={i}>
+                                <SwipeCard
+                                    value={title.value}
+                                    info={title.info}
+                                    deleteCard={() => {
+                                        if ([...new Array(this.state.notes.length)].slice(i + 1, this.state.notes.length).some(this.shouldRender)) {
+                                            LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+                                        }
+                                        this.setState({
+                                            closedIndices: [...this.state.closedIndices, i]
+                                        })
+                                    }
+                                    } />
+                            </View>)}
+                    </ScrollView>
+
                 </Animated.View>
                 <Modal
                     animationType={'slide'}
                     transparent={true}
                     visible={this.state.isModalPresented}>
                     <AddNoteModal
-                        onDismiss={() => this.onDismissModal()} />
+                        onDismiss={(value, info) => this.onDismissModal(value, info)} />
                 </Modal>
             </ImageBackground>
         );
@@ -118,64 +130,11 @@ const styles = StyleSheet.create({
         width: undefined,
         height: undefined,
         backgroundColor: 'transparent',
-        //paddingTop: 90,
-    },
-    container: {
-
-        //padding: 20,
-
     },
     text: {
         color: 'black',
         fontSize: 54,
         fontFamily: 'fontBold'
-    },
-    smallText: {
-        fontFamily: 'fontReg',
-        fontSize: 24,
-        color: 'white',
-    },
-    noteContainer: {
-        height: 100,
-        borderRadius: 12,
-        shadowOpacity: 0.2,
-        shadowColor: 'black',
-        shadowRadius: 8,
-        shadowOffset: { width: 2, height: 0 },
-        justifyContent: 'center',
-        marginTop: 8,
-        marginBottom: 8,
-        marginRight: 20,
-        marginLeft: 20,
-        padding: 8,
-        backgroundColor: 'white',
-    },
-    textContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        margin: 16,
-    },
-    smallText2: {
-        fontSize: 18,
-        color: 'black',
-        fontFamily: 'fontReg',
-    },
-    bigText: {
-        fontFamily: 'fontReg',
-        fontSize: 24,
-        color: 'black',
-        marginBottom: 8
-    },
-    header: {
-        paddingTop: 90,
-        //backgroundColor: "transparent",
-        justifyContent: 'center',
-        //shadowOffset: { width: 0, height: 30 },
-        //shadowRadius: 0.1,
-        //shadowOpacity: 0.5,
-        //shadowColor: 'white'
-        //zIndex: 1000,
     },
     font: {
         fontFamily: 'fontBold',
@@ -193,9 +152,6 @@ const styles = StyleSheet.create({
 export default HomeScreen;
 
 /* OMMGGGGGGGGGG
-
-
-lskdnf;lkansc ka ckla vpka svk alkv ;akjvkajdv
 
 {(this.state.notes.map((model, index) => (
                             <View>

@@ -10,6 +10,7 @@ import {
     Modal,
     TouchableOpacity,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import SwipeOut from 'react-native-swipeout';
 
 import Button from '../components/button';
@@ -24,8 +25,19 @@ class AddNoteModal extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+            value: null,
+            info: null
+        }
 
+    }
+
+    onDismiss() {
+        var value = this.state.value
+        var info = this.state.info
+        console.log(value, info)
+        
+        this.props.onDismiss(value, info)
     }
 
     render() {
@@ -42,17 +54,19 @@ class AddNoteModal extends Component {
                             label="Your New Note"
                             secureTextEntry={false}
                             Color={Colors.PRIMARYPURP}
+                            onChangeText={(value) => this.setState({value})}
                         />
                         <Input
                             label="Description"
                             secureTextEntry={false}
                             Color={Colors.PRIMARYPURP}
+                            onChangeText={(info) => this.setState({info})}
                         />
                     </View>
                 </View>
 
                 <XButton
-                    onPress={() => this.props.onDismiss()}
+                    onPress={() => this.onDismiss()}
                     icon={require('../../assets/icons/checkmark.png')}
                 />
 
