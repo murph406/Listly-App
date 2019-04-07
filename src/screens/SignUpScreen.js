@@ -29,7 +29,7 @@ class SignUpScreen extends Component {
             >
             <View style={styles.container}>
                 <View style={{alignItems: 'center', marginTop: 30 }}>
-                    <Text style={{fontFamily: 'fontBold', fontSize: 54, color: '#45286a'}}>Sign Up</Text>
+                    <Text>Sign Up</Text>
                 </View>
                 
                 <View style={{justifyContent: 'center', flex: 1}}>
@@ -61,16 +61,6 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         paddingLeft: 20, 
     },
-    text: {
-        color: 'black',
-        fontSize: 54,
-        fontFamily: 'fontBold'
-    },
-    smallText: {
-        fontFamily: 'fontReg',
-        fontSize: 24,
-        color: 'white',
-    }, 
     box: {
         height: 400, 
         backgroundColor: 'white',

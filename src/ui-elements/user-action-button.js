@@ -18,15 +18,15 @@ const UserActionButton = props => (
 
 const styles = StyleSheet.create({
     container: {
-        height: 44, 
-        width: 44,
+        height: 48, 
+        width: 48,
         borderRadius: 24,
         justifyContent: 'center',
         alignItems: 'center'
     },
     profilPic: {
-        height: 36,
-        width: 36,
+        height: 40,
+        width: 40,
     },
     smallIcon: {
         height: 26,

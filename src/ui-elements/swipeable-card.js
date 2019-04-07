@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, PanResponder, Animated } from 'react-native';
 
+import { Fonts } from '../theme/constant-styles';
+import { WHITE, PRIMARY, BLACK } from '../theme/colors';
+
 class SwipeableCard extends Component {
     translateX = new Animated.Value(0);
     constructor(props) {
@@ -61,10 +64,13 @@ class SwipeableCard extends Component {
                         onPress={() => { props.onPress() }}
                         style={{ flex: 1 }}>
                         <View style={styles.textContainer} >
-                            <Text style={styles.bigText}>{this.props.value}</Text>
-                            <Text style={styles.smallText2}>{this.props.info}</Text>
+                            <View style={{paddingBottom: 8}}>
+                                <Text style={[Fonts.label, { color: BLACK }]}>{this.props.value}</Text>
+                            </View>
+                            <View style={{paddingLeft: 8}}>
+                                <Text style={[Fonts.smallText, { color: BLACK }]} >{this.props.info}</Text>
+                            </View>
                         </View>
-
                     </View>
                 </TouchableOpacity>
             </Animated.View >
@@ -93,16 +99,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'stretch',
         margin: 16,
-    },
-    bigText: {
-        fontFamily: 'fontBold',
-        fontSize: 24,
-        color: 'black',
-        marginBottom: 8
-    },
-    smallText: {
-        fontFamily: 'fontReg',
-        fontSize: 24,
-        color: 'white',
     },
 });

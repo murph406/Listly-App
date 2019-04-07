@@ -39,9 +39,8 @@ export default class App extends Component {
 
   async _loadFontsAsync() {
     await Expo.Font.loadAsync({
-      'fontReg': require('./assets/font/RobotoCondensed-Regular.ttf'),
-      'fontBold': require('./assets/font/RobotoCondensed-Bold.ttf'),
-      'fontLight': require('./assets/font/RobotoCondensed-Light.ttf'),
+      'fontReg': require('./assets/font/Montserrat.ttf'),
+      'fontBold': require('./assets/font/Montserrat-Bold.ttf'),
     });
   }
 

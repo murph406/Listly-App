@@ -12,8 +12,9 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import * as Colors from '../theme/colors';
-import { fonts } from '../theme/constant-styles';
+import { PRIMARY, BLACK } from '../theme/colors';
+import { Fonts } from '../theme/constant-styles';
+
 import AddNoteModal from '../modals/NewNoteModal';
 import ModalBox from 'react-native-modalbox';
 import UserActionButton from '../ui-elements/user-action-button';
@@ -47,7 +48,8 @@ class ProfileScreen extends Component {
         return (
             <ImageBackground
                 source={require('../../assets/drawing.png')}
-                style={styles.containerBackground}>
+                style={styles.containerBackground}
+            >
 
                 <View style={{ position: 'absolute', top: HeaderHeight, right: HeaderWidth, zIndex: 1000, }}>
                     <View style={styles.photoContainer}>
@@ -56,7 +58,7 @@ class ProfileScreen extends Component {
                 </View>
 
                 <View style={styles.profileContainer}>
-                    <Text style={[fonts.headerText, { color: 'black' }]}>RYAN MURPHY</Text>
+                    <Text style={[Fonts.headerText, { color: BLACK }]}>RYAN MURPHY</Text>
 
 
                 </View>
@@ -67,11 +69,15 @@ class ProfileScreen extends Component {
 
 const styles = StyleSheet.create({
     containerBackground: {
-        flex: 1,
-        backgroundColor: 'transparent',
-        justifyContent: 'center',
-        alignItems: "center"
-    },
+            flex: 1,
+            width: undefined,
+            height: undefined,
+            backgroundColor: 'transparent',
+            padding: 20,
+            paddingTop: 50,
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
     profileContainer: {
         height: height * .6,
         width: width * .9,
@@ -82,6 +88,8 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.5,
         shadowRadius: 8,
+        padding: 16,
+        paddingTop: 61
     },
     photoContainer: {
         alignItems: 'center',
@@ -97,17 +105,6 @@ const styles = StyleSheet.create({
     profileImg: {
         width: 90,
         height: 90,
-    },
-    text: {
-        color: 'black',
-        fontSize: 54,
-        fontFamily: 'fontBold'
-    },
-    font: {
-        fontFamily: 'fontBold',
-        fontWeight: 'bold',
-        fontSize: 40,
-        color: '#45286a'
     },
     icon: {
         height: 30,

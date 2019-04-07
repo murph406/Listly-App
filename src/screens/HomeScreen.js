@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { LayoutAnimation, UIManager } from 'react-native';
 import {
     StyleSheet,
-    Text,
     View,
     ScrollView,
     ImageBackground,
     Animated,
-    Modal,
     Dimensions,
 
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import * as Colors from '../theme/colors';
+
+import { Fonts } from '../theme/constant-styles';
+import { WHITE, PRIMARY, BLACK } from '../theme/colors';
+
 import AddNoteModal from '../modals/NewNoteModal';
 import Header from '../components/header';
 import SwipeCard from '../ui-elements/swipeable-card';
@@ -145,17 +146,6 @@ const styles = StyleSheet.create({
         height: undefined,
         backgroundColor: 'transparent',
     },
-    text: {
-        color: 'black',
-        fontSize: 54,
-        fontFamily: 'fontBold'
-    },
-    font: {
-        fontFamily: 'fontBold',
-        fontWeight: 'bold',
-        fontSize: 40,
-        color: '#45286a'
-    },
     icon: {
         height: 30,
         width: 30,
@@ -164,17 +154,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-
-/* OMMGGGGGGGGGG
-
-{(this.state.notes.map((model, index) => (
-                            <View>
-                                <TextBox
-                                title={model.value}
-                                text={model.info}
-                                />
-
-                            </View>
-                        )))}
- dataSource={this.ds.cloneWithRows(this.state.listViewData)}
-*/

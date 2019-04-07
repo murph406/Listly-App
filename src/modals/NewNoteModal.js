@@ -5,15 +5,13 @@ import {
     View,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import SwipeOut from 'react-native-swipeout';
 
-import Button from '../components/button';
 import Input from '../components/input';
-import Header from '../components/header';
-import TextBox from '../components/text-box';
 import XButton from '../ui-elements/ex';
 
-import * as Colors from '../theme/colors';
+
+import { Fonts } from '../theme/constant-styles';
+import { WHITE, PRIMARY } from '../theme/colors';
 
 class AddNoteModal extends Component {
     constructor(props) {
@@ -36,53 +34,52 @@ class AddNoteModal extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, paddingRight: 20, paddingLeft: 20, justifyContent: 'center' }}>
-                <View style={styles.modalBox}>
-                    <View styles={{ flex: 1, alignItems: 'center', }}>
+                <View style={styles.container}>
+                    <View style={styles.modalContainer}>
 
                         <View style={{ alignItems: 'center', paddingBottom: 20 }}>
-                            <Text style={styles.modalBigText}>ADD A NOTE</Text>
+                            <Text style={[Fonts.HeadlineText, { color: WHITE }]}>ADD A NOTE</Text>
                         </View>
 
                         <Input
-                            label="TITLE"
+                            placeholder="TITLE"
                             secureTextEntry={false}
-                            Color={Colors.PRIMARYPURP}
+                            Color={WHITE}
                             onChangeText={(value) => this.setState({value})}
                         />
                         <Input
-                            label="DETAILS"
+                            placeholder="DETAILS"
                             secureTextEntry={false}
-                            Color={Colors.PRIMARYPURP}
+                            Color={WHITE}
                             onChangeText={(info) => this.setState({info})}
                         />
-                    </View>
-                </View>
-
+                    
                 <XButton
                     onPress={() => this.onDismiss()}
                     icon={require('../../assets/icons/checkmark.png')}
                 />
+                </View>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    modalBox: {
-        height: 400,
-        backgroundColor: 'white',
-        borderRadius: 40,
-        shadowOpacity: 0.2,
-        shadowColor: 'black',
-        shadowRadius: 8,
-        shadowOffset: { width: 2, height: 0 },
-        padding: 20,
+    container: {
+        flex: 1,
+        backgroundColor: 'transparent'
     },
-    modalBigText: {
-        fontFamily: 'fontBold',
-        fontSize: 32,
-        color: Colors.PRIMARYPURP,
+    modalContainer: {
+        flex: 1,
+        marginTop: 110,
+        padding: 16,
+        backgroundColor: PRIMARY,
+        borderRadius: 16,
+
+    },
+    icon: {
+        height: 20,
+        width: 40,
     },
 })
 

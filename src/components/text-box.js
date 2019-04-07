@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
+import { Fonts } from '../theme/constant-styles';
+import { BLACK, PRIMARY } from '../theme/colors';
 
 const TextBox = (props) => (
 
@@ -11,8 +13,8 @@ const TextBox = (props) => (
       onPress={() => { props.onPress() }}
       style={{ flex: 1 }}>
       <View style={styles.textContainer} >
-        <Text style={styles.bigText}>{props.title}</Text>
-        <Text style={styles.smallText}>{props.text}</Text>
+        <Text style={[Fonts.label, { color: BLACK }]}>{props.title}</Text>
+        <Text style={[Fonts.medText, { color: BLACK }]}>{props.text}</Text>
       </View>
 
     </View>
@@ -41,16 +43,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch',
     margin: 16,
-  },
-  smallText: {
-    fontSize: 18,
-    color: 'black',
-    fontFamily: 'fontReg',
-  },
-  bigText: {
-    fontFamily: 'fontReg',
-    fontSize: 24,
-    color: 'black',
-    marginBottom: 8
   },
 });

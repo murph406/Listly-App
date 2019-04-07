@@ -43,7 +43,7 @@ class ExpandedListScreen extends Component {
     render() {
         return (
             <ImageBackground
-                source={require('../../assets/drawing2.png')}
+                source={require('../../assets/drawing.png')}
                 style={styles.containerBackground}>
                
             </ImageBackground>

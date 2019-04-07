@@ -7,17 +7,16 @@ import {
     ImageBackground,
     TouchableOpacity,
     Animated,
-    Modal,
     StatusBar
 } from 'react-native';
+import Modal from 'react-native-modalbox';
 
+import { Fonts } from '../theme/constant-styles';
+import { WHITE, PRIMARY } from '../theme/colors';
 
 import Button from '../components/button';
 import Input from '../components/input';
 import Check from '../ui-elements/check';
-import XButton from '../ui-elements/ex';
-
-import * as Colors from '../theme/colors';
 import SignUpModal from '../modals/SignUpModal';
 
 
@@ -46,7 +45,7 @@ class LoginScreen extends Component {
             toValue: 0,
             duration: 300,
         }).start()
-        this.setState({ isModalPresented: true })
+        this.refs.modal1.open()
     }
 
     onSignUpExit() {
@@ -54,7 +53,7 @@ class LoginScreen extends Component {
             toValue: 1,
             duration: 500,
         }).start()
-        this.setState({ isModalPresented: false })
+        this.refs.modal1.close()
         this.setState({ isNameEntered: false })
     }
     goHomeScreen() {
@@ -74,25 +73,28 @@ class LoginScreen extends Component {
                         style={[styles.box, animatedStyle]}
                     >
                         <View style={{ alignItems: 'center' }}>
-                            <Text style={styles.headerText}>Listly</Text>
+                            <Text style={[Fonts.displayText, { color: WHITE }]}>Listly</Text>
+                            <View style={{ paddingBottom: 30 }} />
                             <Check
                                 height={100}
                                 width={100} />
                         </View>
+                        <View style={{paddingTop: 60}}>
+                            <Input
+                                //label="EMAIL"
+                                placeholder=" EXAMPE@WHATEVER.COM"
+                                Color={WHITE}
+                            />
+                            <Input
+                                //label="PASSWORD"
+                                secureTextEntry={true}
+                                placeholder=" PASSWORD"
+                                Color={WHITE}
+                            />
+                        </View>
 
-                        <Input
-                            label="EMAIL"
-                            placeholder=" example@whatever.com"
-                            Color={"white"}
-                        />
-                        <Input
-                            label="PASSWORD"
-                            secureTextEntry={true}
-                            placeholder=" password"
-                            Color={"white"}
-                        />
 
-                        <View style={styles.signInButton}>
+                        <View style={styles.button}>
                             <Button
                                 label="SIGN IN"
                                 onPress={() => this.goHomeScreen()}
@@ -100,12 +102,12 @@ class LoginScreen extends Component {
                         </View>
 
                         <View style={styles.textCountainer}>
-                            <Text style={styles.smallText}>Dont have an Account?</Text>
+                            <Text style={[Fonts.smallText, { color: WHITE }]}>Dont have an Account?</Text>
                             <TouchableOpacity
-                                style={styles.signUpButton}
+                                style={styles.signUpText}
                                 onPress={() => this.onSignUpPress()}
                             >
-                                <Text style={styles.smallText}>Sign Up!</Text>
+                                <Text style={[Fonts.smallText, { color: WHITE }]}>Sign Up!</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -115,10 +117,11 @@ class LoginScreen extends Component {
                 </View>
                 <Modal
                     visible={this.state.isModalPresented}
-                    animationType={'slide'}
-                    transparent={true}>
-                    <SignUpModal
-                        onExit={() => this.onSignUpExit()} />
+                    backdropOpacity={.2}
+                    swipeToClose={true}
+                    onClosed={() => this.onSignUpExit()}
+                    ref={"modal1"}>
+                    <SignUpModal />
                 </Modal>
             </ImageBackground>
         );
@@ -131,38 +134,21 @@ const styles = StyleSheet.create({
         width: undefined,
         height: undefined,
         backgroundColor: 'transparent',
-        padding: 20,
-        paddingTop: 50,
+        padding: 16,
+        paddingTop: 90,
     },
-    headerText: {
-        color: 'white',
-        fontSize: 54,
-        fontFamily: 'fontBold',
-        paddingBottom: 20,
-    },
-    signInButton: {
-        paddingTop: 30,
-        paddingBottom: 190,
+    button: {
+        paddingTop: 180,
+        paddingBottom: 16,
     },
     textCountainer: {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    signUpButton: {
-        borderBottomWidth: 2,
+    signUpText: {
+        borderBottomWidth: 1,
         borderColor: 'white',
     },
-    medText: {
-        fontFamily: 'fontReg',
-        fontSize: 24,
-        color: 'white',
-    },
-    smallText: {
-        fontFamily: 'fontReg',
-        fontSize: 16,
-        color: 'white',
-    },
-
 });
 
 export default LoginScreen;

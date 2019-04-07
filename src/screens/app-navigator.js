@@ -7,6 +7,8 @@ import HomeScreen from './HomeScreen';
 import SignUpScreen from './SignUpScreen'
 import ExpandedListScreen from './ExpandedListScreen';
 import ProfileScreen from './ProfileScreen';
+import Menu from '../screens/MenuScreen';
+import DisclaimerScreen from './DisclaimerScreen';
 
 const AppNavigator = createDrawerNavigator({
     login: LoginScreen,
@@ -14,6 +16,12 @@ const AppNavigator = createDrawerNavigator({
     signUp: SignUpScreen,
     expandedList: ExpandedListScreen,
     profile: ProfileScreen,
-  });
+    disclaimer: DisclaimerScreen
+  },
+  {
+    contentComponent: Menu,
+    drawerWidth: Dimensions.get('window').width * 0.6,
+    drawerType: 'front'
+  }) 
 
 export default AppNavigator;

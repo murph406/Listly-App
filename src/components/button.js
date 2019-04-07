@@ -1,17 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
+import { Fonts } from '../theme/constant-styles';
+import { WHITE, PRIMARY } from '../theme/colors';
+
 const Button = (props) => {
   return (
     <View style={styles.buttonContainter}>
       <TouchableOpacity
-        style={styles.buttonOn}
+        style={styles.button}
         onPress={props.onPress}
         onPressIn={props.onPressIn}
         activeOpacity={props.activeOpacity}
         
       >
-        <Text style={styles.textOn}>{props.label}</Text>
+        <Text style={[Fonts.label, { color: PRIMARY }]}>{props.label}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -26,33 +29,13 @@ const styles = StyleSheet.create({
     marginTop: 16,
     alignSelf: 'stretch',
   },
-  buttonOff: {
-    flex: 1,
-    borderRadius: 28,
-    borderWidth: 2,
-    borderColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  
-  },
-  buttonOn: {
+  button: {
     height: 56,
-    //width: 140,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 28,
     backgroundColor: 'white',
     marginTop: 6,
    
-  },
-  textOff: {
-    fontSize: 20,
-    color: '#546e7a',
-  },
-  textOn: {
-    fontFamily: 'fontBold',
-    fontSize: 24,
-    color: '#45286a',
-    fontWeight: 'bold'
   },
 });
