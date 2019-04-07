@@ -8,7 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import MainReducer from './src/reducers/main-reducer';
-import AppNavigator from './src/screens/app-navigator';
+import AppNavigator from './src/navigation/app-navigator';
 import Spinner from './src/components/spinner';
 
 export default class App extends Component {
@@ -51,6 +51,8 @@ export default class App extends Component {
       require("./assets/icons/AddFinished.png"),
       require("./assets/icons/DeleteFinal.png"),
       require("./assets/icons/RightArrow-purp.png"),
+      require("./assets/icons/default-user-pic.png"),
+      require("./assets/icons/back-icon.png"),
       require("./assets/animat-checkmark.gif"),
     ];
     // Asset.loadAsync takes an array and this way we can load the images in parallel

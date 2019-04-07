@@ -12,12 +12,10 @@ import {
 
 } from 'react-native';
 import PropTypes from 'prop-types';
-
-import * as Colors from '../theme/colors';
-import AddNoteModal from '../modals/NewNoteModal';
 import Header from '../components/header';
-import SwipeCard from '../ui-elements/swipeable-card';
-import ModalBox from 'react-native-modalbox';
+
+import { WHITE, BLACK } from '../theme/colors';
+import { Fonts } from '../theme/constant-styles';
 
 let { width, height } = Dimensions.get('window')
 
@@ -45,7 +43,10 @@ class ExpandedListScreen extends Component {
             <ImageBackground
                 source={require('../../assets/drawing.png')}
                 style={styles.containerBackground}>
-               
+                    <Header
+                    color={WHITE}
+                    goBack={() => this.props.navigation.navigate('home')} />
+
             </ImageBackground>
         );
     }
@@ -57,17 +58,6 @@ const styles = StyleSheet.create({
         width: undefined,
         height: undefined,
         backgroundColor: 'transparent',
-    },
-    text: {
-        color: 'black',
-        fontSize: 54,
-        fontFamily: 'fontBold'
-    },
-    font: {
-        fontFamily: 'fontBold',
-        fontWeight: 'bold',
-        fontSize: 40,
-        color: '#45286a'
     },
     icon: {
         height: 30,

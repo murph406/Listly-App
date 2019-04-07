@@ -2,13 +2,13 @@ import React from 'react';
 import { createDrawerNavigator } from 'react-navigation';
 import { Dimensions } from 'react-native';
 
-import LoginScreen from './LoginScreen';
-import HomeScreen from './HomeScreen';
-import SignUpScreen from './SignUpScreen'
-import ExpandedListScreen from './ExpandedListScreen';
-import ProfileScreen from './ProfileScreen';
+import LoginScreen from '../screens/LoginScreen';
+import HomeScreen from '../screens/HomeScreen';
+import SignUpScreen from '../screens/SignUpScreen'
+import ExpandedListScreen from '../screens/ExpandedListScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import Menu from '../screens/MenuScreen';
-import DisclaimerScreen from './DisclaimerScreen';
+import DisclaimerScreen from '../screens/DisclaimerScreen';
 
 const AppNavigator = createDrawerNavigator({
     login: LoginScreen,

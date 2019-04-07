@@ -5,19 +5,18 @@ import {
     View,
     ScrollView,
     ImageBackground,
-    Animated,
+    TouchableOpacity,
     Image,
     Dimensions,
 
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { PRIMARY, BLACK } from '../theme/colors';
+import { WHITE, BLACK } from '../theme/colors';
 import { Fonts } from '../theme/constant-styles';
 
-import AddNoteModal from '../modals/NewNoteModal';
-import ModalBox from 'react-native-modalbox';
 import UserActionButton from '../ui-elements/user-action-button';
+import Header from '../components/header';
 
 let { width, height } = Dimensions.get('window')
 let HeaderHeight = (height * .2) - 45
@@ -50,6 +49,9 @@ class ProfileScreen extends Component {
                 source={require('../../assets/drawing.png')}
                 style={styles.containerBackground}
             >
+                <Header
+                    color={WHITE}
+                    goBack={() => this.props.navigation.navigate('home')} />
 
                 <View style={{ position: 'absolute', top: HeaderHeight, right: HeaderWidth, zIndex: 1000, }}>
                     <View style={styles.photoContainer}>
@@ -58,7 +60,7 @@ class ProfileScreen extends Component {
                 </View>
 
                 <View style={styles.profileContainer}>
-                    <Text style={[Fonts.headerText, { color: BLACK }]}>RYAN MURPHY</Text>
+                    <Text style={[Fonts.HeadlineText, { color: BLACK }]}>RYAN MURPHY</Text>
 
 
                 </View>
@@ -69,27 +71,18 @@ class ProfileScreen extends Component {
 
 const styles = StyleSheet.create({
     containerBackground: {
-            flex: 1,
-            width: undefined,
-            height: undefined,
-            backgroundColor: 'transparent',
-            padding: 20,
-            paddingTop: 50,
-            alignItems: 'center',
-            justifyContent: 'center'
-        },
+        flex: 1,
+        width: undefined,
+        height: undefined,
+        backgroundColor: 'transparent',
+        paddingTop: height * .2
+    },
     profileContainer: {
-        height: height * .6,
-        width: width * .9,
+        flex: 1,
         backgroundColor: 'white',
-        borderRadius: 16,
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 8,
         padding: 16,
-        paddingTop: 61
+        paddingTop: 60
     },
     photoContainer: {
         alignItems: 'center',
@@ -99,8 +92,8 @@ const styles = StyleSheet.create({
         padding: 4,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 8,
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
     },
     profileImg: {
         width: 90,

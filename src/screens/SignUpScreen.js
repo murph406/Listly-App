@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image,ImageBackground, ScrollView, Animated, Easing, Modal } from 'react-native';
 
-import Button from '../components/button';
 import Input from '../components/input';
-import Header from '../components/header';
-import TextBox from '../components/text-box';
 
 class SignUpScreen extends Component {
     constructor(props) {

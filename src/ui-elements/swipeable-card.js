@@ -67,7 +67,7 @@ class SwipeableCard extends Component {
                             <View style={{paddingBottom: 8}}>
                                 <Text style={[Fonts.label, { color: BLACK }]}>{this.props.value}</Text>
                             </View>
-                            <View style={{paddingLeft: 8}}>
+                            <View>
                                 <Text style={[Fonts.smallText, { color: BLACK }]} >{this.props.info}</Text>
                             </View>
                         </View>

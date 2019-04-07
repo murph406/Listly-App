@@ -16,8 +16,8 @@ import { WHITE, PRIMARY } from '../theme/colors';
 
 import Button from '../components/button';
 import Input from '../components/input';
+import LoginInput from '../ui-elements/login-input';
 import Check from '../ui-elements/check';
-import SignUpModal from '../modals/SignUpModal';
 
 
 class LoginScreen extends Component {
@@ -79,17 +79,14 @@ class LoginScreen extends Component {
                                 height={100}
                                 width={100} />
                         </View>
-                        <View style={{paddingTop: 60}}>
-                            <Input
-                                //label="EMAIL"
-                                placeholder=" EXAMPE@WHATEVER.COM"
-                                Color={WHITE}
+                        <View style={{ paddingTop: 40 }}>
+                            <LoginInput
+                                color={WHITE}
+                                label={"EMAIL"}
                             />
-                            <Input
-                                //label="PASSWORD"
-                                secureTextEntry={true}
-                                placeholder=" PASSWORD"
-                                Color={WHITE}
+                            <LoginInput
+                                color={WHITE}
+                                label={"PASSWORD"}
                             />
                         </View>
 
@@ -115,14 +112,6 @@ class LoginScreen extends Component {
 
 
                 </View>
-                <Modal
-                    visible={this.state.isModalPresented}
-                    backdropOpacity={.2}
-                    swipeToClose={true}
-                    onClosed={() => this.onSignUpExit()}
-                    ref={"modal1"}>
-                    <SignUpModal />
-                </Modal>
             </ImageBackground>
         );
     }

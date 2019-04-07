@@ -16,7 +16,7 @@ import { Fonts } from '../theme/constant-styles';
 import { WHITE, PRIMARY, BLACK } from '../theme/colors';
 
 import AddNoteModal from '../modals/NewNoteModal';
-import Header from '../components/header';
+import HomeScreenHeader from '../components/homescreen-header';
 import SwipeCard from '../ui-elements/swipeable-card';
 import ModalBox from 'react-native-modalbox';
 
@@ -93,7 +93,7 @@ class HomeScreen extends Component {
                 source={require('../../assets/drawing2.png')}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
-                    <Header
+                    <HomeScreenHeader
                         addNote={() => this.onOpenNoteModal()}
                         goProfile={() => this.props.navigation.navigate('profile')}
                         isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />

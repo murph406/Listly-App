@@ -5,26 +5,22 @@ import * as Colors from '../theme/colors'
 
 
 const xButton = props => (
-    
-         <TouchableOpacity 
-            style={styles.modalCircle}
-            onPress={() => {props.onPress()}}
-        >
+
+    <TouchableOpacity
+        style={styles.modalCircle}
+        onPress={() => { props.onPress() }}>
         <Image
             source={props.icon}
             style={styles.modalIcon}
         />
-        </TouchableOpacity>
-  )
+    </TouchableOpacity>
+)
 
-  
-  const styles = StyleSheet.create({
+
+const styles = StyleSheet.create({
     modalCircle: {
-        position: 'absolute',
-        bottom: 36, 
-        right: 167,
         height: 70,
-        width: 70, 
+        width: 70,
         borderRadius: 35,
         backgroundColor: 'white',
         alignItems: 'center',
@@ -34,6 +30,6 @@ const xButton = props => (
         height: 26,
         width: 26,
     },
-  });
+});
 
-  export default xButton;
+export default xButton;

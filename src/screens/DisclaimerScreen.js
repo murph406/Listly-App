@@ -9,7 +9,7 @@ import Check from '../ui-elements/check';
 
 let { width, height } = Dimensions.get('window')
 
-let text =  "The trademark symbol (™) is a symbol to indicate that the preceding mark is a trademark. It is usually used for unregistered trademarks, as opposed to the registered trademark symbol (®) which is reserved for trademarks registered with the appropriate government agency. In Unicode it is U+2122 The trademark symbol (™)                is a symbol to indicate that the preceding mark is a trademark. It is usually used for unregistered trademarks, as opposed to the registered trademark symbol (®) which is reserved for trademarks registered with the appropriate government agency. In Unicode it is U+2122"
+let text = "The trademark symbol (™) is a symbol to The trademark symbol (™) is a symbol to indicate that the preceding mark is a trademark. It is usually used for unregistered trademarks, as opposed to the indicate that the preceding mark is a trademark. It is usually used for unregistered trademarks, as opposed to the The trademark symbol (™) is a symbol to indicate that the preceding mark is a trademark. It is usually used for unregistered trademarks, as opposed to the registered trademark symbol (®) which is reserved for trademarks registered with the appropriate government agency. In Unicode it is U+2122 The trademark symbol (™)                is a symbol to indicate that the preceding mark is a trademark. It is usually used for unregistered trademarks, as opposed to the registered trademark symbol (®) which is reserved for trademarks registered with the appropriate government agency. In Unicode it is U+2122"
 
 const DisclaimerScreen = (props) => {
     return (
@@ -18,9 +18,13 @@ const DisclaimerScreen = (props) => {
             style={styles.container}
         >
             <Text style={[Fonts.HeadlineText, { color: WHITE }]}>DISCLAIMER</Text>
-            <View style={{ paddingTop: 180}}/>
-            <View style={{height: height * .35, width: width * .75,}}>
-                <ScrollView>
+           
+            <View style={{ paddingTop: 160 }} />
+            
+            <View style={{ height: height * .4, width: width * .9, }}>
+                <ScrollView
+                    indicatorStyle={'white'}
+                    style={{ padding: 16 }}>
                     <Text style={[Fonts.smallText, { color: WHITE }]}>{text}</Text>
                 </ScrollView>
             </View>
