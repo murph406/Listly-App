@@ -56,7 +56,7 @@ class SwipeableCard extends Component {
                 <TouchableOpacity
                     style={styles.noteContainer}
                     activeOpacity={.95}
-                    onPress={() => console.log("I PRESSED IT")}>
+                    onPress={() => this.props.onPress()}>
                     <View
                         onPress={() => { props.onPress() }}
                         style={{ flex: 1 }}>

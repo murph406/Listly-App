@@ -52,6 +52,7 @@ export default class App extends Component {
       require("./assets/icons/AddFinished.png"),
       require("./assets/icons/DeleteFinal.png"),
       require("./assets/icons/RightArrow-purp.png"),
+      require("./assets/animat-checkmark.gif"),
     ];
     // Asset.loadAsync takes an array and this way we can load the images in parallel
     await Asset.loadAsync(images);

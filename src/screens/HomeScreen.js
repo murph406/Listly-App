@@ -31,7 +31,7 @@ class HomeScreen extends Component {
         this.state = {
             notes: [
                 { value: "Get Bananas", info: "Get em before there bad", index: 0 },
-                { value: "Find a bitch", info: "Get em before there gone", index: 1 },
+                { value: "NEED FOOD", info: "Right Now", index: 1 },
                 { value: "EAT", info: "Something flame", index: 2 },
                 { value: "SMOOKE", info: "and hit it", index: 3 },
             ],
@@ -94,6 +94,7 @@ class HomeScreen extends Component {
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <Header
                         addNote={() => this.onOpenNoteModal()}
+                        goProfile={() => this.props.navigation.navigate('profile')}
                         isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />
 
                     <ScrollView
@@ -106,6 +107,7 @@ class HomeScreen extends Component {
                                     value={title.value}
                                     info={title.info}
                                     shouldScroll={(value) => this.setState({scroll: value})}
+                                    onPress={() => this.props.navigation.navigate('expandedList')}
                                     deleteCard={() => {
                                         this.setState({isCheckAnimationEnabled: true})
                                         if ([...new Array(this.state.notes.length)].slice(i + 1, this.state.notes.length).some(this.shouldRender)) {

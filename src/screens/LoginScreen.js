@@ -94,7 +94,7 @@ class LoginScreen extends Component {
 
                         <View style={styles.signInButton}>
                             <Button
-                                label="Sign In"
+                                label="SIGN IN"
                                 onPress={() => this.goHomeScreen()}
                             />
                         </View>

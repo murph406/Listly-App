@@ -15,6 +15,7 @@ const Header = (props) => {
               height={44}
               width={44} />
             : <UserActionButton
+              onPress={props.goProfile}
               color={"white"}
               icon={require('../../assets/icons/default-user-pic.png')}
               isIconLarge={true} />
@@ -23,7 +24,7 @@ const Header = (props) => {
           <TouchableOpacity
             onPress={props.addNote}
           >
-            <View style={{marginLeft: 16}}>
+            <View style={{ marginLeft: 16 }}>
               <Image
                 source={require('../../assets/icons/AddFinished.png')}
                 style={styles.icon}
