@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import ListlyText from '../ui-elements/listly-text';
 
 import { PRIMARY, BLACK, WHITE, GREY } from '../theme/colors';
 import { Fonts } from '../theme/constant-styles';
@@ -37,8 +38,7 @@ class Menu extends Component {
                         <Text style={[Fonts.label, { color: WHITE }]}>LOGOUT</Text>
                     </TouchableOpacity>
                     <View style={{paddingTop: 300,paddingBottom: 16, flexDirection: 'row'}}>
-                        <Text style={[Fonts.displayText, { color: WHITE }]}>Listly</Text> 
-                        <Text style={[Fonts.labelText, { color: WHITE }]}>™</Text>
+                       <ListlyText/>
                     </View>
                     <TouchableOpacity 
                     onPress={() => this.goDisclamer()}

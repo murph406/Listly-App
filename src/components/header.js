@@ -22,7 +22,7 @@ const Header = (props) => {
                 </View>
                 <Text style={[Fonts.HeadlineText, { color: props.color }]}> {props.headerText} </Text>
                 <TouchableOpacity>
-                    <Text style={[Fonts.medText, { color: WHITE }]}>Edit</Text>
+                    <Text style={[Fonts.medText, { color: WHITE, }]}>Edit</Text>
                 </TouchableOpacity>
             </View>
         </View>

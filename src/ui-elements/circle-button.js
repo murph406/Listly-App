@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import * as Colors from '../theme/colors'
 
 
-const xButton = props => (
+const CircleButton = props => (
 
     <TouchableOpacity
         style={styles.modalCircle}
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default xButton;
+export default CircleButton;

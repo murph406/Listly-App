@@ -1,45 +1,62 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image,ImageBackground, ScrollView, Animated, Easing, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground, StatusBar, Easing } from 'react-native';
 
-import Input from '../components/input';
+import LoginInput from '../ui-elements/login-input';
+import { Fonts } from '../theme/constant-styles';
+import { WHITE, PRIMARY, GREEN } from '../theme/colors';
+import ListlyText from '../ui-elements/listly-text';
+import ButtonIcon from '../ui-elements/button_icon';
 
 class SignUpScreen extends Component {
     constructor(props) {
-     super(props);
-  
-     this.state = {
-     }
+        super(props);
+
+        this.state = {
+        }
     }
     componentWillMount() {
-      
+
     }
     componentDidMount() {
-   
+
     }
 
     render() {
-        const animatedStyle = { height: this.animatedValue}
+        const animatedStyle = { height: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing2.png')}
-                style={styles.containerBackground}
-            >
-            <View style={styles.container}>
-                <View style={{alignItems: 'center', marginTop: 30 }}>
-                    <Text>Sign Up</Text>
-                </View>
-                
-                <View style={{justifyContent: 'center', flex: 1}}>
-                    <View
-                        style={styles.box}
-                    >
-                        <Input/>
+                source={require('../../assets/drawing3.png')}
+                style={styles.containerBackground}>
+                <StatusBar barStyle="light-content" />
+                <View style={styles.container}>
+                    <View style={{ alignItems: 'center', marginTop: 60 }}>
+                        <ListlyText />
+                        <View style={{ paddingTop: 60 }} />
+                        <Text style={[Fonts.HeadlineText, { color: WHITE }]}>SIGN UP</Text>
                     </View>
-                </View> 
-               
-                
-            </View>
-            
+                    <View style={{ paddingTop: 40 }}>
+                        <LoginInput
+                            color={WHITE}
+                            label={"EMAIL"}
+                        />
+                        <LoginInput
+                            color={WHITE}
+                            label={"PASSWORD"}
+                        />
+                        <ButtonIcon
+                            color={GREEN}
+                            dementions={40}
+                            icon={require('../../assets/icons/snapchat-icon.png')}
+                            label={"SIGN UP WITH SNAPCHAT"}/>
+                         <ButtonIcon
+                            color={GREEN}
+                            dementions={40}
+                            icon={require('../../assets/icons/facebook-icon.png')}
+                            label={"SIGN UP WITH FACEBOOK"}/>
+                    </View>
+
+                </View>
+
             </ImageBackground>
         );
     }
@@ -47,26 +64,18 @@ class SignUpScreen extends Component {
 
 const styles = StyleSheet.create({
     containerBackground: {
-     flex: 1,
-     width: undefined,
-     height: undefined,
-     backgroundColor: 'transparent',
+        flex: 1,
+        width: undefined,
+        height: undefined,
+        backgroundColor: 'transparent',
     },
     container: {
         flex: 1,
         paddingTop: 10,
         paddingRight: 20,
-        paddingLeft: 20, 
+        paddingLeft: 20,
+        paddingTop: 30,
     },
-    box: {
-        height: 400, 
-        backgroundColor: 'white',
-        borderRadius: 40,
-        shadowOpacity: 0.2,
-        shadowColor: 'black',
-        shadowRadius: 8,
-        shadowOffset:{ width: 2, height: 0 },
-    }
 });
 
 export default SignUpScreen;

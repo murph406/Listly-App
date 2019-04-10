@@ -7,7 +7,7 @@ import {
     ImageBackground,
     Animated,
     Dimensions,
-
+    Vibration
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -59,6 +59,7 @@ class HomeScreen extends Component {
             duration: 300,
         }).start()
         this.refs.modal1.open()
+        Vibration.vibrate()
     }
 
     onDismissModal() {
@@ -114,6 +115,7 @@ class HomeScreen extends Component {
                                         if ([...new Array(this.state.notes.length)].slice(i + 1, this.state.notes.length).some(this.shouldRender)) {
                                             LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
                                         }
+                                        Vibration.vibrate()
                                         this.setState({
                                             closedIndices: [...this.state.closedIndices, i]
                                         })

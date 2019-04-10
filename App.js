@@ -11,6 +11,8 @@ import MainReducer from './src/reducers/main-reducer';
 import AppNavigator from './src/navigation/app-navigator';
 import Spinner from './src/components/spinner';
 
+console.disableYellowBox = true;
+
 export default class App extends Component {
 
   constructor(props) {
@@ -48,6 +50,7 @@ export default class App extends Component {
     const images = [
       require("./assets/drawing.png"),
       require("./assets/drawing2.png"),
+      require("./assets/drawing3.png"),
       require("./assets/icons/AddFinished.png"),
       require("./assets/icons/DeleteFinal.png"),
       require("./assets/icons/RightArrow-purp.png"),

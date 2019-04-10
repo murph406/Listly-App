@@ -22,7 +22,7 @@ const Input = (props) => {
             baseColor={props.color}
             label={props.label}
             value={props.value}
-            onChangeText={null}
+            onChangeText={props.onChangeText}
         />
     </View>
     )

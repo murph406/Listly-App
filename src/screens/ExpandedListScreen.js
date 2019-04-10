@@ -46,7 +46,10 @@ class ExpandedListScreen extends Component {
                     <Header
                     color={WHITE}
                     goBack={() => this.props.navigation.navigate('home')} />
-
+                
+                <View style={styles.container}>
+                    <Text style={[Fonts.HeadlineText]}>NOTE TITLE</Text>
+                </View>
             </ImageBackground>
         );
     }
@@ -58,6 +61,18 @@ const styles = StyleSheet.create({
         width: undefined,
         height: undefined,
         backgroundColor: 'transparent',
+        paddingLeft: 16,
+        paddingRight: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    container: {
+        height: height * .75,
+        width: width * .9,
+        borderRadius: 20, 
+        backgroundColor: WHITE,
+        alignItems: 'center',
+        padding: 16
     },
     icon: {
         height: 30,

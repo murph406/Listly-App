@@ -11,6 +11,7 @@ import Menu from '../screens/MenuScreen';
 import DisclaimerScreen from '../screens/DisclaimerScreen';
 
 const AppNavigator = createDrawerNavigator({
+
     login: LoginScreen,
     home: HomeScreen,
     signUp: SignUpScreen,

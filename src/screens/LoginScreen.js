@@ -41,11 +41,7 @@ class LoginScreen extends Component {
     }
 
     onSignUpPress() {
-        Animated.timing(this.animatedValue, {
-            toValue: 0,
-            duration: 300,
-        }).start()
-        this.refs.modal1.open()
+        this.props.navigation.navigate('signUp')
     }
 
     onSignUpExit() {

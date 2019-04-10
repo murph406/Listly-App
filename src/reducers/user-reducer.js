@@ -2,7 +2,8 @@ import * as UserActions from '../action-types/user-action-types';
 
 const initalState = {
     user: {
-        notes: []
+        notes: [],
+        currentNote: ''
     }
 }
 
