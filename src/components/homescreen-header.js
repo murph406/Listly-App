@@ -12,7 +12,7 @@ const HomeScreenHeader = (props) => {
   return (
     <View style={{ height: 100, position: 'absolute', top: 0, right: 0, left: 0, zIndex: 1000 }}>
       <BlurView tint="light" intensity={90} style={StyleSheet.absoluteFill}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 50, paddingRight: 16, paddingLeft: 16, }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 42, paddingRight: 16, paddingLeft: 16, }}>
           {(props.isCheckAnimationEnabled)
             ? <Check
               height={48}

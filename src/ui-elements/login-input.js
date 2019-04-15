@@ -15,7 +15,7 @@ const Input = (props) => {
             labelPadding={8}
             labelHeight={null}
             inputContainerPadding={16}
-            fontSize={16}
+            fontSize={17}
             lineWidth={2}
             tintColor={props.color}
             textColor={props.color}

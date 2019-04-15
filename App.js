@@ -51,6 +51,8 @@ export default class App extends Component {
       require("./assets/drawing.png"),
       require("./assets/drawing2.png"),
       require("./assets/drawing3.png"),
+      require("./assets/drawing4.png"),
+      require("./assets/drawing5.png"),
       require("./assets/icons/AddFinished.png"),
       require("./assets/icons/DeleteFinal.png"),
       require("./assets/icons/RightArrow-purp.png"),

@@ -10,7 +10,8 @@ import {
     Vibration
 } from 'react-native';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
+import * as UserActionTypes from '../action-types/user-action-types';
 
 import { Fonts } from '../theme/constant-styles';
 import { WHITE, PRIMARY, BLACK } from '../theme/colors';
@@ -31,10 +32,18 @@ class HomeScreen extends Component {
 
         this.state = {
             notes: [
-                { value: "Get Bananas", info: "Get em before there bad", index: 0 },
-                { value: "NEED FOOD", info: "Right Now", index: 1 },
-                { value: "EAT", info: "Something flame", index: 2 },
-                { value: "SMOOKE", info: "and hit it", index: 3 },
+                {
+                         "index": 0,
+                         "info": "MSN’s",
+                         "time": [
+                           "Sun",
+                           "Apr",
+                           "14",
+                           "2019",
+                           "23:25:05",
+                         ],
+                         "value": "Nan’s d",
+                       },
             ],
             isModalPresented: false,
             noteInfo: null,
@@ -50,7 +59,7 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-
+        //console.log(this.props.notes)
     }
 
     onOpenNoteModal() {
@@ -59,7 +68,7 @@ class HomeScreen extends Component {
             duration: 300,
         }).start()
         this.refs.modal1.open()
-        Vibration.vibrate()
+        //Vibration.vibrate()
     }
 
     onDismissModal() {
@@ -70,12 +79,13 @@ class HomeScreen extends Component {
         this.refs.modal1.close()
     }
 
-    onAddNote(value, info) {
-        var noteIndex = this.state.notes.length + 1
-        var newNote = this.state.notes.concat({ value: value, info: info, index: noteIndex })
-
-        this.setState({ notes: newNote })
-
+    onAddNote(note) {
+        this.props.dispatch({
+            type: UserActionTypes.SET_NOTES,
+            note: note
+          })
+        console.log(this.props.notes)
+        this.setState({ state: this.state })
         Animated.timing(this.animatedValue, {
             toValue: 1,
             duration: 400,
@@ -84,6 +94,7 @@ class HomeScreen extends Component {
     }
 
     shouldRender(index) {
+        //debugger
         return this.state.closedIndices.indexOf(index) === -1
     }
 
@@ -91,7 +102,7 @@ class HomeScreen extends Component {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing2.png')}
+                source={require('../../assets/drawing5.png')}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
@@ -102,16 +113,17 @@ class HomeScreen extends Component {
                     <ScrollView
                         style={{ height: height, paddingTop: 108 }}
                         scrollEnabled={this.state.scroll}>
-                        {this.state.notes.map((title, i) => this.shouldRender(i) &&
+                        {this.props.notes.map((title, i) => this.shouldRender(i) &&
                             <View
-                                key={i}>                            
+                                key={i}>
                                 <SwipeCard
                                     value={title.value}
                                     info={title.info}
-                                    shouldScroll={(value) => this.setState({scroll: value})}
+                                    time={title.time}
+                                    shouldScroll={(value) => this.setState({ scroll: value })}
                                     onPress={() => this.props.navigation.navigate('expandedList')}
                                     deleteCard={() => {
-                                        this.setState({isCheckAnimationEnabled: true})
+                                        this.setState({ isCheckAnimationEnabled: true })
                                         if ([...new Array(this.state.notes.length)].slice(i + 1, this.state.notes.length).some(this.shouldRender)) {
                                             LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
                                         }
@@ -120,11 +132,11 @@ class HomeScreen extends Component {
                                             closedIndices: [...this.state.closedIndices, i]
                                         })
                                         setTimeout(() => {
-                                            this.setState({isCheckAnimationEnabled: false})
-                                        },1500)
+                                            this.setState({ isCheckAnimationEnabled: false })
+                                        }, 1500)
                                     }
                                     } />
-                            </View>)}
+                            </View>)} 
                     </ScrollView>
 
                 </Animated.View>
@@ -155,4 +167,10 @@ const styles = StyleSheet.create({
 
 });
 
-export default HomeScreen;
+var mapStateToProps = state => {
+    return {
+      notes: state.user.user.notes
+    }
+  }
+
+export default connect(mapStateToProps)(HomeScreen);

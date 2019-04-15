@@ -3,12 +3,14 @@ import {
     StyleSheet,
     Text,
     View,
-    Dimensions
+    Dimensions,
+    TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
+import ModalBox from 'react-native-modalbox';
 
 import Input from '../ui-elements/login-input'
-import DatePicker from '../ui-elements/date-picker';
+import DatePicker from './DatePickerModal';
 import XButton from '../ui-elements/circle-button';
 
 import { Fonts } from '../theme/constant-styles';
@@ -22,7 +24,8 @@ class AddNoteModal extends Component {
 
         this.state = {
             value: null,
-            info: null
+            info: null,
+            dueDate: [null, null, null, null, null]
         }
 
     }
@@ -30,12 +33,28 @@ class AddNoteModal extends Component {
     onDismiss() {
         var value = this.state.value
         var info = this.state.info
-        console.log(value, info)
+        var time = this.state.dueDate
+        var note = {
+            value: value,
+            info: info,
+            time: time
+        }
+        //console.log(note)
 
-        this.props.onDismiss(value, info)
+        this.props.onDismiss(note)
     }
-
+    onDateConfirm(date) {
+        let dueDate = []
+        let dateParse = String(date)
+        //const [dayName, month, date, year, time] = this.state.dueDate.split(' ', 5)
+        dueDate = dateParse.split(' ', 5)
+        //console.log(dueDate)
+        this.setState({ dueDate: dueDate })
+        this.refs.modal2.close()
+    }
     render() {
+
+        //const [dayName, month, date, year, time] = this.state.dueDate.split(' ', 5)
         return (
             <View style={styles.container}>
                 <View style={styles.modalContainer}>
@@ -48,16 +67,27 @@ class AddNoteModal extends Component {
                         label={"TITLE"}
                         onChangeText={(value) => this.setState({ value })}
                     />
+                    <View style={{paddingTop: 16}}/>
                     <Input
                         color={WHITE}
                         label={"DETAILS"}
                         onChangeText={(info) => this.setState({ info })}
                     />
-                    <View>
-                        <DatePicker
-                        width={width - 32} />
+                    <View style={{paddingTop: 16}}/>
+                    <View style={styles.dateText}>
+                        <TouchableOpacity
+                            onPress={() => this.refs.modal2.open()}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={[Fonts.label, { color: WHITE }]}>DUE DATE</Text>
+                                {(this.state.dueDate[0] != null)
+                                    ? <Text style={[Fonts.label, { color: WHITE }]}>{this.state.dueDate[0]} {this.state.dueDate[1]} {this.state.dueDate[2]}, {this.state.dueDate[3]}</Text>
+                                    : null
+                                }
+                            </View>
+                        </TouchableOpacity>
+
                     </View>
-                    <View style={{ alignItems: 'center', paddingTop: 120}}>
+                    <View style={{ alignItems: 'center', paddingTop: 260 }}>
                         <XButton
                             onPress={() => this.onDismiss()}
                             icon={require('../../assets/icons/checkmark.png')}
@@ -65,6 +95,17 @@ class AddNoteModal extends Component {
                     </View>
 
                 </View>
+                <ModalBox
+                    backdropOpacity={0}
+                    coverScreen={false}
+                    animationDuration={0}
+                    swipeToClose={false}
+                    ref={"modal2"}>
+                    <DatePicker
+                        onConfirm={(date) => this.onDateConfirm(date)}
+                        onExit={() => this.refs.modal2.close()}
+                    />
+                </ModalBox>
             </View>
         )
     }
@@ -87,6 +128,12 @@ const styles = StyleSheet.create({
         height: 20,
         width: 40,
     },
+    dateText: {
+        borderBottomColor: WHITE,
+        borderBottomWidth: 2,
+        paddingBottom: 16,
+        paddingTop: 32
+    }
 })
 
 export default AddNoteModal;

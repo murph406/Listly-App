@@ -1,21 +1,51 @@
 import * as UserActions from '../action-types/user-action-types';
 
-const initalState = {
+const initialState = {
     user: {
-        notes: [],
-        currentNote: ''
-    }
+        userInfo: {
+            firstName: 'Ryan',
+            lastName: 'Murphy'
+        },
+        notes: [
+            {
+                "info": "Get Food",
+                "time": [
+                    "Sun",
+                    "Apr",
+                    "14",
+                    "2019",
+                    "23:25:05",
+                ],
+                "value": "Right Now!!",
+            },
+        ],
+    },
+    selectedNote: null
 }
 
-export default function user(state = initalState, action) {
+export default function user(state = initialState, action) {
     //console.log(action)
-    switch(action.type) {
+    switch (action.type) {
 
         case UserActions.SET_NOTES:
-            state.notes = action.notes;
-            return state; 
+            return {
+                ...state,
+                notes: state.user.notes.push( action.note )
+            }
 
-        default: 
+        case UserActions.SET_SELECTED_NOTE:
+            return {
+                ...state,
+                selectedNote: action.selectedNote,
+            }
+
+        case UserActions.SET_SELECTED_NOTE:
+            return {
+                ...state,
+                userInfo: action.user.userInfo,
+            }
+
+        default:
             return state;
     }
 }
