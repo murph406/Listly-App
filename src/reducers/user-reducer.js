@@ -6,8 +6,10 @@ const initialState = {
             firstName: 'Ryan',
             lastName: 'Murphy'
         },
-        notes: [
-            {
+        notes: [{
+            "catagory": "School",
+            "notes": [{
+                "catagory": "School",
                 "info": "Get Food",
                 "time": [
                     "Sun",
@@ -17,10 +19,25 @@ const initialState = {
                     "23:25:05",
                 ],
                 "value": "Right Now!!",
-            },
+            }],
+        }, 
+        {
+            "catagory": "Grocery",
+            "notes": [{
+                "catagory": "Grocery",
+                "info": "YUUUP",
+                "time": [
+                    "Sun",
+                    "Apr",
+                    "14",
+                    "2019",
+                    "23:25:05",
+                ],
+                "value": "BUY EGGS",
+            }],
+        }
         ],
     },
-    selectedNote: null
 }
 
 export default function user(state = initialState, action) {
@@ -30,16 +47,10 @@ export default function user(state = initialState, action) {
         case UserActions.SET_NOTES:
             return {
                 ...state,
-                notes: state.user.notes.push( action.note )
+                notes: state.user.notes.push(action.note)
             }
 
-        case UserActions.SET_SELECTED_NOTE:
-            return {
-                ...state,
-                selectedNote: action.selectedNote,
-            }
-
-        case UserActions.SET_SELECTED_NOTE:
+        case UserActions.SET_USER:
             return {
                 ...state,
                 userInfo: action.user.userInfo,

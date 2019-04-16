@@ -18,6 +18,10 @@ class Menu extends Component {
         this.props.navigation.closeDrawer(); 
     }
 
+    onLogout() {
+        this.props.navigation.navigate('login');
+    }
+
     render() {
         return (
             <View style={styles.container} >
@@ -33,7 +37,7 @@ class Menu extends Component {
                         <Text style={[Fonts.label, { color: WHITE }]}>SETTINGS</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
-                     onPress={() => alert('LOGOUT IS COMMING')}
+                     onPress={() => this.onLogout()}
                     style={{ paddingBottom: 32 }}>
                         <Text style={[Fonts.label, { color: WHITE }]}>LOGOUT</Text>
                     </TouchableOpacity>

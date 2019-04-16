@@ -12,17 +12,18 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as UserActionTypes from '../action-types/user-action-types';
-import * as SelectedDataActions from '../action-types/selected-data-action-types'
+
 
 import AddNoteModal from '../modals/NewNoteModal';
 import HomeScreenHeader from '../components/homescreen-header';
-import XButton from '../ui-elements/circle-button';
+import SwipeCard from '../ui-elements/swipeable-card';
 import NoteCard from '../ui-elements/notecard-card';
 import ModalBox from 'react-native-modalbox';
+import XButton from '../ui-elements/circle-button';
 
 let { height, width } = Dimensions.get('window')
 
-class HomeScreen extends Component {
+class ListScreen extends Component {
     constructor(props) {
         super(props);
 
@@ -46,8 +47,7 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        //console.log(this.state.selectedCatagory)
-        console.log(this.props.notes)
+        console.log(this.props.selectedCatagory)
     }
 
     onOpenNoteModal() {
@@ -85,17 +85,6 @@ class HomeScreen extends Component {
         return this.state.closedIndices.indexOf(index) === -1
     }
 
-    cardSelected = (index) => {
-       
-        // catagory = this.state.selectedCatagory.push(this.props.notes[index].notes)
-         //console.log(this.props.notes[index].notes)
-        this.props.dispatch({
-            type: SelectedDataActions.SET_CATAGORY,
-            selectedCatagory: this.props.notes[index].notes
-        })
-        this.props.navigation.navigate('listScreen')
-    }
-
     render() {
         const animatedStyle = { opacity: this.animatedValue }
         return (
@@ -104,23 +93,38 @@ class HomeScreen extends Component {
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
-                        header={"YOUR NOTES"}
+                        header={this.props.selectedCatagory[0].catagory.toUpperCase()}
                         addNote={() => this.onOpenNoteModal()}
-                        goProfile={() => this.props.navigation.navigate('profile')}
+                        goProfile={() => this.props.navigation.navigate('home')}
                         isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />
-                    <View>
-                        <FlatList
-                            style={{ height: height, paddingTop: 108 }}
-                            data={this.props.notes}
-                            renderItem={({ item, index }) => (
-                                <View style={styles.row}>
-                                    <NoteCard
-                                        headerText={item.catagory}
-                                        onPress={() => this.cardSelected(index)}
-                                    />
-                                </View>
-                            )} />
-                    </View>
+                    <ScrollView
+                        style={{ height: height, paddingTop: 108 }}
+                        scrollEnabled={this.state.scroll}>
+                        {this.props.selectedCatagory.map((title, i) => this.shouldRender(i) &&
+                            <View
+                                key={i}>
+                                <SwipeCard
+                                    value={title.value}
+                                    info={title.info}
+                                    //time={title.notes[2]}
+                                    shouldScroll={(value) => this.setState({ scroll: value })}
+                                    onPress={() => this.props.navigation.navigate('expandedList')}
+                                    deleteCard={() => {
+                                        this.setState({ isCheckAnimationEnabled: true })
+                                        if ([...new Array(this.props.notes.length)].slice(i + 1, this.props.notes.length).some(this.shouldRender)) {
+                                            LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+                                        }
+                                        Vibration.vibrate()
+                                        this.setState({
+                                            closedIndices: [...this.state.closedIndices, i]
+                                        })
+                                        setTimeout(() => {
+                                            this.setState({ isCheckAnimationEnabled: false })
+                                        }, 1500)
+                                    }
+                                    } />
+                            </View>)}
+                    </ScrollView>
                     <View style={{position: "absolute", bottom: 32, left: (width / 2) -35 }}>
                         <XButton
                             //onPress={() => this.onDismiss()}
@@ -169,4 +173,4 @@ var mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(HomeScreen);
+export default connect(mapStateToProps)(ListScreen);

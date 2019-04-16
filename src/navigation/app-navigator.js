@@ -9,6 +9,7 @@ import ExpandedListScreen from '../screens/ExpandedListScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import Menu from '../screens/MenuScreen';
 import DisclaimerScreen from '../screens/DisclaimerScreen';
+import ListScreen from '../screens/ListScreen';
 
 const AppNavigator = createDrawerNavigator({
 
@@ -17,7 +18,8 @@ const AppNavigator = createDrawerNavigator({
     signUp: SignUpScreen,
     expandedList: ExpandedListScreen,
     profile: ProfileScreen,
-    disclaimer: DisclaimerScreen
+    disclaimer: DisclaimerScreen,
+    listScreen: ListScreen
   },
   {
     contentComponent: Menu,

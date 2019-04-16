@@ -66,10 +66,10 @@ class SwipeableCard extends Component {
                         <View style={styles.textContainer} >
                             <View style={{ paddingBottom: 8, flexDirection: 'row', justifyContent: "space-between" }}>
                                 <Text style={[Fonts.label, { color: BLACK }]}>{this.props.value}</Text>
-                                {(this.props.time[0] != null)
+                                {/* {(this.props.time[0] != null)
                                     ? <Text style={[Fonts.smallText, { color: 'grey' }]}>{this.props.time[0]} {this.props.time[1]} {this.props.time[2]}, {this.props.time[3]}</Text>
                                     : null
-                                }
+                                } */}
 
                             </View>
                             <View>

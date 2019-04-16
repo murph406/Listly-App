@@ -26,6 +26,7 @@ class LoginScreen extends Component {
 
         this.state = {
             isModalPresented: false,
+            isLoginSelected: false
 
         }
     }
@@ -75,34 +76,56 @@ class LoginScreen extends Component {
                                 height={100}
                                 width={100} />
                         </View>
-                        <View style={{ paddingTop: 40 }}>
-                            <LoginInput
-                                color={WHITE}
-                                label={"EMAIL"}
-                            />
-                            <LoginInput
-                                color={WHITE}
-                                label={"PASSWORD"}
-                            />
-                        </View>
+
+                        {(this.state.isLoginSelected === true)
+
+                            ? <View>
+                                <View style={{ paddingTop: 40 }}>
+                                    <LoginInput
+                                        color={WHITE}
+                                        label={"EMAIL"}
+                                    />
+                                    <LoginInput
+                                        color={WHITE}
+                                        label={"PASSWORD"}
+                                    />
+                                </View>
 
 
-                        <View style={styles.button}>
-                            <Button
-                                label="SIGN IN"
-                                onPress={() => this.goHomeScreen()}
-                            />
-                        </View>
+                                <View style={styles.button}>
+                                    <Button
+                                        label="SIGN IN"
+                                        onPress={() => this.goHomeScreen()}
+                                    />
+                                </View>
 
-                        <View style={styles.textCountainer}>
-                            <Text style={[Fonts.smallText, { color: WHITE }]}>Dont have an Account?</Text>
-                            <TouchableOpacity
-                                style={styles.signUpText}
-                                onPress={() => this.onSignUpPress()}
-                            >
-                                <Text style={[Fonts.smallText, { color: WHITE }]}>Sign Up!</Text>
-                            </TouchableOpacity>
-                        </View>
+                                <View style={styles.textCountainer}>
+                                    <Text style={[Fonts.smallText, { color: WHITE }]}>Dont have an Account?</Text>
+                                    <TouchableOpacity
+                                        style={styles.signUpText}
+                                        onPress={() => this.onSignUpPress()}
+                                    >
+                                        <Text style={[Fonts.smallText, { color: WHITE }]}>Sign Up!</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            : <View style={ { paddingTop: 180 }}>
+                                <View style={styles.button}>
+                                    <Button
+                                        label="Connect Account"
+                                        onPress={() => this.setState({ isLoginSelected: true })}
+                                    />
+                                </View>
+                                <View style={{ alignItems: 'center', paddingTop: 16 }}>
+                                    <TouchableOpacity
+                                        style={styles.signUpText}
+                                        onPress={() => this.props.navigation.navigate('home')}>
+                                        <Text style={[Fonts.smallText, { color: WHITE }]}>I'd Rather Not</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+
+                        }
 
                     </Animated.View>
 
@@ -123,8 +146,8 @@ const styles = StyleSheet.create({
         paddingTop: 90,
     },
     button: {
-        paddingTop: 180,
-        paddingBottom: 16,
+        paddingTop: 160,
+        paddingBottom: 24,
     },
     textCountainer: {
         justifyContent: 'center',
