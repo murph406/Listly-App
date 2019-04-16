@@ -13,36 +13,25 @@ const HomeScreenHeader = (props) => {
     <View style={{ height: 100, position: 'absolute', top: 0, right: 0, left: 0, zIndex: 1000 }}>
       <BlurView tint="light" intensity={90} style={StyleSheet.absoluteFill}>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: 42, paddingRight: 16, paddingLeft: 16, }}>
-        
-            <UserActionButton
-              onPress={props.goProfile}
-              color={"white"}
-              icon={require('../../assets/icons/back-icon.png')}
-              isIconLarge={false} />
-        
+
+          <UserActionButton
+            onPress={props.leftButton}
+            color={"white"}
+            icon={require('../../assets/icons/back-icon.png')}
+            isIconLarge={false} />
+
           <Text style={[Fonts.HeadlineText, { color: PRIMARY }]}> {props.header} </Text>
-       
+
           {(props.isCheckAnimationEnabled)
             ? <Check
               height={48}
               width={48} />
             : <UserActionButton
-              onPress={props.goProfile}
+              onPress={props.rightButton}
               color={"white"}
-              icon={require('../../assets/icons/default-user-pic.png')}
+              icon={require('../../assets/icons/check-icon.png')}
               isIconLarge={true} />
           }
-          {/* <TouchableOpacity
-            onPress={props.addNote}
-          >
-            <View style={{ marginLeft: 16 }}>
-              <Image
-                source={require('../../assets/icons/AddFinished.png')}
-                style={styles.icon}
-              />
-            </View>
-
-          </TouchableOpacity> */}
         </View>
       </BlurView>
 

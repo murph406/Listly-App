@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import { LayoutAnimation, UIManager } from 'react-native';
 import {
     StyleSheet,
     View,
-    ScrollView,
     ImageBackground,
     Animated,
     Dimensions,
-    Vibration,
     FlatList
 } from 'react-native';
 import { connect } from 'react-redux';
-import * as UserActionTypes from '../action-types/user-action-types';
 import * as SelectedDataActions from '../action-types/selected-data-action-types'
+import { FlatGrid } from 'react-native-super-grid';
 
 import AddNoteModal from '../modals/NewNoteModal';
 import HomeScreenHeader from '../components/homescreen-header';
@@ -25,9 +22,6 @@ let { height, width } = Dimensions.get('window')
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
-
-        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-        this.shouldRender = this.shouldRender.bind(this);
 
         this.state = {
             selectedCatagory: [],
@@ -67,63 +61,48 @@ class HomeScreen extends Component {
         this.refs.modal1.close()
     }
 
-    onAddNote(note) {
-        this.props.dispatch({
-            type: UserActionTypes.SET_NOTES,
-            note: note
-        })
-        console.log(this.props.notes)
-        this.setState({ state: this.state })
-        Animated.timing(this.animatedValue, {
-            toValue: 1,
-            duration: 400,
-        }).start()
-        this.refs.modal1.close()
-    }
-
-    shouldRender(index) {
-        return this.state.closedIndices.indexOf(index) === -1
-    }
-
     cardSelected = (index) => {
-       
-        // catagory = this.state.selectedCatagory.push(this.props.notes[index].notes)
-         //console.log(this.props.notes[index].notes)
         this.props.dispatch({
             type: SelectedDataActions.SET_CATAGORY,
             selectedCatagory: this.props.notes[index].notes
         })
         this.props.navigation.navigate('listScreen')
     }
+    addCard() {
+        console.log("Add Card")
+    }
 
     render() {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing5.png')}
+                source={require('../../assets/drawing.png')}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
                         header={"YOUR NOTES"}
-                        addNote={() => this.onOpenNoteModal()}
-                        goProfile={() => this.props.navigation.navigate('profile')}
+                        //leftButton={}
+                        rightButton={() => this.props.navigation.navigate('profile')}
                         isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />
-                    <View>
-                        <FlatList
-                            style={{ height: height, paddingTop: 108 }}
-                            data={this.props.notes}
+                    <View style={{paddingRight: 8, paddingLeft: 8}}>
+                        <FlatGrid
+                            //itemDimension={130}
+                            items={this.props.notes}
+                            style={{ height: height, paddingTop: 116 }}
                             renderItem={({ item, index }) => (
-                                <View style={styles.row}>
+                                <View>
                                     <NoteCard
                                         headerText={item.catagory}
                                         onPress={() => this.cardSelected(index)}
                                     />
                                 </View>
-                            )} />
+                            )}
+                        />
+
                     </View>
-                    <View style={{position: "absolute", bottom: 32, left: (width / 2) -35 }}>
+                    <View style={styles.bottomButton}>
                         <XButton
-                            //onPress={() => this.onDismiss()}
+                            onPress={() => this.addCard()}
                             icon={require('../../assets/icons/AddFinished.png')}
                         />
                     </View>
@@ -147,19 +126,17 @@ const styles = StyleSheet.create({
         width: undefined,
         height: undefined,
         backgroundColor: 'transparent',
+        alignItems: 'center'
     },
-    icon: {
-        height: 30,
-        width: 30,
+    bottomButton: {
+        position: "absolute",
+        bottom: 32,
+        left: (width / 2) - 35,
+        shadowOpacity: 0.2,
+        shadowColor: 'black',
+        shadowRadius: 8,
+        shadowOffset: { width: 2, height: 0 },
     },
-    row: {
-        //flex: 1,
-        //flexWrap: 'wrap',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-
-    },
-
 });
 
 var mapStateToProps = state => {

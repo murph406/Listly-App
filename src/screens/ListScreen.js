@@ -89,13 +89,13 @@ class ListScreen extends Component {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing5.png')}
+                source={require('../../assets/drawing.png')}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
                         header={this.props.selectedCatagory[0].catagory.toUpperCase()}
-                        addNote={() => this.onOpenNoteModal()}
-                        goProfile={() => this.props.navigation.navigate('home')}
+                        //addNote={() => this.onOpenNoteModal()}
+                        leftButton={() => this.props.navigation.navigate('home')}
                         isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />
                     <ScrollView
                         style={{ height: height, paddingTop: 108 }}
@@ -125,9 +125,9 @@ class ListScreen extends Component {
                                     } />
                             </View>)}
                     </ScrollView>
-                    <View style={{position: "absolute", bottom: 32, left: (width / 2) -35 }}>
+                    <View style={styles.bottomButton}>
                         <XButton
-                            //onPress={() => this.onDismiss()}
+                            onPress={() => this.onOpenNoteModal()}
                             icon={require('../../assets/icons/AddFinished.png')}
                         />
                     </View>
@@ -163,6 +163,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
 
     },
+    bottomButton: {
+        position: "absolute", 
+        bottom: 32, 
+        left: (width / 2) -35,    
+        shadowOpacity: 0.2,
+        shadowColor: 'black',
+        shadowRadius: 8,
+        shadowOffset: { width: 2, height: 0 },
+    }
 
 });
 

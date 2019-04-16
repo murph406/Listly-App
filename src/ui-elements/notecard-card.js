@@ -27,8 +27,8 @@ export default NoteCard;
 const styles = StyleSheet.create({
     container: {
         paddingTop: 32,
-        width: (width * .5) - 16,
-        height: (height * (1 / 3)) - 32,
+        width: (width * .5) - 32,
+        height: (height * (1 / 3)) - 48,
         backgroundColor: 'white',
         borderRadius: 12,
         shadowOpacity: 0.2,
@@ -36,14 +36,13 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         shadowOffset: { width: 2, height: 0 },
         justifyContent: 'center',
-        marginRight: 16,
-        marginLeft: 16,
-        padding: 8,
+        marginRight: 8,
+        marginLeft: 8,
     },
     textContainer: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        margin: 16,
+        //justifyContent: 'center',
+        alignItems: 'center',
+        //margin: 16,
     }
 });

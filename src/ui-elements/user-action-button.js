@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     profilPic: {
-        height: 40,
-        width: 40,
+        height: 42,
+        width: 42,
     },
     smallIcon: {
         height: 44,
