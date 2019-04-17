@@ -17,8 +17,7 @@ import * as UserActionTypes from '../action-types/user-action-types';
 import AddNoteModal from '../modals/NewNoteModal';
 import HomeScreenHeader from '../components/homescreen-header';
 import SwipeCard from '../ui-elements/swipeable-card';
-import NoteCard from '../ui-elements/notecard-card';
-import ModalBox from 'react-native-modalbox';
+import ModalBox from '@murphyr6/swipe-modal';
 import XButton from '../ui-elements/circle-button';
 
 let { height, width } = Dimensions.get('window')
