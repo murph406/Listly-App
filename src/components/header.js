@@ -16,7 +16,7 @@ const Header = (props) => {
                     <TouchableOpacity
                         onPress={() => props.goBack()}>
                         <Image
-                            source={require('../../assets/icons/back-icon.png')}
+                            source={require('../../assets/icons/back-icon-white.png')}
                             style={styles.icon} />
                     </TouchableOpacity>
                 </View>

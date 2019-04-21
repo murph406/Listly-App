@@ -93,7 +93,7 @@ class HomeScreen extends Component {
                     <HomeScreenHeader
                         header={"YOUR NOTES"}
                         //leftButton={}
-                        rightButton={() => this.props.navigation.navigate('profile')}
+                        //rightButton={() => this.props.navigation.navigate('profile')}
                         isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />
                     <View style={{paddingRight: 8, paddingLeft: 8}}>
                         <FlatGrid

@@ -20,7 +20,7 @@ const ButtonIcon = (props) => {
                             source={props.icon} />
                     </View>
 
-                    <View style={{ borderLeftWidth: 2, borderLeftColor: props.color, paddingLeft: 8 }}>
+                    <View style={{ borderLeftWidth: 2, borderLeftColor: props.color, paddingLeft: 8, zIndex: 1000, }}>
                         <Text style={[Fonts.label, { color: props.color }]}>{props.label}</Text>
                     </View>
                 </View>
@@ -44,7 +44,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 28,
-        backgroundColor: WHITE,
+        borderWidth: 2,
+        borderColor: 'white',
+        paddingRight: 12,
+        paddingLeft: 12,
+        //backgroundColor: 'transparent',
         marginTop: 6,
 
     },

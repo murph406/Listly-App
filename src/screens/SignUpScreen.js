@@ -30,9 +30,9 @@ class SignUpScreen extends Component {
                 <StatusBar barStyle="light-content" />
                 <View style={styles.container}>
                     <View style={{ alignItems: 'center', marginTop: 60 }}>
-                        <ListlyText />
-                        <View style={{ paddingTop: 60 }} />
-                        <Text style={[Fonts.HeadlineText, { color: WHITE }]}>SIGN UP</Text>
+                        {/* <ListlyText />
+                        <View style={{ paddingTop: 60 }} /> */}
+                        <Text style={[Fonts.displayText, { color: WHITE }]}>Sign Up</Text>
                     </View>
                     <View style={{ paddingTop: 40 }}>
                         <LoginInput
@@ -43,16 +43,21 @@ class SignUpScreen extends Component {
                             color={WHITE}
                             label={"PASSWORD"}
                         />
-                        <ButtonIcon
-                            color={GREEN}
-                            dementions={40}
-                            icon={require('../../assets/icons/snapchat-icon.png')}
-                            label={"SIGN UP WITH SNAPCHAT"}/>
-                         <ButtonIcon
-                            color={GREEN}
-                            dementions={40}
-                            icon={require('../../assets/icons/facebook-icon.png')}
-                            label={"SIGN UP WITH FACEBOOK"}/>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                            <ButtonIcon
+                                color={WHITE}
+                                dementions={24}
+                                icon={require('../../assets/icons/snapchat-icon.png')}
+                                label={"CONNECT"}
+                            />
+                            <ButtonIcon
+                                color={WHITE}
+                                dementions={24}
+                                icon={require('../../assets/icons/facebook-icon.png')}
+                                label={"CONNECT"}
+                            />
+                        </View>
+
                     </View>
 
                 </View>

@@ -116,7 +116,7 @@ class ListScreen extends Component {
                                 <SwipeCard
                                     value={title.value}
                                     info={title.info}
-                                    //time={title.notes[2]}
+                                    time={title.time}
                                     shouldScroll={(value) => this.setState({ scroll: value })}
                                     onPress={() => this.selectedNote(i)}
                                     deleteCard={() => {
