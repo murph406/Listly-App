@@ -11,12 +11,13 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as UserActionTypes from '../action-types/user-action-types';
+import * as SelectedDataActions from '../action-types/selected-data-action-types'
 
 import AddNoteModal from '../modals/NewNoteModal';
 import HomeScreenHeader from '../components/homescreen-header';
 import SwipeCard from '../ui-elements/swipeable-card';
 import ModalBox from '@murphyr6/swipe-modal';
-import XButton from '../ui-elements/circle-button';
+import CircleButton from '../ui-elements/circle-button';
 
 let { height, width } = Dimensions.get('window')
 
@@ -67,7 +68,8 @@ class ListScreen extends Component {
     onAddNote(note) {
         this.props.dispatch({
             type: UserActionTypes.SET_NOTES,
-            note: note
+            note: note,
+            index: this.props.selectedCatagory
         })
         console.log(this.props.notes)
         this.setState({ state: this.state })
@@ -78,6 +80,15 @@ class ListScreen extends Component {
         this.refs.modal1.close()
     }
 
+    selectedNote(index) {
+        console.log(index)
+        this.props.dispatch({
+            type: SelectedDataActions.SET_SELECTED_NOTE,
+            selctedNoteIndex: index
+        })
+        this.props.navigation.navigate('expandedList')
+    }
+
     shouldRender(index) {
         return this.state.closedIndices.indexOf(index) === -1
     }
@@ -86,20 +97,20 @@ class ListScreen extends Component {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing.png')}
+                source={require('../../assets/drawing5.png')}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
                         color={'transparent'}
                         icon={require('../../assets/icons/back-icon.png')}
-                        header={this.props.selectedCatagory[0].catagory.toUpperCase()}
+                        header={this.props.notes[this.props.selectedCatagory].catagory.toUpperCase()}
                         //addNote={() => this.onOpenNoteModal()}
                         leftButton={() => this.props.navigation.navigate('home')}
                         isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />
                     <ScrollView
                         style={{ height: height, paddingTop: 108 }}
                         scrollEnabled={this.state.scroll}>
-                        {this.props.selectedCatagory.map((title, i) => this.shouldRender(i) &&
+                        {this.props.notes[this.props.selectedCatagory].notes.map((title, i) => this.shouldRender(i) &&
                             <View
                                 key={i}>
                                 <SwipeCard
@@ -107,7 +118,7 @@ class ListScreen extends Component {
                                     info={title.info}
                                     //time={title.notes[2]}
                                     shouldScroll={(value) => this.setState({ scroll: value })}
-                                    onPress={() => this.props.navigation.navigate('expandedList')}
+                                    onPress={() => this.selectedNote(i)}
                                     deleteCard={() => {
                                         this.setState({ isCheckAnimationEnabled: true })
                                         if ([...new Array(this.props.notes.length)].slice(i + 1, this.props.notes.length).some(this.shouldRender)) {
@@ -125,10 +136,10 @@ class ListScreen extends Component {
                             </View>)}
                     </ScrollView>
                     <View style={styles.bottomButton}>
-                        <XButton
+                        <CircleButton
+                            color={'white'}
                             onPress={() => this.onOpenNoteModal()}
-                            icon={require('../../assets/icons/AddFinished.png')}
-                        />
+                            icon={require('../../assets/icons/AddFinished.png')}/>
                     </View>
                 </Animated.View>
                 <ModalBox
@@ -137,7 +148,7 @@ class ListScreen extends Component {
                     onClosed={() => this.onDismissModal()}
                     ref={"modal1"}>
                     <AddNoteModal
-                        onDismiss={(value, info) => this.onAddNote(value, info)} />
+                        onDismiss={(note) => this.onAddNote(note)} />
                 </ModalBox>
             </ImageBackground>
         );
@@ -155,13 +166,6 @@ const styles = StyleSheet.create({
         height: 30,
         width: 30,
     },
-    row: {
-        //flex: 1,
-        //flexWrap: 'wrap',
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-
-    },
     bottomButton: {
         position: "absolute", 
         bottom: 32, 
@@ -176,8 +180,9 @@ const styles = StyleSheet.create({
 
 var mapStateToProps = state => {
     return {
-        notes: state.user.user.notes,
-        selectedCatagory: state.selectedData.selectedCatagory
+        notes: state.user.user.cards,
+        selectedCatagory: state.selectedData.selctedCardIndex,
+        selectedNote: state.selectedData.selctedNoteIndex
     }
 }
 

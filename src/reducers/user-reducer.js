@@ -21,7 +21,7 @@ const initialState = {
                 ],
                 "value": "Right Now!!",
             }],
-        }, 
+        },
         {
             "catagory": "Grocery",
             "dateCreated": null,
@@ -46,10 +46,15 @@ export default function user(state = initialState, action) {
     //console.log(action)
     switch (action.type) {
 
+        case UserActions.SET_CARD:
+            return {
+                ...state,
+                cards: state.user.cards.push(action.cards)
+            }
         case UserActions.SET_NOTES:
             return {
                 ...state,
-                cards: state.user.push(action.cards)
+                cards: state.user.cards[action.index].notes.push(action.note)
             }
 
         case UserActions.SET_USER:

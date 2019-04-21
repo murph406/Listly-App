@@ -7,11 +7,11 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
-import ModalBox from 'react-native-modalbox';
+import ModalBox from '@murphyr6/swipe-modal';
 
 import Input from '../ui-elements/login-input'
 import DatePicker from './DatePickerModal';
-import XButton from '../ui-elements/circle-button';
+import CircleButton from '../ui-elements/circle-button';
 
 import { Fonts } from '../theme/constant-styles';
 import { WHITE, PRIMARY } from '../theme/colors';
@@ -39,8 +39,6 @@ class AddNoteModal extends Component {
             info: info,
             time: time
         }
-        //console.log(note)
-
         this.props.onDismiss(note)
     }
     onDateConfirm(date) {
@@ -88,7 +86,8 @@ class AddNoteModal extends Component {
 
                     </View>
                     <View style={{ alignItems: 'center', paddingTop: 260 }}>
-                        <XButton
+                        <CircleButton
+                            color={"white"}
                             onPress={() => this.onDismiss()}
                             icon={require('../../assets/icons/checkmark.png')}
                         />

@@ -41,7 +41,7 @@ class HomeScreen extends Component {
 
     componentDidMount() {
         //console.log(this.state.selectedCatagory)
-        console.log(this.props.notes)
+        console.log(this.props.cards)
     }
 
     onDismissModal() {
@@ -55,13 +55,13 @@ class HomeScreen extends Component {
     cardSelected = (index) => {
         this.props.dispatch({
             type: SelectedDataActions.SET_CATAGORY,
-            selectedCatagory: this.props.notes[index].notes
+            selectedCatagory: index
         })
         this.props.navigation.navigate('listScreen')
     }
 
     createCardModalSelected() {
-        console.log(this.props.selectedCatagory.notes)
+        //console.log(this.props.selectedCatagory.notes)
         Animated.timing(this.animatedValue, {
             toValue: 0,
             duration: 300,
@@ -72,9 +72,10 @@ class HomeScreen extends Component {
     onAddCard(catagory) {
         console.log(catagory)
         this.props.dispatch({
-            type: UserActionTypes.SET_NOTE,
-            note: cata
+            type: UserActionTypes.SET_CARD,
+            cards: catagory
         })
+        this.setState(this.state)
         Animated.timing(this.animatedValue, {
             toValue: 0,
             duration: 300,
@@ -97,7 +98,7 @@ class HomeScreen extends Component {
                     <View style={{paddingRight: 8, paddingLeft: 8}}>
                         <FlatGrid
                             //itemDimension={130}
-                            items={this.props.notes}
+                            items={this.props.cards}
                             style={{ height: height, paddingTop: 116 }}
                             renderItem={({ item, index }) => (
                                 <View>
@@ -152,8 +153,8 @@ const styles = StyleSheet.create({
 
 var mapStateToProps = state => {
     return {
-        notes: state.user.user.notes,
-        selectedCatagory: state.selectedData.selectedCatagory
+        cards: state.user.user.cards,
+        //selectedCatagory: state.selectedData.selectedCatagory
     }
 }
 

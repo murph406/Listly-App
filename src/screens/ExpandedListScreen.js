@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { LayoutAnimation, UIManager } from 'react-native';
 import {
     StyleSheet,
     Text,
     View,
-    ScrollView,
     ImageBackground,
     Animated,
-    Modal,
+    StatusBar,
     Dimensions,
 
 } from 'react-native';
-import PropTypes from 'prop-types';
 import Header from '../components/header';
+import { connect } from 'react-redux';
+import * as UserActionTypes from '../action-types/user-action-types';
 
 import { WHITE, BLACK } from '../theme/colors';
 import { Fonts } from '../theme/constant-styles';
@@ -39,16 +38,18 @@ class ExpandedListScreen extends Component {
    
 
     render() {
+        let selectedNote = this.props.notes[this.props.selectedCatagory].notes[this.props.selectedNote]
         return (
             <ImageBackground
                 source={require('../../assets/drawing.png')}
                 style={styles.containerBackground}>
+                <StatusBar  barStyle="light-content" />
                     <Header
                     color={WHITE}
-                    goBack={() => this.props.navigation.navigate('home')} />
+                    goBack={() => this.props.navigation.navigate('listScreen')} />
                 
                 <View style={styles.container}>
-                    <Text style={[Fonts.HeadlineText]}>NOTE TITLE</Text>
+                    <Text style={[Fonts.HeadlineText]}>{selectedNote.value}</Text>
                 </View>
             </ImageBackground>
         );
@@ -81,4 +82,12 @@ const styles = StyleSheet.create({
 
 });
 
-export default ExpandedListScreen;
+var mapStateToProps = state => {
+    return {
+        notes: state.user.user.cards,
+        selectedCatagory: state.selectedData.selctedCardIndex,
+        selectedNote: state.selectedData.selctedNoteIndex
+    }
+}
+
+export default connect(mapStateToProps)(ExpandedListScreen);
