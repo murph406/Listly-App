@@ -5,17 +5,17 @@ import {
     ImageBackground,
     Animated,
     Dimensions,
-    FlatList
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as SelectedDataActions from '../action-types/selected-data-action-types'
 import { FlatGrid } from 'react-native-super-grid';
+import * as UserActionTypes from '../action-types/user-action-types';
 
-import AddNoteModal from '../modals/NewNoteModal';
 import HomeScreenHeader from '../components/homescreen-header';
-import XButton from '../ui-elements/circle-button';
+import CircleButton from '../ui-elements/circle-button';
 import NoteCard from '../ui-elements/notecard-card';
-import ModalBox from 'react-native-modalbox';
+import ModalBox from '@murphyr6/swipe-modal';
+import AddCardModal from '../modals/NewCardModal';
 
 let { height, width } = Dimensions.get('window')
 
@@ -44,21 +44,12 @@ class HomeScreen extends Component {
         console.log(this.props.notes)
     }
 
-    onOpenNoteModal() {
-        console.log(this.props.selectedCatagory.notes)
-        Animated.timing(this.animatedValue, {
-            toValue: 0,
-            duration: 300,
-        }).start()
-        this.refs.modal1.open()
-    }
-
     onDismissModal() {
         Animated.timing(this.animatedValue, {
             toValue: 1,
-            duration: 400,
+            duration: 200,
         }).start()
-        this.refs.modal1.close()
+        this.refs.CardModal.close()
     }
 
     cardSelected = (index) => {
@@ -68,15 +59,34 @@ class HomeScreen extends Component {
         })
         this.props.navigation.navigate('listScreen')
     }
-    addCard() {
-        console.log("Add Card")
+
+    createCardModalSelected() {
+        console.log(this.props.selectedCatagory.notes)
+        Animated.timing(this.animatedValue, {
+            toValue: 0,
+            duration: 300,
+        }).start()
+        this.refs.CardModal.open()
+    }
+
+    onAddCard(catagory) {
+        console.log(catagory)
+        this.props.dispatch({
+            type: UserActionTypes.SET_NOTE,
+            note: cata
+        })
+        Animated.timing(this.animatedValue, {
+            toValue: 0,
+            duration: 300,
+        }).start()
+        this.refs.CardModal.close()
     }
 
     render() {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing.png')}
+                source={require('../../assets/drawing5.png')}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
@@ -101,8 +111,9 @@ class HomeScreen extends Component {
 
                     </View>
                     <View style={styles.bottomButton}>
-                        <XButton
-                            onPress={() => this.addCard()}
+                        <CircleButton
+                            color={"white"}
+                            onPress={() => this.createCardModalSelected()}
                             icon={require('../../assets/icons/AddFinished.png')}
                         />
                     </View>
@@ -111,9 +122,9 @@ class HomeScreen extends Component {
                     backdropOpacity={.2}
                     swipeToClose={true}
                     onClosed={() => this.onDismissModal()}
-                    ref={"modal1"}>
-                    <AddNoteModal
-                        onDismiss={(value, info) => this.onAddNote(value, info)} />
+                    ref={"CardModal"}>
+                    <AddCardModal
+                        onDismiss={(catagory) => this.onAddCard(catagory)} />
                 </ModalBox>
             </ImageBackground>
         );

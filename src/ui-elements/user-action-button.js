@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
         width: 42,
     },
     smallIcon: {
-        height: 44,
-        width: 44,
+        height: 34,
+        width: 34,
     }
 })
 

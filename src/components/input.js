@@ -10,6 +10,8 @@ const Input = (props) => {
  
       <View>
         <TextInput
+          //ref={textInput}
+          
           placeholderTextColor={props.Color}
           selectionColor={props.Color}
           secureTextEntry={props.secureTextEntry}

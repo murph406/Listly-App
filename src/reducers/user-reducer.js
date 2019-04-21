@@ -6,8 +6,9 @@ const initialState = {
             firstName: 'Ryan',
             lastName: 'Murphy'
         },
-        notes: [{
+        cards: [{
             "catagory": "School",
+            "dateCreated": null,
             "notes": [{
                 "catagory": "School",
                 "info": "Get Food",
@@ -23,6 +24,7 @@ const initialState = {
         }, 
         {
             "catagory": "Grocery",
+            "dateCreated": null,
             "notes": [{
                 "catagory": "Grocery",
                 "info": "YUUUP",
@@ -47,7 +49,7 @@ export default function user(state = initialState, action) {
         case UserActions.SET_NOTES:
             return {
                 ...state,
-                notes: state.user.notes.push(action.note)
+                cards: state.user.push(action.cards)
             }
 
         case UserActions.SET_USER:

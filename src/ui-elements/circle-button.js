@@ -7,7 +7,7 @@ import * as Colors from '../theme/colors'
 const CircleButton = props => (
 
     <TouchableOpacity
-        style={styles.modalCircle}
+        style={[styles.modalCircle, { backgroundColor: props.color,}]}
         onPress={() => { props.onPress() }}>
         <Image
             source={props.icon}
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
         height: 70,
         width: 70,
         borderRadius: 35,
-        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
     },

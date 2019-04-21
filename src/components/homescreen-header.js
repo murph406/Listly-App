@@ -16,8 +16,10 @@ const HomeScreenHeader = (props) => {
 
           <UserActionButton
             onPress={props.leftButton}
-            color={"white"}
-            icon={require('../../assets/icons/back-icon.png')}
+            color={props.color}
+            icon={props.icon
+              //require('../../assets/icons/back-icon.png')
+            }
             isIconLarge={false} />
 
           <Text style={[Fonts.HeadlineText, { color: PRIMARY }]}> {props.header} </Text>

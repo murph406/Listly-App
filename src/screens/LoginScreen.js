@@ -100,12 +100,12 @@ class LoginScreen extends Component {
                                 </View>
 
                                 <View style={styles.textCountainer}>
-                                    <Text style={[Fonts.smallText, { color: WHITE }]}>Dont have an Account?</Text>
+                                    <Text style={[Fonts.smallText, { color: WHITE }]}>Dont have an Account ?</Text>
                                     <TouchableOpacity
                                         style={styles.signUpText}
                                         onPress={() => this.onSignUpPress()}
                                     >
-                                        <Text style={[Fonts.smallText, { color: WHITE }]}>Sign Up!</Text>
+                                        <Text style={[Fonts.smallText, { color: WHITE }]}>Sign Up !</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>

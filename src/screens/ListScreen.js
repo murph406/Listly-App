@@ -8,11 +8,9 @@ import {
     Animated,
     Dimensions,
     Vibration,
-    FlatList
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as UserActionTypes from '../action-types/user-action-types';
-
 
 import AddNoteModal from '../modals/NewNoteModal';
 import HomeScreenHeader from '../components/homescreen-header';
@@ -92,6 +90,8 @@ class ListScreen extends Component {
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
+                        color={'transparent'}
+                        icon={require('../../assets/icons/back-icon.png')}
                         header={this.props.selectedCatagory[0].catagory.toUpperCase()}
                         //addNote={() => this.onOpenNoteModal()}
                         leftButton={() => this.props.navigation.navigate('home')}
