@@ -5,6 +5,7 @@ import {
     ImageBackground,
     Animated,
     Dimensions,
+    Text
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as SelectedDataActions from '../action-types/selected-data-action-types'
@@ -41,7 +42,7 @@ class HomeScreen extends Component {
 
     componentDidMount() {
         //console.log(this.state.selectedCatagory)
-        console.log(this.props.cards)
+        //console.log(this.props.cards)
     }
 
     onDismissModal() {
@@ -83,6 +84,10 @@ class HomeScreen extends Component {
         this.refs.CardModal.close()
     }
 
+    saveDataLocal() {
+
+    }
+
     render() {
         const animatedStyle = { opacity: this.animatedValue }
         return (
@@ -95,20 +100,28 @@ class HomeScreen extends Component {
                         //leftButton={}
                         //rightButton={() => this.props.navigation.navigate('profile')}
                         isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />
-                    <View style={{paddingRight: 8, paddingLeft: 8}}>
-                        <FlatGrid
-                            //itemDimension={130}
-                            items={this.props.cards}
-                            style={{ height: height, paddingTop: 116 }}
-                            renderItem={({ item, index }) => (
-                                <View>
-                                    <NoteCard
-                                        headerText={item.catagory}
-                                        onPress={() => this.cardSelected(index)}
-                                    />
-                                </View>
-                            )}
-                        />
+                    <View style={{ paddingRight: 8, paddingLeft: 8 }}>
+                        {(this.props.cards === [])
+                            ? 
+                            <View style={{height: height, paddingTop: 116}}>
+                                <Text>Add a Card</Text>
+                            </View>
+                            :
+                            <View>
+                                <FlatGrid
+                                    items={this.props.cards}
+                                    style={{ height: height, paddingTop: 116 }}
+                                    renderItem={({ item, index }) => (
+                                        <View>
+                                            <NoteCard
+                                                headerText={item.catagory}
+                                                onPress={() => this.cardSelected(index)}
+                                            />
+                                        </View>
+                                    )}
+                                />
+                            </View>
+                        }
 
                     </View>
                     <View style={styles.bottomButton}>
@@ -135,13 +148,10 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
     containerBackground: {
         flex: 1,
-        width: undefined,
-        height: undefined,
         backgroundColor: 'transparent',
-        alignItems: 'center'
     },
     bottomButton: {
-        position: "absolute",
+        position: 'absolute',
         bottom: 32,
         left: (width / 2) - 35,
         shadowOpacity: 0.2,

@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Animated, ImageBackground } from 'react-native';
+import { StyleSheet, AsyncStorage, Animated, ImageBackground } from 'react-native';
 import { Font, Asset } from 'expo';
-
 import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import MainReducer from './src/reducers/main-reducer';
+import * as UserActionTypes from './src/action-types/user-action-types';
 import AppNavigator from './src/navigation/app-navigator';
 import Spinner from './src/components/spinner';
 
@@ -30,6 +30,7 @@ export default class App extends Component {
     await Promise.all([
       this._loadFontsAsync(),
       this._cacheResourcesAsync(),
+      this.getCurrentNotes()
     ]);
     await setTimeout(() => {
       console.log('FUCK IT!');
@@ -67,6 +68,27 @@ export default class App extends Component {
     // Asset.loadAsync takes an array and this way we can load the images in parallel
     await Asset.loadAsync(images);
   }
+  getCurrentNotes = async () => {
+      try {
+        const currentNotes = await AsyncStorage.getItem('currentNotes');
+        if (currentNotes !== null) {
+          // We have data!!
+          let parsedData = JSON.parse(currentNotes)
+          console.log("PARSED", parsedData);
+        //   this.store.dispatch({
+        //     type: UserActionTypes.SET_CURRENT_NOTES,
+        //     currentNotes: currentNotes
+        // })
+        }
+        else {
+          console.loglog('Current No Data Saved')
+        }
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+  }
+
 
   animination() {
     Animated.timing(this.animatedValue, {
