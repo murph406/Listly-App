@@ -5,7 +5,8 @@ import {
     ImageBackground,
     Animated,
     Dimensions,
-    Text
+    Text,
+    AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as SelectedDataActions from '../action-types/selected-data-action-types'
@@ -42,7 +43,8 @@ class HomeScreen extends Component {
 
     componentDidMount() {
         //console.log(this.state.selectedCatagory)
-        //console.log(this.props.cards)
+        //console.log("Rendered Cards",this.props.cards)
+        //setTimeout(() => {console.log("On Redux ASYNC",this.props.cards)},2000)
     }
 
     onDismissModal() {
@@ -71,11 +73,12 @@ class HomeScreen extends Component {
     }
 
     onAddCard(catagory) {
-        console.log(catagory)
+        console.log("ON ADD CARD",catagory)
         this.props.dispatch({
             type: UserActionTypes.SET_CARD,
             cards: catagory
         })
+        this.saveDataLocal()
         this.setState(this.state)
         Animated.timing(this.animatedValue, {
             toValue: 0,
@@ -85,14 +88,14 @@ class HomeScreen extends Component {
     }
 
     saveDataLocal() {
-
+        AsyncStorage.setItem('currentNotes', JSON.stringify(this.props.cards));
     }
 
     render() {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing5.png')}
+                source={require('../../assets/drawing2.png')}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader

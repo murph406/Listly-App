@@ -30,10 +30,11 @@ export default class App extends Component {
     await Promise.all([
       this._loadFontsAsync(),
       this._cacheResourcesAsync(),
-      this.getCurrentNotes()
+      this.getCurrentNotes(),
+      //this.clearAsyncStorage()
     ]);
     await setTimeout(() => {
-      console.log('FUCK IT!');
+      //console.log('FUCK IT!');
       this.setState({ isTimeDone: true });
     }, 1500);
     this.animination();
@@ -69,27 +70,37 @@ export default class App extends Component {
     await Asset.loadAsync(images);
   }
   getCurrentNotes = async () => {
-      try {
-        const currentNotes = await AsyncStorage.getItem('currentNotes');
-        if (currentNotes !== null) {
-          // We have data!!
-          let parsedData = JSON.parse(currentNotes)
-          console.log("PARSED", parsedData);
-        //   this.store.dispatch({
-        //     type: UserActionTypes.SET_CURRENT_NOTES,
-        //     currentNotes: currentNotes
+    try {
+      const currentNotes = await AsyncStorage.getItem('currentNotes');
+      if (currentNotes !== null) {
+        // We have data!!
+        let parsedData = JSON.parse(currentNotes)
+        parsedData.map(card => {
+          //console.log(card)
+          //var card = {card}
+          this.store.dispatch({
+              type: UserActionTypes.SET_CARD,
+              cards: card
+            })
+        })
+        // console.log("PARSED", parsedData);
+        // this.store.dispatch({
+        //   type: UserActionTypes.SET_CURRENT_NOTES,
+        //   currentNotes: parsedData
         // })
-        }
-        else {
-          console.loglog('Current No Data Saved')
-        }
-      } catch (error) {
-        // Error retrieving data
-        console.log(error.message);
       }
+      else {
+        console.log('Current No Data Saved')
+      }
+    } catch (error) {
+      // Error retrieving data
+      console.log(error.message);
+    }
   }
 
-
+  clearAsyncStorage = async() => {
+    AsyncStorage.clear();
+}
   animination() {
     Animated.timing(this.animatedValue, {
       toValue: 0,

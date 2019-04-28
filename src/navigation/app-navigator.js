@@ -13,7 +13,7 @@ import ListScreen from '../screens/ListScreen';
 
 const AppNavigator = createDrawerNavigator({
 
-    login: LoginScreen,
+    login:  LoginScreen,
     home: HomeScreen,
     signUp: SignUpScreen,
     expandedList: ExpandedListScreen,

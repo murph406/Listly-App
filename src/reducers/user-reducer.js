@@ -15,32 +15,23 @@ const initialState = {
 }
 
 export default function user(state = initialState, action) {
-    console.log(action)
+    //console.log("REDUX ACTION",action)
     switch (action.type) {
 
         case UserActions.SET_CARD:
-            if (action.cards) {
-            //Goal is to save data as an array of objects and push as a new note or to card up to local storage 
-                const dataToBeSaved = { 
-                    'catagory' : null , 
-                    'notes' : null , 
-                };
-                AsyncStorage.setItem('currentNotes', JSON.stringify(action.cards));
-            }
+        //sets cards and intial login and adding a card at login
             return {
                 ...state,
                 cards: state.user.cards.push(action.cards)
             }
-        case UserActions.SET_CURRENT_NOTES:
-            //Sets Notes on Login
+        case UserActions.DELETE_NOTE:
+            //Deletes notes
             return {
                 ...state,
-                cards: state.user.cards.push(action.currentNotes)
+                cards: state.user.cards[action.cardIndex].notes.splice(action.noteIndex, 1)
             }
         case UserActions.SET_NOTES:
-            // if (action.user.cards) {
-            //     AsyncStorage.setItem('currentNotes', action.user.cards);
-            // }
+        //creates a new note within a card 
             return {
                 ...state,
                 cards: state.user.cards[action.index].notes.push(action.note)

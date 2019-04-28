@@ -8,6 +8,7 @@ import {
     Animated,
     Dimensions,
     Vibration,
+    AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as UserActionTypes from '../action-types/user-action-types';
@@ -32,20 +33,20 @@ class ListScreen extends Component {
             selectedCatagory: [],
             isModalPresented: false,
             isCardSelected: false,
-            noteInfo: null,
-            noteValue: null,
             closedIndices: [],
             scroll: true,
-            isCheckAnimationEnabled: false
+            isCheckAnimationEnabled: false,
+            notes: null
         }
     }
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
+        this.setNotes()
     }
 
     componentDidMount() {
-        console.log(this.props.selectedCatagory)
+      
     }
 
     onOpenNoteModal() {
@@ -71,6 +72,7 @@ class ListScreen extends Component {
             note: note,
             index: this.props.selectedCatagory
         })
+       
         console.log(this.props.notes)
         this.setState({ state: this.state })
         Animated.timing(this.animatedValue, {
@@ -78,6 +80,7 @@ class ListScreen extends Component {
             duration: 400,
         }).start()
         this.refs.modal1.close()
+        this.saveDataLocal()
     }
 
     selectedNote(index) {
@@ -90,14 +93,31 @@ class ListScreen extends Component {
     }
 
     shouldRender(index) {
+        //console.log('yuup',this.state.closedIndices.indexOf(index) === -1)
+        //returns a boolin 
         return this.state.closedIndices.indexOf(index) === -1
+    }
+
+    saveDataLocal(noteIndex, deletedNote) {
+        //console.log(noteIndex, deletedNote)
+        this.props.dispatch({
+            type: UserActionTypes.DELETE_NOTE,
+            cardIndex: this.props.selectedCatagory,
+            noteIndex: noteIndex
+        })
+        //AsyncStorage.setItem('currentNotes', JSON.stringify(this.props.cards));
+    }
+    setNotes() {
+        //sets notes to the local state to keep animations smooth
+        console.log("IT WAS CALLED")
+        this.setState({notes: this.props.notes})
     }
 
     render() {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing5.png')}
+                source={require('../../assets/drawing2.png')}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
@@ -110,7 +130,7 @@ class ListScreen extends Component {
                     <ScrollView
                         style={{ height: height, paddingTop: 108 }}
                         scrollEnabled={this.state.scroll}>
-                        {this.props.notes[this.props.selectedCatagory].notes.map((title, i) => this.shouldRender(i) &&
+                        {this.state.notes[this.props.selectedCatagory].notes.map((title, i) => this.shouldRender(i) &&
                             <View
                                 key={i}>
                                 <SwipeCard
@@ -120,17 +140,26 @@ class ListScreen extends Component {
                                     shouldScroll={(value) => this.setState({ scroll: value })}
                                     onPress={() => this.selectedNote(i)}
                                     deleteCard={() => {
-                                        this.setState({ isCheckAnimationEnabled: true })
-                                        if ([...new Array(this.props.notes.length)].slice(i + 1, this.props.notes.length).some(this.shouldRender)) {
-                                            LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-                                        }
+                                        this.saveDataLocal(i, title)
+                                        setTimeout(() => { this.setState({ isCheckAnimationEnabled: true })
+                                        // if ([...new Array(this.state.notes.length)].slice(i + 1, this.state.notes.length).some(this.shouldRender)) {
+                                        //     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring); 
+                                        // }
+                                        //LayoutAnimation.configureNext(LayoutAnimation.Presets.spring); 
                                         Vibration.vibrate()
-                                        this.setState({
-                                            closedIndices: [...this.state.closedIndices, i]
-                                        })
+                                        // this.setState({
+                                        //     closedIndices: [...this.state.closedIndices, i]
+                                        // })
+                                       
+                                        // setTimeout(() => {
+                                        //     this.saveDataLocal(i, title)
+                                        // }, 3000)
                                         setTimeout(() => {
-                                            this.setState({ isCheckAnimationEnabled: false })
-                                        }, 1500)
+                                            //this.setState({ isCheckAnimationEnabled: false })
+                                            this.saveDataLocal(i, title)
+                                        }, 4000)
+                                    },0)
+                                        
                                     }
                                     } />
                             </View>)}
@@ -182,7 +211,8 @@ var mapStateToProps = state => {
     return {
         notes: state.user.user.cards,
         selectedCatagory: state.selectedData.selctedCardIndex,
-        selectedNote: state.selectedData.selctedNoteIndex
+        selectedNote: state.selectedData.selctedNoteIndex,
+        cards: state.user.user.cards,
     }
 }
 
