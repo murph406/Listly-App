@@ -36,17 +36,26 @@ class ListScreen extends Component {
             closedIndices: [],
             scroll: true,
             isCheckAnimationEnabled: false,
-            notes: null
+            notes: null,
+            shouldRedner: true
         }
     }
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(1);
-        this.setNotes()
+        //this.setNotes()
     }
 
     componentDidMount() {
-      
+        this.setNotes()
+    }
+
+    shouldComponentUpdate(prevProps, nextProps) {
+        debugger
+        if (!this.state.shouldRedner) {
+            return false
+        }
+        return true
     }
 
     onOpenNoteModal() {
@@ -72,7 +81,7 @@ class ListScreen extends Component {
             note: note,
             index: this.props.selectedCatagory
         })
-       
+
         console.log(this.props.notes)
         this.setState({ state: this.state })
         Animated.timing(this.animatedValue, {
@@ -80,7 +89,7 @@ class ListScreen extends Component {
             duration: 400,
         }).start()
         this.refs.modal1.close()
-        this.saveDataLocal()
+        //this.saveDataLocal()
     }
 
     selectedNote(index) {
@@ -98,19 +107,21 @@ class ListScreen extends Component {
         return this.state.closedIndices.indexOf(index) === -1
     }
 
-    saveDataLocal(noteIndex, deletedNote) {
-        //console.log(noteIndex, deletedNote)
+    saveDataLocal(noteIndex) {
+        console.log(noteIndex)
+        this.setState({ shouldRedner: false })
         this.props.dispatch({
             type: UserActionTypes.DELETE_NOTE,
             cardIndex: this.props.selectedCatagory,
             noteIndex: noteIndex
         })
-        //AsyncStorage.setItem('currentNotes', JSON.stringify(this.props.cards));
+        AsyncStorage.setItem('currentNotes', JSON.stringify(this.props.cards));
+        this.setState({ shouldRender: true })
     }
     setNotes() {
-        //sets notes to the local state to keep animations smooth
-        console.log("IT WAS CALLED")
-        this.setState({notes: this.props.notes})
+        //sets notes to the local state
+        //console.log(this.props.notes)
+        this.setState({ notes: this.props.notes[this.props.selectedCatagory].notes })
     }
 
     render() {
@@ -128,47 +139,47 @@ class ListScreen extends Component {
                         leftButton={() => this.props.navigation.navigate('home')}
                         isCheckAnimationEnabled={this.state.isCheckAnimationEnabled} />
                     <ScrollView
+                        showsVerticalScrollIndicator={false}
                         style={{ height: height, paddingTop: 108 }}
                         scrollEnabled={this.state.scroll}>
-                        {this.state.notes[this.props.selectedCatagory].notes.map((title, i) => this.shouldRender(i) &&
-                            <View
-                                key={i}>
-                                <SwipeCard
-                                    value={title.value}
-                                    info={title.info}
-                                    time={title.time}
-                                    shouldScroll={(value) => this.setState({ scroll: value })}
-                                    onPress={() => this.selectedNote(i)}
-                                    deleteCard={() => {
-                                        this.saveDataLocal(i, title)
-                                        setTimeout(() => { this.setState({ isCheckAnimationEnabled: true })
-                                        // if ([...new Array(this.state.notes.length)].slice(i + 1, this.state.notes.length).some(this.shouldRender)) {
-                                        //     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring); 
-                                        // }
-                                        //LayoutAnimation.configureNext(LayoutAnimation.Presets.spring); 
-                                        Vibration.vibrate()
-                                        // this.setState({
-                                        //     closedIndices: [...this.state.closedIndices, i]
-                                        // })
-                                       
-                                        // setTimeout(() => {
-                                        //     this.saveDataLocal(i, title)
-                                        // }, 3000)
-                                        setTimeout(() => {
-                                            //this.setState({ isCheckAnimationEnabled: false })
-                                            this.saveDataLocal(i, title)
-                                        }, 4000)
-                                    },0)
-                                        
-                                    }
-                                    } />
-                            </View>)}
+                        {(this.state.notes == null)
+                            ? null
+                            :
+                            <View style={{ paddingBottom: 248 }}>
+                                {this.state.notes.map((title, i) => this.shouldRender(i) &&
+                                    <View
+                                        key={i}>
+                                        <SwipeCard
+                                            value={title.value}
+                                            info={title.info}
+                                            time={title.time}
+                                            shouldScroll={(value) => this.setState({ scroll: value })}
+                                            onPress={() => this.selectedNote(i)}
+                                            saveData={() => console.log('hello')}
+                                            deleteCard={() => {
+                                                LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+                                                Vibration.vibrate()
+                                                this.setState({
+                                                    isCheckAnimationEnabled: true,
+                                                    closedIndices: [...this.state.closedIndices, i]
+                                                })
+                                                setTimeout(() => {
+                                                    this.setState({ isCheckAnimationEnabled: false })
+                                                    this.saveDataLocal(i)
+                                                }, 1500)
+
+
+                                            }} />
+                                    </View>)}
+                            </View>
+                        }
+
                     </ScrollView>
                     <View style={styles.bottomButton}>
                         <CircleButton
                             color={'white'}
                             onPress={() => this.onOpenNoteModal()}
-                            icon={require('../../assets/icons/AddFinished.png')}/>
+                            icon={require('../../assets/icons/AddFinished.png')} />
                     </View>
                 </Animated.View>
                 <ModalBox
@@ -196,9 +207,9 @@ const styles = StyleSheet.create({
         width: 30,
     },
     bottomButton: {
-        position: "absolute", 
-        bottom: 32, 
-        left: (width / 2) -35,    
+        position: "absolute",
+        bottom: 32,
+        left: (width / 2) - 35,
         shadowOpacity: 0.2,
         shadowColor: 'black',
         shadowRadius: 8,

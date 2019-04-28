@@ -26,9 +26,11 @@ export default function user(state = initialState, action) {
             }
         case UserActions.DELETE_NOTE:
             //Deletes notes
+            state.user.cards[action.cardIndex].notes.splice(action.noteIndex, 1)
+            var notes = state.user.cards
             return {
                 ...state,
-                cards: state.user.cards[action.cardIndex].notes.splice(action.noteIndex, 1)
+                cards: notes
             }
         case UserActions.SET_NOTES:
         //creates a new note within a card 

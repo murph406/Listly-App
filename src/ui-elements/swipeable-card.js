@@ -33,6 +33,7 @@ class SwipeableCard extends Component {
                         duration: 200
                     }).start(this.props.deleteCard);
                     setTimeout(() => {
+                        this.props.saveData()
                         this.props.shouldScroll(true)
                     }, 210)
 
