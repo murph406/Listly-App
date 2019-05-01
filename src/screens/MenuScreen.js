@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Animated } from 'react-native';
 import ListlyText from '../ui-elements/listly-text';
+import fire from '../api/firebase';
 
 import { PRIMARY, RED, WHITE, GREY, GREEN } from '../theme/colors';
 import { Fonts } from '../theme/constant-styles';
@@ -68,6 +69,11 @@ class Menu extends Component {
         }, AnimationDuration)
         //setTimeout(() => {this.setState({ flag: false, isLogoutSelected: false })},AnimationDuration)
     }
+    onLogout() {
+        fire.auth().signOut();
+        this.props.navigation.navigate('login')
+        //this.props.navigation.navigate('disclaimer');
+    }
 
     textFactory() {
         if (this.state.isLogoutSelected) {
@@ -82,7 +88,8 @@ class Menu extends Component {
                             onPress={() => this.onMenuGoBack()}>
                             <Text style={[Fonts.label, { color: WHITE }]}>NO</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                        onPress={() => this.onLogout()}>
                             <Text style={[Fonts.label, { color: WHITE }]}>YES</Text>
                         </TouchableOpacity>
                     </View>
@@ -100,7 +107,8 @@ class Menu extends Component {
                             onPress={() => this.onMenuGoBack()}>
                             <Text style={[Fonts.label, { color: WHITE }]}>NO</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.onLogout()}>
                             <Text style={[Fonts.label, { color: WHITE }]}>YES</Text>
                         </TouchableOpacity>
                     </View>

@@ -89,7 +89,7 @@ class ListScreen extends Component {
             duration: 400,
         }).start()
         this.refs.modal1.close()
-        //this.saveDataLocal()
+        this.saveDataLocal()
     }
 
     selectedNote(index) {

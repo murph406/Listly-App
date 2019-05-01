@@ -3,22 +3,20 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
+    ActivityIndicator,
     ImageBackground,
     TouchableOpacity,
     Animated,
     StatusBar
 } from 'react-native';
-import Modal from 'react-native-modalbox';
+import fire from '../api/firebase';
 
 import { Fonts } from '../theme/constant-styles';
 import { WHITE, PRIMARY } from '../theme/colors';
-
+import UserActionButton from '../ui-elements/user-action-button';
 import Button from '../components/button';
-import Input from '../components/input';
 import LoginInput from '../ui-elements/login-input';
 import Check from '../ui-elements/check';
-
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -26,23 +24,48 @@ class LoginScreen extends Component {
 
         this.state = {
             isModalPresented: false,
-            isLoginSelected: false
-
+            isLoginSelected: false,
+            isSignUpSelected: false,
+            authenticating: false,
+            email: '',
+            password: ''
         }
+
     }
 
     componentWillMount() {
         this.animatedValue = new Animated.Value(0);
     }
     componentDidMount() {
+
         Animated.timing(this.animatedValue, {
             toValue: 1,
             duration: 4000,
         }).start()
     }
 
-    onSignUpPress() {
-        this.props.navigation.navigate('signUp')
+    onSignInPress() {
+        this.setState({ authenticating: true })
+        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then((user) => {
+            console.log(user)
+        }).catch((error) => {
+            this.setState({ authenticating: false })
+            console.log(error)
+        })
+    }
+    
+
+    onCreateAccount() {
+        this.setState({ authenticating: true })
+        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then((user) => {   
+            console.log(user)
+        })
+        .catch((error) => {
+            console.log(error)
+            this.setState({authenticating: false})
+        })
     }
 
     onSignUpExit() {
@@ -62,13 +85,64 @@ class LoginScreen extends Component {
         return (
             <ImageBackground
                 source={require('../../assets/drawing.png')}
-                style={styles.container}
-            >
+                style={styles.container}>
+                {(!this.state.isLoginSelected)
+                    ? <View style={styles.button}>
+                        <View >
+                            <Button
+                                label="Connect Account"
+                                onPress={() => this.setState({ isLoginSelected: true })} />
+                        </View>
+                        <View style={{ alignItems: 'center', paddingTop: 16 }}>
+                            <TouchableOpacity
+                                style={styles.signUpText}
+                                onPress={() => this.props.navigation.navigate('home')}>
+                                <Text style={[Fonts.smallText, { color: WHITE }]}>I'd Rather Not</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    :
+                    <View style={{ position: 'absolute', top: 46, left: 16 }}>
+                        <UserActionButton
+                            onPress={() => this.setState({ isLoginSelected: false, isSignUpSelected: false, authenticating: false })}
+                            color={WHITE}
+                            icon={require('../../assets/icons/back-icon.png')
+                            } />
+                    </View>
+                }
+                {(!this.state.isLoginSelected)
+                    ? null
+                    : <View style={styles.button}>
+                        {(this.state.isSignUpSelected === false)
+                            ?
+                            <View >
+                                <View>
+                                    <Button
+                                        label="SIGN IN"
+                                        onPress={() => this.onSignInPress()} />
+                                </View>
+                                <View style={{ alignItems: 'center', paddingTop: 16 }}>
+                                    <Text style={[Fonts.smallText, { color: WHITE }]}>Dont have an Account ?</Text>
+                                    <TouchableOpacity
+                                        style={styles.signUpText}
+                                        onPress={() => this.setState({ isSignUpSelected: true })}>
+                                        <Text style={[Fonts.smallText, { color: WHITE }]}>Sign Up !</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            : <View>
+                                <Button
+                                    label="CREATE ACCOUNT"
+                                    onPress={() => this.onCreateAccount()} />
+                            </View>
+                        }
+                    </View>
+                }
                 <View>
                     <StatusBar barStyle="light-content" />
                     <Animated.View
-                        style={[styles.box, animatedStyle]}
-                    >
+                        style={[styles.box, animatedStyle]}>
+
                         <View style={{ alignItems: 'center' }}>
                             <Text style={[Fonts.displayText, { color: WHITE }]}>Listly</Text>
                             <View style={{ paddingBottom: 30 }} />
@@ -78,55 +152,31 @@ class LoginScreen extends Component {
                         </View>
 
                         {(this.state.isLoginSelected === true)
-
                             ? <View>
-                                <View style={{ paddingTop: 40 }}>
-                                    <LoginInput
-                                        color={WHITE}
-                                        label={"EMAIL"}
-                                    />
-                                    <LoginInput
-                                        color={WHITE}
-                                        label={"PASSWORD"}
-                                    />
-                                </View>
+                                {(!this.state.authenticating)
+                                    ?
+                                    <View style={{ paddingTop: 40 }}>
+                                        <LoginInput
+                                            color={WHITE}
+                                            label={"EMAIL"}
+                                            onChangeText={(text) => this.setState({ email: text })}
+                                        />
+                                        <LoginInput
+                                            color={WHITE}
+                                            label={"PASSWORD"}
+                                            onChangeText={(text) => this.setState({ password: text })}
+                                        />
+                                    </View>
 
-
-                                <View style={styles.button}>
-                                    <Button
-                                        label="SIGN IN"
-                                        onPress={() => this.goHomeScreen()}
-                                    />
-                                </View>
-
-                                <View style={styles.textCountainer}>
-                                    <Text style={[Fonts.smallText, { color: WHITE }]}>Dont have an Account ?</Text>
-                                    <TouchableOpacity
-                                        style={styles.signUpText}
-                                        onPress={() => this.onSignUpPress()}
-                                    >
-                                        <Text style={[Fonts.smallText, { color: WHITE }]}>Sign Up !</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                    : <View style={{ paddingTop: 150 }}>
+                                        <ActivityIndicator
+                                            color={'white'}
+                                            size={'large'} />
+                                    </View>
+                                }
                             </View>
-                            : <View style={ { paddingTop: 180 }}>
-                                <View style={styles.button}>
-                                    <Button
-                                        label="Connect Account"
-                                        onPress={() => this.setState({ isLoginSelected: true })}
-                                    />
-                                </View>
-                                <View style={{ alignItems: 'center', paddingTop: 16 }}>
-                                    <TouchableOpacity
-                                        style={styles.signUpText}
-                                        onPress={() => this.props.navigation.navigate('home')}>
-                                        <Text style={[Fonts.smallText, { color: WHITE }]}>I'd Rather Not</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-
+                            : null
                         }
-
                     </Animated.View>
 
 
@@ -146,8 +196,10 @@ const styles = StyleSheet.create({
         paddingTop: 90,
     },
     button: {
-        paddingTop: 160,
-        paddingBottom: 24,
+        position: 'absolute',
+        bottom: 52,
+        left: 16,
+        right: 16
     },
     textCountainer: {
         justifyContent: 'center',

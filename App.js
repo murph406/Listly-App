@@ -5,6 +5,7 @@ import { Font, Asset } from 'expo';
 import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import * as firebase from 'firebase';
 
 import MainReducer from './src/reducers/main-reducer';
 import * as UserActionTypes from './src/action-types/user-action-types';
@@ -22,11 +23,13 @@ export default class App extends Component {
       isAppReady: false,
       isTimeDone: false,
     };
+   
   }
   store = createStore(MainReducer, applyMiddleware(thunk));
 
   async componentDidMount() {
     this.animatedValue = new Animated.Value(0);
+   
     await Promise.all([
       this._loadFontsAsync(),
       this._cacheResourcesAsync(),
@@ -47,6 +50,8 @@ export default class App extends Component {
       'fontBold': require('./assets/font/Montserrat-Bold.ttf'),
     });
   }
+
+
 
   async _cacheResourcesAsync() {
     const images = [
@@ -70,24 +75,17 @@ export default class App extends Component {
     await Asset.loadAsync(images);
   }
   getCurrentNotes = async () => {
+    //gets current Notes from local device storage
     try {
       const currentNotes = await AsyncStorage.getItem('currentNotes');
       if (currentNotes !== null) {
-        // We have data!!
         let parsedData = JSON.parse(currentNotes)
         parsedData.map(card => {
-          //console.log(card)
-          //var card = {card}
           this.store.dispatch({
               type: UserActionTypes.SET_CARD,
               cards: card
             })
         })
-        // console.log("PARSED", parsedData);
-        // this.store.dispatch({
-        //   type: UserActionTypes.SET_CURRENT_NOTES,
-        //   currentNotes: parsedData
-        // })
       }
       else {
         console.log('Current No Data Saved')
@@ -113,7 +111,7 @@ export default class App extends Component {
     if (this.state.isAppReady === true && this.state.isTimeDone === true) {
       return (
         <Provider store={this.store}>
-          <AppNavigator />
+          <AppNavigator/>
         </Provider>
       );
     }

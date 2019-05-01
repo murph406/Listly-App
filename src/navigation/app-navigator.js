@@ -10,9 +10,10 @@ import ProfileScreen from '../screens/ProfileScreen';
 import Menu from '../screens/MenuScreen';
 import DisclaimerScreen from '../screens/DisclaimerScreen';
 import ListScreen from '../screens/ListScreen';
+import LoadScreen from '../screens/LoadingScreen';
 
 const AppNavigator = createDrawerNavigator({
-
+    load: LoadScreen,
     login:  LoginScreen,
     home: HomeScreen,
     signUp: SignUpScreen,
