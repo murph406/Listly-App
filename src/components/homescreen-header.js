@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { BlurView } from "expo";
 
-import { Fonts, Colors} from '../theme/constant-styles';
+import { Fonts, Colors, Icons} from '../theme/constant-styles';
 
 import UserActionButton from '../ui-elements/user-action-button';
 import Check from '../ui-elements/check';
@@ -17,7 +17,6 @@ const HomeScreenHeader = (props) => {
             onPress={props.leftButton}
             color={props.color}
             icon={props.icon
-              //require('../../assets/icons/back-icon.png')
             }
             isIconLarge={false} />
 
@@ -30,7 +29,7 @@ const HomeScreenHeader = (props) => {
             : <UserActionButton
               onPress={props.rightButton}
               color={"white"}
-              icon={require('../../assets/icons/check-icon.png')}
+              icon={Icons.LISTLY_CHECK}
               isIconLarge={true} />
           }
         </View>

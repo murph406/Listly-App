@@ -10,15 +10,13 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { Fonts, Colors, Backgrounds } from '../theme/constant-styles';
+import { Fonts, Colors, Backgrounds, Icons } from '../theme/constant-styles';
 
 import Header from '../components/header';
 
 let { width, height } = Dimensions.get('window')
 let HeaderHeight = (height * .2) - 45
 let HeaderWidth = (width * .5) - 45
-
-let ProfileImage = require('../../assets/icons/default-user-pic.png');
 
 class ProfileScreen extends Component {
     constructor(props) {
@@ -51,7 +49,7 @@ class ProfileScreen extends Component {
 
                 <View style={{ position: 'absolute', top: HeaderHeight, right: HeaderWidth, zIndex: 1000, }}>
                     <View style={styles.photoContainer}>
-                        <Image source={ProfileImage} style={styles.profileImg} />
+                        <Image source={Icons.DEFUALT_USER_PIC} style={styles.profileImg} />
                     </View>
                 </View>
 

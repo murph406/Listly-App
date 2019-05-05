@@ -19,7 +19,7 @@ import HomeScreenHeader from '../components/homescreen-header';
 import SwipeCard from '../ui-elements/swipeable-card';
 import ModalBox from '@murphyr6/swipe-modal';
 import CircleButton from '../ui-elements/circle-button';
-import { Backgrounds } from '../theme/constant-styles';
+import { Backgrounds, Icons } from '../theme/constant-styles';
 
 let { height, width } = Dimensions.get('window')
 
@@ -134,7 +134,7 @@ class ListScreen extends Component {
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
                         color={'transparent'}
-                        icon={require('../../assets/icons/back-icon.png')}
+                        icon={Icons.BACK_PURP}
                         header={this.props.notes[this.props.selectedCatagory].catagory.toUpperCase()}
                         //addNote={() => this.onOpenNoteModal()}
                         leftButton={() => this.props.navigation.navigate('home')}
@@ -180,7 +180,7 @@ class ListScreen extends Component {
                         <CircleButton
                             color={'white'}
                             onPress={() => this.onOpenNoteModal()}
-                            icon={require('../../assets/icons/AddFinished.png')} />
+                            icon={Icons.CREATE} />
                     </View>
                 </Animated.View>
                 <ModalBox

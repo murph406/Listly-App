@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import fire from '../api/firebase';
 
-import { Fonts, Colors, Backgrounds } from '../theme/constant-styles';
+import { Fonts, Colors, Backgrounds, Icons } from '../theme/constant-styles';
 import UserActionButton from '../ui-elements/user-action-button';
 import Button from '../components/button';
 import LoginInput from '../ui-elements/login-input';
@@ -105,8 +105,7 @@ class LoginScreen extends Component {
                         <UserActionButton
                             onPress={() => this.setState({ isLoginSelected: false, isSignUpSelected: false, authenticating: false })}
                             color={Colors.WHITE}
-                            icon={require('../../assets/icons/back-icon.png')
-                            } />
+                            icon={Icons.BACK_PURP} />
                     </View>
                 }
                 {(!this.state.isLoginSelected)

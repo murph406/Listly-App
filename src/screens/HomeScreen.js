@@ -18,7 +18,7 @@ import CircleButton from '../ui-elements/circle-button';
 import NoteCard from '../ui-elements/notecard-card';
 import ModalBox from '@murphyr6/swipe-modal';
 import AddCardModal from '../modals/NewCardModal';
-import { Backgrounds } from '../theme/constant-styles';
+import { Backgrounds, Icons } from '../theme/constant-styles';
 
 let { height, width } = Dimensions.get('window')
 
@@ -132,7 +132,7 @@ class HomeScreen extends Component {
                         <CircleButton
                             color={"white"}
                             onPress={() => this.createCardModalSelected()}
-                            icon={require('../../assets/icons/AddFinished.png')}
+                            icon={Icons.CREATE}
                         />
                     </View>
                 </Animated.View>
