@@ -1,8 +1,10 @@
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet, AsyncStorage } from 'react-native';
 // const store = createStore(todos, ['Use Redux'])
+import { connect } from 'react-redux';
 
 var darkModeEnabled = false;
+//let storeState = store.getState()
 //((!darkModeEnabled)? NORMAL : DARK_MODE )
 
 // let unsubscribe = store.subscribe(function(){

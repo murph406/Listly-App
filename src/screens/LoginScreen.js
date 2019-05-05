@@ -92,13 +92,13 @@ class LoginScreen extends Component {
                                 label="Connect Account"
                                 onPress={() => this.setState({ isLoginSelected: true })} />
                         </View>
-                        <View style={{ alignItems: 'center', paddingTop: 16 }}>
+                        {/* <View style={{ alignItems: 'center', paddingTop: 16 }}>
                             <TouchableOpacity
                                 style={styles.signUpText}
                                 onPress={() => this.props.navigation.navigate('home')}>
                                 <Text style={[Fonts.smallText, { color: Colors.WHITE }]}>I'd Rather Not</Text>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                     </View>
                     :
                     <View style={{ position: 'absolute', top: 46, left: 16 }}>

@@ -12,8 +12,11 @@ import MainReducer from './src/reducers/main-reducer';
 import * as UserActionTypes from './src/action-types/user-action-types';
 import AppNavigator from './src/navigation/app-navigator';
 import Spinner from './src/components/spinner';
+//import store from './src/api/redux-store';
 
 console.disableYellowBox = true;
+
+export const store = createStore(MainReducer, applyMiddleware(thunk));
 
 export default class App extends Component {
 
@@ -26,7 +29,8 @@ export default class App extends Component {
     };
 
   }
-  store = createStore(MainReducer, applyMiddleware(thunk));
+  
+    //store = store.getState()
 
   async componentDidMount() {
     this.animatedValue = new Animated.Value(0);
@@ -34,7 +38,7 @@ export default class App extends Component {
     await Promise.all([
       this._loadFontsAsync(),
       this._cacheResourcesAsync(),
-      this.getCurrentNotes(),
+      //this.getCurrentNotes(),
     ]);
     await setTimeout(() => {
       //console.log('FUCK IT!');
@@ -108,7 +112,8 @@ export default class App extends Component {
   render() {
     if (this.state.isAppReady === true && this.state.isTimeDone === true) {
       return (
-        <Provider store={this.store}>
+        <Provider store={store}>
+        {/* <Provider store={ReduxStore}> */}
           <AppNavigator />
         </Provider>
       );
