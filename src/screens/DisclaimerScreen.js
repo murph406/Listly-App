@@ -1,11 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, Dimensions, ScrollView } from 'react-native';
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY } from '../theme/colors';
-
-import UserActionButton from '../ui-elements/user-action-button';
-import Check from '../ui-elements/check';
+import { Fonts, Colors, Backgrounds } from '../theme/constant-styles';
 
 let { width, height } = Dimensions.get('window')
 
@@ -14,10 +10,10 @@ let text = "The trademark symbol (™) is a symbol to The trademark symbol (™)
 const DisclaimerScreen = (props) => {
     return (
         <ImageBackground
-            source={require('../../assets/drawing3.png')}
+            source={Backgrounds.GREEN}
             style={styles.container}
         >
-            <Text style={[Fonts.HeadlineText, { color: WHITE }]}>DISCLAIMER</Text>
+            <Text style={[Fonts.HeadlineText, { color: Colors.WHITE }]}>DISCLAIMER</Text>
            
             <View style={{ paddingTop: 160 }} />
             
@@ -25,7 +21,7 @@ const DisclaimerScreen = (props) => {
                 <ScrollView
                     indicatorStyle={'white'}
                     style={{ padding: 16 }}>
-                    <Text style={[Fonts.smallText, { color: WHITE }]}>{text}</Text>
+                    <Text style={[Fonts.smallText, { color: Colors.WHITE }]}>{text}</Text>
                 </ScrollView>
             </View>
 

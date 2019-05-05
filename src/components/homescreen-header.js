@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { BlurView } from "expo";
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY } from '../theme/colors';
+import { Fonts, Colors} from '../theme/constant-styles';
 
 import UserActionButton from '../ui-elements/user-action-button';
 import Check from '../ui-elements/check';
@@ -22,7 +21,7 @@ const HomeScreenHeader = (props) => {
             }
             isIconLarge={false} />
 
-          <Text style={[Fonts.HeadlineText, { color: PRIMARY }]}> {props.header} </Text>
+          <Text style={[Fonts.HeadlineText, { color: Colors.PRIMARY }]}> {props.header} </Text>
 
           {(props.isCheckAnimationEnabled)
             ? <Check

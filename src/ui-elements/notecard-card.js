@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY, BLACK } from '../theme/colors';
+import { Fonts, Colors } from '../theme/constant-styles';
 
 let { width, height } = Dimensions.get('window')
 
@@ -12,11 +11,7 @@ const NoteCard = (props) => {
             <TouchableOpacity
                 style={styles.textContainer}
                 onPress={props.onPress}>
-
-
-                <Text style={[Fonts.label, {color: BLACK}]}>{props.headerText}</Text>
-
-
+                <Text style={[Fonts.label, {color: Colors.BLACK}]}>{props.headerText}</Text>  
             </TouchableOpacity>
         </View>
     )
@@ -41,8 +36,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1,
-        //justifyContent: 'center',
         alignItems: 'center',
-        //margin: 16,
     }
 });

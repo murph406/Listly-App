@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { Fonts } from '../theme/constant-styles';
-import { BLACK, PRIMARY } from '../theme/colors';
+import { Fonts, Colors } from '../theme/constant-styles';
 
 const TextBox = (props) => (
 
@@ -13,8 +12,8 @@ const TextBox = (props) => (
       onPress={() => { props.onPress() }}
       style={{ flex: 1 }}>
       <View style={styles.textContainer} >
-        <Text style={[Fonts.label, { color: BLACK }]}>{props.title}</Text>
-        <Text style={[Fonts.medText, { color: BLACK }]}>{props.text}</Text>
+        <Text style={[Fonts.label, { color: Colors.BLACK }]}>{props.title}</Text>
+        <Text style={[Fonts.medText, { color: Colors.BLACK }]}>{props.text}</Text>
       </View>
 
     </View>

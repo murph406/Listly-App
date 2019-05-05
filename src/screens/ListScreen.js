@@ -19,6 +19,7 @@ import HomeScreenHeader from '../components/homescreen-header';
 import SwipeCard from '../ui-elements/swipeable-card';
 import ModalBox from '@murphyr6/swipe-modal';
 import CircleButton from '../ui-elements/circle-button';
+import { Backgrounds } from '../theme/constant-styles';
 
 let { height, width } = Dimensions.get('window')
 
@@ -128,7 +129,7 @@ class ListScreen extends Component {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing2.png')}
+                source={Backgrounds.SECONDARY}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader

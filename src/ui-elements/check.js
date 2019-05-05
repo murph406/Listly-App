@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-
-import * as Colors from '../theme/colors'
+import { StyleSheet, View, Image } from 'react-native';
 
 
 const Check = props => (

@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
 import { Fonts } from '../theme/constant-styles';
-import { WHITE, GREEN } from '../theme/colors';
 
 const ButtonIcon = (props) => {
     return (

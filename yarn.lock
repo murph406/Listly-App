@@ -4806,11 +4806,6 @@ react-native-modalbox@^1.7.1:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
 
-react-native-picker-module@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-picker-module/-/react-native-picker-module-0.1.2.tgz#24e7d7647cfda9b215d1b0013356f793a2c2e2a4"
-  integrity sha512-vWeePOcpmLkZBIC2uUgBJQnOurS4JoX0xt93Y7/UbRIsqdcFLCKMDiORonsnpG8AK3HztRkAQJH6pfte+Ne5EA==
-
 react-native-push-notification@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.1.3.tgz#f8dab43aec734dbb1a8bbc50caf82dd682655392"

@@ -11,10 +11,8 @@ import {
 } from 'react-native';
 import Header from '../components/header';
 import { connect } from 'react-redux';
-import * as UserActionTypes from '../action-types/user-action-types';
 
-import { WHITE, BLACK } from '../theme/colors';
-import { Fonts } from '../theme/constant-styles';
+import { Fonts, Colors, Backgrounds} from '../theme/constant-styles';
 
 let { width, height } = Dimensions.get('window')
 
@@ -41,11 +39,11 @@ class ExpandedListScreen extends Component {
         let selectedNote = this.props.notes[this.props.selectedCatagory].notes[this.props.selectedNote]
         return (
             <ImageBackground
-                source={require('../../assets/drawing.png')}
+                source={Backgrounds.PRIMARY}
                 style={styles.containerBackground}>
                 <StatusBar  barStyle="light-content" />
                     <Header
-                    color={WHITE}
+                    color={Colors.WHITE}
                     goBack={() => this.props.navigation.navigate('listScreen')} />
                 
                 <View style={styles.container}>
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
         height: height * .75,
         width: width * .9,
         borderRadius: 20, 
-        backgroundColor: WHITE,
+        backgroundColor: Colors.WHITE,
         alignItems: 'center',
         padding: 16
     },

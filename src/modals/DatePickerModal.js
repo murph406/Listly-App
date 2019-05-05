@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, DatePickerIOS, TouchableOpacity } from 'react-native';
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY, BLACK, GREEN } from '../theme/colors';
-
-import DatePicker from 'react-native-picker-module'
-
-let dateIcon = require('../../assets/icons/date-icon.png')
-
-
+import { Fonts, Colors } from '../theme/constant-styles';
 
 class Input extends Component {
     constructor(props) {
@@ -32,11 +25,11 @@ class Input extends Component {
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <TouchableOpacity
                             onPress={() => this.props.onExit()}>
-                            <Text style={[Fonts.label, { color: PRIMARY }]}>CANCLE</Text>
+                            <Text style={[Fonts.label, { color: Colors.PRIMARY }]}>CANCLE</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => this.props.onConfirm(this.state.datePicked)}>
-                            <Text style={[Fonts.label, { color: GREEN }]}>CONFIRM</Text>
+                            <Text style={[Fonts.label, { color: Colors.GREEN }]}>CONFIRM</Text>
                         </TouchableOpacity>
                     </View>
                     <DatePickerIOS
@@ -61,35 +54,3 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
     },
 });
-
-
-//  <DatePicker
-//                 style={{ width: props.width }}
-//                 date={null}
-//                 mode="date"
-//                 iconSource={dateIcon}
-//                 placeholder="select date"
-//                 format="YYYY-MM-DD"
-//                 minDate="2016-05-01"
-//                 maxDate="2016-06-01"
-//                 confirmBtnText="Confirm"
-//                 cancelBtnText="Cancel"
-//                 //onDateChange={(date) => { this.setState({ date: date }) }}
-//                 customStyles={{
-//                     dateIcon: {
-//                         position: 'absolute',
-//                         left: 0,
-//                         top: 4,
-//                         marginLeft: 0
-//                     },
-//                     dateInput: {
-//                         marginLeft: 36,
-//                         color: BLACK
-
-//                     },
-//                     dateTouchBody: {
-
-//                     }
-//                 }
-//                 }
-//             />

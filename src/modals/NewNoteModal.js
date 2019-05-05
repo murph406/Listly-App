@@ -3,7 +3,6 @@ import {
     StyleSheet,
     Text,
     View,
-    Dimensions,
     TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
@@ -13,10 +12,7 @@ import Input from '../ui-elements/login-input'
 import DatePicker from './DatePickerModal';
 import CircleButton from '../ui-elements/circle-button';
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY } from '../theme/colors';
-
-let { width, height } = Dimensions.get('window')
+import { Fonts, Colors } from '../theme/constant-styles';
 
 class AddNoteModal extends Component {
     constructor(props) {
@@ -58,16 +54,16 @@ class AddNoteModal extends Component {
                 <View style={styles.modalContainer}>
 
                     <View style={{ alignItems: 'center', paddingBottom: 20 }}>
-                        <Text style={[Fonts.HeadlineText, { color: WHITE }]}>ADD A NOTE</Text>
+                        <Text style={[Fonts.HeadlineText, { color: Colors.WHITE }]}>ADD A NOTE</Text>
                     </View>
                     <Input
-                        color={WHITE}
+                        color={Colors.WHITE}
                         label={"TITLE"}
                         onChangeText={(value) => this.setState({ value })}
                     />
                     <View style={{paddingTop: 16}}/>
                     <Input
-                        color={WHITE}
+                        color={Colors.WHITE}
                         label={"DETAILS"}
                         onChangeText={(info) => this.setState({ info })}
                     />
@@ -76,9 +72,9 @@ class AddNoteModal extends Component {
                         <TouchableOpacity
                             onPress={() => this.refs.modal2.open()}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={[Fonts.label, { color: WHITE }]}>DUE DATE</Text>
+                                <Text style={[Fonts.label, { color: Colors.WHITE }]}>DUE DATE</Text>
                                 {(this.state.dueDate[0] != null)
-                                    ? <Text style={[Fonts.label, { color: WHITE }]}>{this.state.dueDate[0]} {this.state.dueDate[1]} {this.state.dueDate[2]}, {this.state.dueDate[3]}</Text>
+                                    ? <Text style={[Fonts.label, { color: Colors.WHITE }]}>{this.state.dueDate[0]} {this.state.dueDate[1]} {this.state.dueDate[2]}, {this.state.dueDate[3]}</Text>
                                     : null
                                 }
                             </View>
@@ -119,7 +115,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 110,
         padding: 16,
-        backgroundColor: PRIMARY,
+        backgroundColor: Colors.PRIMARY,
         borderRadius: 16,
 
     },
@@ -128,7 +124,7 @@ const styles = StyleSheet.create({
         width: 40,
     },
     dateText: {
-        borderBottomColor: WHITE,
+        borderBottomColor: Colors.WHITE,
         borderBottomWidth: 2,
         paddingBottom: 16,
         paddingTop: 32

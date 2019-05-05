@@ -3,19 +3,15 @@ import {
     StyleSheet,
     Text,
     View,
-    ScrollView,
     ImageBackground,
-    TouchableOpacity,
     Image,
     Dimensions,
 
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { WHITE, BLACK } from '../theme/colors';
-import { Fonts } from '../theme/constant-styles';
+import { Fonts, Colors, Backgrounds } from '../theme/constant-styles';
 
-import UserActionButton from '../ui-elements/user-action-button';
 import Header from '../components/header';
 
 let { width, height } = Dimensions.get('window')
@@ -46,11 +42,11 @@ class ProfileScreen extends Component {
     render() {
         return (
             <ImageBackground
-                source={require('../../assets/drawing.png')}
+                source={Backgrounds.PRIMARY}
                 style={styles.containerBackground}
             >
                 <Header
-                    color={WHITE}
+                    color={Colors.WHITE}
                     goBack={() => this.props.navigation.navigate('home')} />
 
                 <View style={{ position: 'absolute', top: HeaderHeight, right: HeaderWidth, zIndex: 1000, }}>
@@ -60,7 +56,7 @@ class ProfileScreen extends Component {
                 </View>
 
                 <View style={styles.profileContainer}>
-                    <Text style={[Fonts.HeadlineText, { color: BLACK }]}>RYAN MURPHY</Text>
+                    <Text style={[Fonts.HeadlineText, { color: Colors.BLACK }]}>RYAN MURPHY</Text>
 
 
                 </View>

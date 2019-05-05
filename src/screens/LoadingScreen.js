@@ -6,6 +6,7 @@ import {
 import Spinner from '../components/spinner';
 import * as firebase from 'firebase';
 import fire from '../api/firebase'
+import { Backgrounds } from '../theme/constant-styles';
 
 
 class LoadScreen extends Component {
@@ -39,7 +40,7 @@ class LoadScreen extends Component {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing.png')}
+                source={Backgrounds.PRIMARY}
                 style={styles.container}>
                <Spinner />
             </ImageBackground>

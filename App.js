@@ -6,6 +6,7 @@ import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import * as firebase from 'firebase';
+import { Icons, Backgrounds } from './src/theme/constant-styles'
 
 import MainReducer from './src/reducers/main-reducer';
 import * as UserActionTypes from './src/action-types/user-action-types';
@@ -23,13 +24,13 @@ export default class App extends Component {
       isAppReady: false,
       isTimeDone: false,
     };
-   
+
   }
   store = createStore(MainReducer, applyMiddleware(thunk));
 
   async componentDidMount() {
     this.animatedValue = new Animated.Value(0);
-   
+
     await Promise.all([
       this._loadFontsAsync(),
       this._cacheResourcesAsync(),
@@ -55,11 +56,11 @@ export default class App extends Component {
 
   async _cacheResourcesAsync() {
     const images = [
-      require("./assets/drawing.png"),
-      require("./assets/drawing2.png"),
-      require("./assets/drawing3.png"),
-      require("./assets/drawing4.png"),
-      require("./assets/drawing5.png"),
+      Backgrounds.PRIMARY,
+      Backgrounds.SECONDARY,
+      Backgrounds.GREEN,
+      Backgrounds.BUBBLES,
+      Backgrounds.BUBBLES_2,
       require("./assets/icons/AddFinished.png"),
       require("./assets/icons/DeleteFinal.png"),
       require("./assets/icons/RightArrow-purp.png"),
@@ -82,9 +83,9 @@ export default class App extends Component {
         let parsedData = JSON.parse(currentNotes)
         parsedData.map(card => {
           this.store.dispatch({
-              type: UserActionTypes.SET_CARD,
-              cards: card
-            })
+            type: UserActionTypes.SET_CARD,
+            cards: card
+          })
         })
       }
       else {
@@ -96,9 +97,9 @@ export default class App extends Component {
     }
   }
 
-  clearAsyncStorage = async() => {
+  clearAsyncStorage = async () => {
     AsyncStorage.clear();
-}
+  }
   animination() {
     Animated.timing(this.animatedValue, {
       toValue: 0,
@@ -111,13 +112,13 @@ export default class App extends Component {
     if (this.state.isAppReady === true && this.state.isTimeDone === true) {
       return (
         <Provider store={this.store}>
-          <AppNavigator/>
+          <AppNavigator />
         </Provider>
       );
     }
     return (
       <ImageBackground
-        source={require('./assets/drawing.png')}
+        source={Backgrounds.PRIMARY}
         style={styles.containerLoad}
       >
         <Animated.View>

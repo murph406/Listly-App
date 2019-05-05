@@ -1,11 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY } from '../theme/colors';
-
-import UserActionButton from '../ui-elements/user-action-button';
-import Check from '../ui-elements/check';
+import { Fonts, Colors } from '../theme/constant-styles';
 
 const Header = (props) => {
     return (
@@ -22,7 +18,7 @@ const Header = (props) => {
                 </View>
                 <Text style={[Fonts.HeadlineText, { color: props.color }]}> {props.headerText} </Text>
                 <TouchableOpacity>
-                    <Text style={[Fonts.medText, { color: WHITE, }]}>Edit</Text>
+                    <Text style={[Fonts.medText, { color: Colors.WHITE, }]}>Edit</Text>
                 </TouchableOpacity>
             </View>
         </View>

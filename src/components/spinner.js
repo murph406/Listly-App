@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import Check from '../ui-elements/check'
 
-import * as Colors from '../theme/colors';
 
 const Spinner = (props) => {
   return (
@@ -22,6 +21,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.PRIMARYPURP
   }
 })

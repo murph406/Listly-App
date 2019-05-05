@@ -3,16 +3,12 @@ import {
     StyleSheet,
     Text,
     View,
-    Dimensions,
 } from 'react-native';
 
 import Input from '../ui-elements/login-input'
 import CircleButton from '../ui-elements/circle-button';
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY } from '../theme/colors';
-
-//let { width, height } = Dimensions.get('window')
+import { Fonts, Colors } from '../theme/constant-styles';
 
 class AddCardModal extends Component {
     constructor(props) {
@@ -51,10 +47,10 @@ class AddCardModal extends Component {
                 <View style={styles.modalContainer}>
 
                     <View style={{ alignItems: 'center', paddingBottom: 20 }}>
-                        <Text style={[Fonts.HeadlineText, { color: PRIMARY }]}>ADD A CARD</Text>
+                        <Text style={[Fonts.HeadlineText, { color: Colors.PRIMARY }]}>ADD A CARD</Text>
                     </View>
                     <Input
-                        color={PRIMARY}
+                        color={Colors.PRIMARY}
                         label={"TITLE"}
                         onChangeText={(catagory) => this.setState({ catagory })}
                     />
@@ -62,7 +58,7 @@ class AddCardModal extends Component {
                 
                     <View style={{ alignItems: 'center', paddingTop: 40 }}>
                         <CircleButton
-                            color={PRIMARY}
+                            color={Colors.PRIMARY}
                             onPress={() => this.onDismiss()}
                             icon={require('../../assets/icons/checkmark-white.png')}
                         />
@@ -84,7 +80,7 @@ const styles = StyleSheet.create({
         marginTop: 200,
         height: 300,
         padding: 16,
-        backgroundColor: WHITE,
+        backgroundColor: Colors.WHITE,
         borderRadius: 16,
 
     },

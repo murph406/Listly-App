@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Animated } from '
 import ListlyText from '../ui-elements/listly-text';
 import fire from '../api/firebase';
 
-import { PRIMARY, RED, WHITE, GREY, GREEN } from '../theme/colors';
-import { Fonts } from '../theme/constant-styles';
+import { Fonts, Colors } from '../theme/constant-styles';
 
 
 let { width, height } = Dimensions.get('window')
@@ -19,7 +18,7 @@ class Menu extends Component {
             flag: false,
             isLogoutSelected: false,
             isSettingsSelected: false,
-            selectedColor: RED,
+            selectedColor: Colors.RED,
             animatedValue: new Animated.Value(1),
             selectedAnimatedValue: new Animated.Value(0)
         }
@@ -80,17 +79,17 @@ class Menu extends Component {
             return (
                 <View style={styles.selectedStyles}>
                     <View style={{ paddingBottom: 32, alignItems: 'center' }}>
-                        <Text style={[Fonts.label, { color: WHITE, }]}>LOGOUT</Text>
+                        <Text style={[Fonts.label, { color: Colors.WHITE, }]}>LOGOUT</Text>
                     </View>
-                    <Text style={[Fonts.smallText, { color: WHITE }]}>Are you sure you want to logout?</Text>
+                    <Text style={[Fonts.smallText, { color: Colors.WHITE }]}>Are you sure you want to logout?</Text>
                     <View style={{ paddingTop: 32, flexDirection: 'row', justifyContent: 'space-evenly' }}>
                         <TouchableOpacity
                             onPress={() => this.onMenuGoBack()}>
-                            <Text style={[Fonts.label, { color: WHITE }]}>NO</Text>
+                            <Text style={[Fonts.label, { color: Colors.WHITE }]}>NO</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                         onPress={() => this.onLogout()}>
-                            <Text style={[Fonts.label, { color: WHITE }]}>YES</Text>
+                            <Text style={[Fonts.label, { color: Colors.WHITE }]}>YES</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -99,17 +98,17 @@ class Menu extends Component {
             return (
             <View style={styles.selectedStyles}>
                   <View style={{ paddingBottom: 32, alignItems: 'center' }}>
-                        <Text style={[Fonts.label, { color: WHITE, }]}>SETTINGS</Text>
+                        <Text style={[Fonts.label, { color: Colors.WHITE, }]}>SETTINGS</Text>
                     </View>
-                    <Text style={[Fonts.smallText, { color: WHITE }]}></Text>
+                    <Text style={[Fonts.smallText, { color: Colors.WHITE }]}></Text>
                     <View style={{ paddingTop: 32, flexDirection: 'row', justifyContent: 'space-evenly' }}>
                         <TouchableOpacity
                             onPress={() => this.onMenuGoBack()}>
-                            <Text style={[Fonts.label, { color: WHITE }]}>NO</Text>
+                            <Text style={[Fonts.label, { color: Colors.WHITE }]}>NO</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => this.onLogout()}>
-                            <Text style={[Fonts.label, { color: WHITE }]}>YES</Text>
+                            <Text style={[Fonts.label, { color: Colors.WHITE }]}>YES</Text>
                         </TouchableOpacity>
                     </View>
             </View>
@@ -122,7 +121,7 @@ class Menu extends Component {
         const selectedAnimatedOpacity = { opacity: this.state.selectedAnimatedValue }
         const animateColor = this.state.animatedValue.interpolate({
             inputRange: [0, 1],
-            outputRange: [this.state.selectedColor, PRIMARY]
+            outputRange: [this.state.selectedColor, Colors.PRIMARY]
         })
         const animatedBackgroundColor = {
             backgroundColor: animateColor
@@ -136,19 +135,19 @@ class Menu extends Component {
                             <TouchableOpacity
                                 onPress={() => this.goHome()}
                                 style={{ paddingBottom: 32 }}>
-                                <Text style={[Fonts.label, { color: WHITE }]}>PROFILE</Text>
+                                <Text style={[Fonts.label, { color: Colors.WHITE }]}>PROFILE</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                onPress={() => this.onSelected(GREEN, 'settings')}
+                                onPress={() => this.onSelected(Colors.GREEN, 'settings')}
                                 style={{ paddingBottom: 32 }}>
-                                <Text style={[Fonts.label, { color: WHITE }]}>SETTINGS</Text>
+                                <Text style={[Fonts.label, { color: Colors.WHITE }]}>SETTINGS</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                onPress={() => this.onSelected(RED, 'logout')}
+                                onPress={() => this.onSelected(Colors.RED, 'logout')}
                                 style={{ paddingBottom: 32 }}>
-                                <Text style={[Fonts.label, { color: WHITE }]}>LOGOUT</Text>
+                                <Text style={[Fonts.label, { color: Colors.WHITE }]}>LOGOUT</Text>
                             </TouchableOpacity>
                         </Animated.View>
                         :
@@ -160,8 +159,8 @@ class Menu extends Component {
                         <ListlyText />
                         <TouchableOpacity
                             onPress={() => this.goDisclamer()}
-                            style={{ borderBottomWidth: 1, borderColor: WHITE }}>
-                            <Text style={[Fonts.smallText, { color: WHITE }]}>Disclamer</Text>
+                            style={{ borderBottomWidth: 1, borderColor: Colors.WHITE }}>
+                            <Text style={[Fonts.smallText, { color: Colors.WHITE }]}>Disclamer</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

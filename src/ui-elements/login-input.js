@@ -1,8 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY, BLACK } from '../theme/colors';
+import { StyleSheet, View } from 'react-native';
 
 import { TextField } from 'react-native-material-textfield';
 
@@ -37,7 +34,6 @@ const styles = StyleSheet.create({
     },
     inputView: {
         fontSize: 20,
-        //padding: 16,
         paddingBottom: 16,
         paddingLeft: 15,
     },

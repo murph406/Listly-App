@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, PanResponder, Animated } from 'react-native';
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY, BLACK } from '../theme/colors';
+import { Fonts, Colors } from '../theme/constant-styles';
 
 class SwipeableCard extends Component {
     translateX = new Animated.Value(0);
@@ -66,7 +65,7 @@ class SwipeableCard extends Component {
                         style={{ flex: 1 }}>
                         <View style={styles.textContainer} >
                             <View style={{ paddingBottom: 8, flexDirection: 'row', justifyContent: "space-between" }}>
-                                <Text style={[Fonts.label, { color: BLACK }]}>{this.props.value}</Text>
+                                <Text style={[Fonts.label, { color: Colors.BLACK }]}>{this.props.value}</Text>
                                 {(this.props.time[0] != null)
                                     ? <Text style={[Fonts.smallText, { color: 'grey' }]}>{this.props.time[0]} {this.props.time[1]} {this.props.time[2]}, {this.props.time[3]}</Text>
                                     : null
@@ -74,7 +73,7 @@ class SwipeableCard extends Component {
 
                             </View>
                             <View>
-                                <Text style={[Fonts.smallText, { color: BLACK }]} >{this.props.info}</Text>
+                                <Text style={[Fonts.smallText, { color: Colors.BLACK }]} >{this.props.info}</Text>
                             </View>
                         </View>
                     </View>

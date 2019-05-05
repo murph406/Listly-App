@@ -11,8 +11,7 @@ import {
 } from 'react-native';
 import fire from '../api/firebase';
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY } from '../theme/colors';
+import { Fonts, Colors, Backgrounds } from '../theme/constant-styles';
 import UserActionButton from '../ui-elements/user-action-button';
 import Button from '../components/button';
 import LoginInput from '../ui-elements/login-input';
@@ -84,7 +83,7 @@ class LoginScreen extends Component {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing.png')}
+                source={Backgrounds.PRIMARY}
                 style={styles.container}>
                 {(!this.state.isLoginSelected)
                     ? <View style={styles.button}>
@@ -97,7 +96,7 @@ class LoginScreen extends Component {
                             <TouchableOpacity
                                 style={styles.signUpText}
                                 onPress={() => this.props.navigation.navigate('home')}>
-                                <Text style={[Fonts.smallText, { color: WHITE }]}>I'd Rather Not</Text>
+                                <Text style={[Fonts.smallText, { color: Colors.WHITE }]}>I'd Rather Not</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -105,7 +104,7 @@ class LoginScreen extends Component {
                     <View style={{ position: 'absolute', top: 46, left: 16 }}>
                         <UserActionButton
                             onPress={() => this.setState({ isLoginSelected: false, isSignUpSelected: false, authenticating: false })}
-                            color={WHITE}
+                            color={Colors.WHITE}
                             icon={require('../../assets/icons/back-icon.png')
                             } />
                     </View>
@@ -122,11 +121,11 @@ class LoginScreen extends Component {
                                         onPress={() => this.onSignInPress()} />
                                 </View>
                                 <View style={{ alignItems: 'center', paddingTop: 16 }}>
-                                    <Text style={[Fonts.smallText, { color: WHITE }]}>Dont have an Account ?</Text>
+                                    <Text style={[Fonts.smallText, { color: Colors.WHITE }]}>Dont have an Account ?</Text>
                                     <TouchableOpacity
                                         style={styles.signUpText}
                                         onPress={() => this.setState({ isSignUpSelected: true })}>
-                                        <Text style={[Fonts.smallText, { color: WHITE }]}>Sign Up !</Text>
+                                        <Text style={[Fonts.smallText, { color: Colors.WHITE }]}>Sign Up !</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -144,7 +143,7 @@ class LoginScreen extends Component {
                         style={[styles.box, animatedStyle]}>
 
                         <View style={{ alignItems: 'center' }}>
-                            <Text style={[Fonts.displayText, { color: WHITE }]}>Listly</Text>
+                            <Text style={[Fonts.displayText, { color: Colors.WHITE }]}>Listly</Text>
                             <View style={{ paddingBottom: 30 }} />
                             <Check
                                 height={100}
@@ -157,12 +156,12 @@ class LoginScreen extends Component {
                                     ?
                                     <View style={{ paddingTop: 40 }}>
                                         <LoginInput
-                                            color={WHITE}
+                                            color={Colors.WHITE}
                                             label={"EMAIL"}
                                             onChangeText={(text) => this.setState({ email: text })}
                                         />
                                         <LoginInput
-                                            color={WHITE}
+                                            color={Colors.WHITE}
                                             label={"PASSWORD"}
                                             onChangeText={(text) => this.setState({ password: text })}
                                         />

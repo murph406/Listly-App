@@ -1,17 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput } from 'react-native';
 
 import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY, BLACK } from '../theme/colors';
 
 const Input = (props) => {
   return (
     <View style={[styles.inputContainer, style={borderBottomColor: props.Color}]}>
  
       <View>
-        <TextInput
-          //ref={textInput}
-          
+        <TextInput          
           placeholderTextColor={props.Color}
           selectionColor={props.Color}
           secureTextEntry={props.secureTextEntry}
@@ -36,7 +33,6 @@ const styles = StyleSheet.create({
   },
   inputView: {
     fontSize: 20,
-    //padding: 16,
     paddingBottom: 16,
     paddingLeft: 15,
   },

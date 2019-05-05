@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-import { Fonts } from '../theme/constant-styles';
-import { WHITE, PRIMARY } from '../theme/colors';
+import { Fonts, Colors } from '../theme/constant-styles';
 
 const Button = (props) => {
   return (
@@ -14,7 +13,7 @@ const Button = (props) => {
         activeOpacity={props.activeOpacity}
         
       >
-        <Text style={[Fonts.label, { color: PRIMARY }]}>{props.label}</Text>
+        <Text style={[Fonts.label, { color: Colors.PRIMARY }]}>{props.label}</Text>
       </TouchableOpacity>
     </View>
   )

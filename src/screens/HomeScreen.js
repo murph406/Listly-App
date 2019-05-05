@@ -18,6 +18,7 @@ import CircleButton from '../ui-elements/circle-button';
 import NoteCard from '../ui-elements/notecard-card';
 import ModalBox from '@murphyr6/swipe-modal';
 import AddCardModal from '../modals/NewCardModal';
+import { Backgrounds } from '../theme/constant-styles';
 
 let { height, width } = Dimensions.get('window')
 
@@ -95,7 +96,7 @@ class HomeScreen extends Component {
         const animatedStyle = { opacity: this.animatedValue }
         return (
             <ImageBackground
-                source={require('../../assets/drawing2.png')}
+                source={Backgrounds.SECONDARY}
                 style={styles.containerBackground}>
                 <Animated.View style={[styles.box, animatedStyle]}>
                     <HomeScreenHeader
