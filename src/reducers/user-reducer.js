@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 
 
 const initialState = {
-    darkModeEnabled: false,
+    //darkModeEnabled: false,
     user: {
         userInfo: {
             firstName: 'Ryan',
@@ -16,7 +16,8 @@ const initialState = {
 }
 
 export default function user(state = initialState, action) {
-    //console.log("REDUX ACTION",action)
+    console.log("REDUX ACTION",action)
+    //debugger
     switch (action.type) {
 
         case UserActions.SET_CARD:

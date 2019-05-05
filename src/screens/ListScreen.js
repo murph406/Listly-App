@@ -52,7 +52,7 @@ class ListScreen extends Component {
     }
 
     shouldComponentUpdate(prevProps, nextProps) {
-        debugger
+        // debugger
         if (!this.state.shouldRedner) {
             return false
         }
@@ -90,7 +90,8 @@ class ListScreen extends Component {
             duration: 400,
         }).start()
         this.refs.modal1.close()
-        this.saveDataLocal()
+        this.saveAsyncStorage()
+        debugger
     }
 
     selectedNote(index) {
@@ -108,21 +109,28 @@ class ListScreen extends Component {
         return this.state.closedIndices.indexOf(index) === -1
     }
 
-    saveDataLocal(noteIndex) {
-        console.log(noteIndex)
+    saveDeletedNote(noteIndex) {
+        //console.log(noteIndex)
         this.setState({ shouldRedner: false })
         this.props.dispatch({
             type: UserActionTypes.DELETE_NOTE,
             cardIndex: this.props.selectedCatagory,
             noteIndex: noteIndex
         })
-        AsyncStorage.setItem('currentNotes', JSON.stringify(this.props.cards));
+        this.saveAsyncStorage()
         this.setState({ shouldRender: true })
     }
+
+    saveAsyncStorage() {
+        //Saves data to AsyncStorage
+        AsyncStorage.setItem('currentNotes', JSON.stringify(this.props.cards));
+    }
+
     setNotes() {
         //sets notes to the local state
-        //console.log(this.props.notes)
+        //console.log(this.props.notes[this.props.selectedCatagory].notes)
         this.setState({ notes: this.props.notes[this.props.selectedCatagory].notes })
+        //debugger
     }
 
     render() {
@@ -166,7 +174,7 @@ class ListScreen extends Component {
                                                 })
                                                 setTimeout(() => {
                                                     this.setState({ isCheckAnimationEnabled: false })
-                                                    this.saveDataLocal(i)
+                                                    this.saveDeletedNote(i)
                                                 }, 1500)
 
 

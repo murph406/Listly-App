@@ -37,19 +37,19 @@ const Fonts = StyleSheet.create({
 const Colors = {
   //PRIMARY: '#646beb',
   PRIMARY: ((!darkModeEnabled) ? '#646beb' : '#646beb'),
-  //BLUE: 646beb
   GREEN: '#48dbca',
   GREY: '#5a5a5a',
   RED: '#f44330',
 
-  WHITE: '#ffffff',
+  //WHITE: '#ffffff',
+  WHITE: ((!darkModeEnabled) ? '#ffffff' : '#646beb'),
   BLACK: '#000000',
+
+  MENUE_COLOR:  ((!darkModeEnabled) ? '#646beb' : 'black'),
 }
 
 const FontColors = {
-  //PRIMARY: '#646beb',
   PRIMARY: ((!darkModeEnabled) ? '#646beb' : '#646beb'),
-  //BLUE: 646beb
   GREEN: '#48dbca',
   GREY: '#5a5a5a',
   RED: '#f44330',

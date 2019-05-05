@@ -18,7 +18,7 @@ import CircleButton from '../ui-elements/circle-button';
 import NoteCard from '../ui-elements/notecard-card';
 import ModalBox from '@murphyr6/swipe-modal';
 import AddCardModal from '../modals/NewCardModal';
-import { Backgrounds, Icons } from '../theme/constant-styles';
+import { Backgrounds, Icons, Colors } from '../theme/constant-styles';
 
 let { height, width } = Dimensions.get('window')
 
@@ -86,6 +86,7 @@ class HomeScreen extends Component {
             duration: 300,
         }).start()
         this.refs.CardModal.close()
+        console.log("WHATS ON REDUX",this.props.cards)
     }
 
     saveDataLocal() {
@@ -130,7 +131,7 @@ class HomeScreen extends Component {
                     </View>
                     <View style={styles.bottomButton}>
                         <CircleButton
-                            color={"white"}
+                            color={Colors.WHITE}
                             onPress={() => this.createCardModalSelected()}
                             icon={Icons.CREATE}
                         />

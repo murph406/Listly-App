@@ -35,7 +35,6 @@ export default class App extends Component {
       this._loadFontsAsync(),
       this._cacheResourcesAsync(),
       this.getCurrentNotes(),
-      //this.clearAsyncStorage()
     ]);
     await setTimeout(() => {
       //console.log('FUCK IT!');
@@ -97,9 +96,7 @@ export default class App extends Component {
     }
   }
 
-  clearAsyncStorage = async () => {
-    AsyncStorage.clear();
-  }
+
   animination() {
     Animated.timing(this.animatedValue, {
       toValue: 0,
