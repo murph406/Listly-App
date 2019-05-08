@@ -1,14 +1,17 @@
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 
-var config = {
-  apiKey: "AIzaSyCVM8lQHuaPxojjz9XfsQN2Yml7hqZ_8uM",
-  authDomain: "todoapp-1a154.firebaseapp.com",
-  databaseURL: "https://todoapp-1a154.firebaseio.com",
-  projectId: "todoapp-1a154",
-  storageBucket: "todoapp-1a154.appspot.com",
-  messagingSenderId: "983556284411"
+const firebaseConfig = {
+  apiKey: "AIzaSyDKTtK-9mvNRW0nMZr9_BF2PeeV_jt9Er0",
+  authDomain: "listly-app.firebaseapp.com",
+  databaseURL: "https://listly-app.firebaseio.com",
+  projectId: "listly-app",
+  storageBucket: "listly-app.appspot.com",
+  messagingSenderId: "418874969031",
+  appId: "1:418874969031:web:278658ac99340e9f"
 };
 
-const fire = firebase.initializeApp(config);
+const fire = firebase.initializeApp(firebaseConfig);
 
-export default fire;
+const fireDB = fire.database()
+
+export { fire, fireDB };

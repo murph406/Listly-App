@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 
 
 const initialState = {
-    //darkModeEnabled: false,
+    darkModeEnabled: false,
     user: {
         userInfo: {
             firstName: 'Ryan',

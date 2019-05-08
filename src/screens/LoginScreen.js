@@ -9,8 +9,8 @@ import {
     Animated,
     StatusBar
 } from 'react-native';
-import fire from '../api/firebase';
-
+import { fire } from '../api/firebase';
+import { addUser } from '../api/fire-functions';
 import { Fonts, Colors, Backgrounds, Icons } from '../theme/constant-styles';
 import UserActionButton from '../ui-elements/user-action-button';
 import Button from '../components/button';
@@ -46,25 +46,30 @@ class LoginScreen extends Component {
     onSignInPress() {
         this.setState({ authenticating: true })
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then((user) => {
-            console.log(user)
-        }).catch((error) => {
-            this.setState({ authenticating: false })
-            console.log(error)
-        })
+            .then((user) => {
+                console.log(user)
+            }).catch((error) => {
+                this.setState({ authenticating: false })
+                console.log(error)
+            })
     }
-    
+
 
     onCreateAccount() {
         this.setState({ authenticating: true })
         fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then((user) => {   
-            console.log(user)
-        })
-        .catch((error) => {
-            console.log(error)
-            this.setState({authenticating: false})
-        })
+            .then((user) => {
+                addUser(user);
+                console.log(user)
+            })
+            .catch((error) => {
+                console.log(error)
+                this.setState({ authenticating: false })
+            })
+    }
+
+    pushUser(user) {
+        
     }
 
     onSignUpExit() {

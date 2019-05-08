@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Animated, AsyncStorage } from 'react-native';
 import ListlyText from '../ui-elements/listly-text';
-import fire from '../api/firebase';
+import { fire } from '../api/firebase';
 
 import { Fonts, Colors, FontColors } from '../theme/constant-styles';
 
@@ -36,10 +36,10 @@ class Menu extends Component {
     }
 
     onSelected(color, selectedOption) {
-        if(selectedOption === 'logout') {
-            this.setState({selectedColor: color, isLogoutSelected: true })
+        if (selectedOption === 'logout') {
+            this.setState({ selectedColor: color, isLogoutSelected: true })
         } else {
-            this.setState({selectedColor: color, isSettingsSelected: true })
+            this.setState({ selectedColor: color, isSettingsSelected: true })
         }
         Animated.timing(this.state.animatedValue, {
             toValue: 0,
@@ -73,12 +73,13 @@ class Menu extends Component {
         fire.auth().signOut();
         this.props.navigation.navigate('login')
         //this.props.navigation.navigate('disclaimer');
-        
+
     }
 
     clearAsyncStorage = () => {
         AsyncStorage.clear();
-      }
+        console.log('Local Data Cleared')
+    }
 
     textFactory() {
         if (this.state.isLogoutSelected) {
@@ -94,7 +95,7 @@ class Menu extends Component {
                             <Text style={[Fonts.label, { color: FontColors.WHITE }]}>NO</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                        onPress={() => this.onLogout()}>
+                            onPress={() => this.onLogout()}>
                             <Text style={[Fonts.label, { color: FontColors.WHITE }]}>YES</Text>
                         </TouchableOpacity>
                     </View>
@@ -102,8 +103,8 @@ class Menu extends Component {
             )
         } else {
             return (
-            <View style={styles.selectedStyles}>
-                  <View style={{ paddingBottom: 32, alignItems: 'center' }}>
+                <View style={styles.selectedStyles}>
+                    <View style={{ paddingBottom: 32, alignItems: 'center' }}>
                         <Text style={[Fonts.label, { color: FontColors.WHITE, }]}>SETTINGS</Text>
                     </View>
                     <Text style={[Fonts.smallText, { color: FontColors.WHITE }]}></Text>
@@ -117,7 +118,7 @@ class Menu extends Component {
                             <Text style={[Fonts.label, { color: FontColors.WHITE }]}>YES</Text>
                         </TouchableOpacity>
                     </View>
-            </View>
+                </View>
             )
         }
     }

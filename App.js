@@ -6,17 +6,24 @@ import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import * as firebase from 'firebase';
-import { Icons, Backgrounds } from './src/theme/constant-styles'
+//import { Icons, Backgrounds } from './src/theme/constant-styles'
 
 import MainReducer from './src/reducers/main-reducer';
 import * as UserActionTypes from './src/action-types/user-action-types';
 import AppNavigator from './src/navigation/app-navigator';
 import Spinner from './src/components/spinner';
-//import store from './src/api/redux-store';
+import storeProvider from './src/api/redux-store';
 
 console.disableYellowBox = true;
 
-export const store = createStore(MainReducer, applyMiddleware(thunk));
+//export const store = createStore(MainReducer, applyMiddleware(thunk));
+
+// const configureStore = () => createStore(MainReducer, applyMiddleware(thunk));
+// storeProvider.init(configureStore);
+// const store = storeProvider.getStore();
+const configureStore = () => createStore(MainReducer, applyMiddleware(thunk));
+    storeProvider.init(configureStore);
+    reduxStore = storeProvider.getStore();
 
 export default class App extends Component {
 
@@ -27,17 +34,16 @@ export default class App extends Component {
       isAppReady: false,
       isTimeDone: false,
     };
-
+    
   }
   
-    //store = store.getState()
 
   async componentDidMount() {
     this.animatedValue = new Animated.Value(0);
-
+    
     await Promise.all([
       this._loadFontsAsync(),
-      this._cacheResourcesAsync(),
+      //this._cacheResourcesAsync(),
       //this.getCurrentNotes(),
     ]);
     await setTimeout(() => {
@@ -57,27 +63,27 @@ export default class App extends Component {
 
 
 
-  async _cacheResourcesAsync() {
-    const images = [
-      Backgrounds.PRIMARY,
-      Backgrounds.SECONDARY,
-      Backgrounds.GREEN,
-      Backgrounds.BUBBLES,
-      Backgrounds.BUBBLES_2,
-      Icons.RIGHT_ARROW,
-      Icons.CREATE,
-      Icons.EXIT,
-      Icons.DEFUALT_USER_PIC,
-      Icons.CHECKMARK_PURP,
-      Icons.CHECKMARK_WHITE,
-      Icons.BACK_PURP,
-      Icons.BACK_WHITE,
-      Icons.LISTLY_CHECK,
-      Icons.LISTLY_CHECK_ANIMATED, 
-    ];
-    // Asset.loadAsync takes an array and this way we can load the images in parallel
-    await Asset.loadAsync(images);
-  }
+  // async _cacheResourcesAsync() {
+  //   const images = [
+  //     Backgrounds.PRIMARY,
+  //     Backgrounds.SECONDARY,
+  //     Backgrounds.GREEN,
+  //     Backgrounds.BUBBLES,
+  //     Backgrounds.BUBBLES_2,
+  //     Icons.RIGHT_ARROW,
+  //     Icons.CREATE,
+  //     Icons.EXIT,
+  //     Icons.DEFUALT_USER_PIC,
+  //     Icons.CHECKMARK_PURP,
+  //     Icons.CHECKMARK_WHITE,
+  //     Icons.BACK_PURP,
+  //     Icons.BACK_WHITE,
+  //     Icons.LISTLY_CHECK,
+  //     Icons.LISTLY_CHECK_ANIMATED, 
+  //   ];
+  //   // Asset.loadAsync takes an array and this way we can load the images in parallel
+  //   await Asset.loadAsync(images);
+  // }
   getCurrentNotes = async () => {
     //gets current Notes from local device storage
     try {
@@ -112,7 +118,7 @@ export default class App extends Component {
   render() {
     if (this.state.isAppReady === true && this.state.isTimeDone === true) {
       return (
-        <Provider store={store}>
+        <Provider store={reduxStore}>
         {/* <Provider store={ReduxStore}> */}
           <AppNavigator />
         </Provider>
@@ -120,7 +126,9 @@ export default class App extends Component {
     }
     return (
       <ImageBackground
-        source={Backgrounds.PRIMARY}
+        source={ require('./assets/backgrounds/drawing.png')
+          // Backgrounds.PRIMARY
+        }
         style={styles.containerLoad}
       >
         <Animated.View>

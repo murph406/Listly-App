@@ -1,16 +1,17 @@
 
 import { StyleSheet, AsyncStorage } from 'react-native';
-// const store = createStore(todos, ['Use Redux'])
+import storeProvider from '../api/redux-store';
 import { connect } from 'react-redux';
 
-var darkModeEnabled = false;
-//let storeState = store.getState()
-//((!darkModeEnabled)? NORMAL : DARK_MODE )
+//var dakrmode = getTheme()
 
-// let unsubscribe = store.subscribe(function(){
-//   const state = store.getState();
-//   debugger
-// })
+  
+ //const reduxState = storeProvider.getStore().getState();
+  // if (reduxState.user.darkModeEnabled === false) {
+  //   return false;
+  // }
+  // return true;
+var darkModeEnabled = false;
 
 const Fonts = StyleSheet.create({
   displayText: {
@@ -82,11 +83,5 @@ const Icons = StyleSheet.create({
   LISTLY_CHECK_ANIMATED: require("../../assets/animat-checkmark.gif"),
 })
 
-var mapStateToProps = state => {
-  return {
-      cards: state.user.user.cards,
-      //selectedCatagory: state.selectedData.selectedCatagory
-  }
-}
 
 export { Fonts, Colors, Backgrounds, Icons, FontColors};
